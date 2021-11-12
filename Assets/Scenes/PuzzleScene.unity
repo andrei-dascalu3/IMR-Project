@@ -1726,7 +1726,7 @@ MonoBehaviour:
   m_RigBaseGameObject: {fileID: 1966610560}
   m_CameraFloorOffsetObject: {fileID: 142519086}
   m_CameraGameObject: {fileID: 2084726025}
-  m_RequestedTrackingOriginMode: 0
+  m_RequestedTrackingOriginMode: 2
   m_CameraYOffset: 1.36144
   m_TrackingSpace: 3
   m_TrackingOriginMode: -2147483648
@@ -1804,7 +1804,7 @@ MonoBehaviour:
     m_SingletonActionBindings:
     - m_Name: 
       m_Id: 77d52384-05a8-4544-830d-5e4706907dff
-      m_Path: <XRHMD>/centerEyeRotation
+      m_Path: <XRSimulatedHMD>/centerEyeRotation
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -3826,7 +3826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b26439858bc4ee409f94e96858f9fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainTexture: {fileID: 2800000, guid: 3526884df16def04b8e90645e39aa09b, type: 3}
+  puzzleTexture: {fileID: 2800000, guid: 3526884df16def04b8e90645e39aa09b, type: 3}
 --- !u!4 &958693779383087595
 Transform:
   m_ObjectHideFlags: 0
