@@ -14,7 +14,7 @@ public class PuzzlePiecesMovementManager : MonoBehaviour
 
     public void Awake()
     {
-        for(int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < transform.childCount; i++)
         {
             puzzlePieces.Add(transform.GetChild(i).GetComponent<PuzzlePiece>());
         }
@@ -33,15 +33,16 @@ public class PuzzlePiecesMovementManager : MonoBehaviour
     public void BreakPuzzle()
     {
         bool[] brokenPieces = new bool[puzzlePieces.Count];
-        for(int i = 0; i < brokenPieces.Length; i++)
+        for (int i = 0; i < brokenPieces.Length; i++)
         {
             brokenPieces[i] = false;
         }
 
         int x;
-        for(int i = 0; i < brokenPieces.Length; i++)
+        for (int i = 0; i < brokenPieces.Length; i++)
         {
-            do{
+            do
+            {
                 x = Random.Range(0, brokenPieces.Length);
             } while (brokenPieces[x] == true);
             brokenPieces[x] = true;
@@ -52,10 +53,9 @@ public class PuzzlePiecesMovementManager : MonoBehaviour
     }
 
 
-
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
