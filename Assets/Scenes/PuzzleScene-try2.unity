@@ -44390,7 +44390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b26439858bc4ee409f94e96858f9fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzleTexture: {fileID: 2800000, guid: 3526884df16def04b8e90645e39aa09b, type: 3}
+  puzzleTexture: {fileID: 2800000, guid: 7f57690ef2f9b7b47a66bd8b58563fe5, type: 3}
 --- !u!114 &5364022668588070899
 MonoBehaviour:
   m_ObjectHideFlags: 0
