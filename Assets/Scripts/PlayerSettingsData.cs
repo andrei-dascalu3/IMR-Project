@@ -11,7 +11,7 @@ public class PlayerSettingsData : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        puzzleTexture = BackgroundImageController.backgroundImage;
     }
 
     // Update is called once per frame
