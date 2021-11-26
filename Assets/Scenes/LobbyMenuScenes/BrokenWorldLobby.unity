@@ -8633,41 +8633,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 614184864}
   m_Mesh: {fileID: 3405473426944224201, guid: 39e487167b14de644bd7fccd32648638, type: 3}
---- !u!1 &622809817
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 622809818}
-  m_Layer: 0
-  m_Name: GameModeButtons
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &622809818
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 622809817}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1439978928}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000076293945, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &630385273
 GameObject:
   m_ObjectHideFlags: 0
@@ -20656,7 +20621,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7710845672614063304, guid: bf1dbcb975a61074cb4ddd6732942b0b, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7710845673365640401, guid: bf1dbcb975a61074cb4ddd6732942b0b, type: 3}
       propertyPath: m_RootOrder
@@ -20875,11 +20840,6 @@ PrefabInstance:
 --- !u!1 &1439978927 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4969713464159416016, guid: bf1dbcb975a61074cb4ddd6732942b0b, type: 3}
-  m_PrefabInstance: {fileID: 1439978926}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &1439978928 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7710845673639568332, guid: bf1dbcb975a61074cb4ddd6732942b0b, type: 3}
   m_PrefabInstance: {fileID: 1439978926}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &1439978929 stripped
@@ -25657,6 +25617,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 486402593186195739, guid: 13b25e77c7752b442a902ed77e0e12ef, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 486402593775798555, guid: 13b25e77c7752b442a902ed77e0e12ef, type: 3}
+      propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 486402593775798559, guid: 13b25e77c7752b442a902ed77e0e12ef, type: 3}
