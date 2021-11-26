@@ -1,39 +1,59 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class UiMenuChangeManager : MonoBehaviour
 {
-
     public GameObject gameModeButtons;
-
     public GameObject mainMenu;
     public GameObject settingsMenu;
+    public GameObject multiplayerRoomSettingsMenu;
 
-    // Start is called before the first frame update
-    void Start()
+    public GameObject roomSettingsOnlyForCreate;
+    public TMP_Text settingsRoomCreateJoinButtonText;
+
+    public void OnPlayButtonPress()
     {
-
+        gameModeButtons.SetActive(true);
     }
 
-    public void UiToggleGameModeButtons(bool value)
+    //public void OnHelpButtonPress()
+    //{
+
+    //}
+
+    //public void OnExitButtonPress()
+    //{
+
+    //}
+
+    public void OnSinglePlayerButtonPress()
     {
-        gameModeButtons.SetActive(value);
+        mainMenu.SetActive(false);
+        settingsMenu.SetActive(true);
     }
 
-    public void UiToggleMainMenu(bool value)
-    {
-        mainMenu.SetActive(value);
+    public void OnCreateRoomButtonPress()
+    {//if connected to master server???
+        mainMenu.SetActive(false);
+        multiplayerRoomSettingsMenu.SetActive(true);
+        roomSettingsOnlyForCreate.SetActive(true);
+        settingsRoomCreateJoinButtonText.text = "Create room";
     }
 
-    public void UiToggleSettingsMenu(bool value)
+    public void OnJoinRoomButtonPress()
     {
-        settingsMenu.SetActive(value);
+        //if connected to master server???
+        mainMenu.SetActive(false);
+        multiplayerRoomSettingsMenu.SetActive(true);
+        roomSettingsOnlyForCreate.SetActive(false);
+        settingsRoomCreateJoinButtonText.text = "Join room";
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnRoomSettingsCreateButtonPress()
     {
-
+        settingsMenu.SetActive(true);
+        multiplayerRoomSettingsMenu.SetActive(false);
     }
 }

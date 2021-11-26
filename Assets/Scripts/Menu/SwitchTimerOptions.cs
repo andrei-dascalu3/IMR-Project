@@ -5,14 +5,16 @@ using TMPro;
 
 public class SwitchTimerOptions : MonoBehaviour
 {
-    int index;
-    public TextMeshProUGUI timerText;
+    private int index;
+    [SerializeField]
+    private TextMeshProUGUI timerText;
     void Start()
     {
         index = 0;
+        UpdateTimerText();
     }
 
-    void Update()
+    void UpdateTimerText()
     {
         if (index == 0)
             timerText.text = "None";
@@ -23,11 +25,18 @@ public class SwitchTimerOptions : MonoBehaviour
         index += 300;
         if (index > 1800)
             index = 1800;
+        UpdateTimerText();
     }
     public void Prevoius()
     {
-        index-=300;
+        index -= 300;
         if (index < 0)
             index = 0;
+        UpdateTimerText();
+    }
+
+    public int GetTimerValue()
+    {
+        return index;
     }
 }

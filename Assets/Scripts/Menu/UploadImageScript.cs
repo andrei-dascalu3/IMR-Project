@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
+using UnityEngine.Networking;
 
 public class UploadImageScript : MonoBehaviour
 {
@@ -11,21 +12,25 @@ public class UploadImageScript : MonoBehaviour
     public GameObject contentButtons;
     public GameObject buttonCopy;
 
+    public Texture newTexture;
+
     public void OpenExplorer()
     {
-        path = EditorUtility.OpenFilePanel("Overwrite with jpg", "", "jpg");
+        //path = EditorUtility.OpenFilePanel("Overwrite with jpg", "", "jpg");
         GetImage();
     }
     void GetImage()
     {
         if (path != null)
         {
-            UpdateImage();
+            StartCoroutine(UpdateImage()); //UpdateImage();
         }
     }
-    void UpdateImage()
+    IEnumerator UpdateImage() //void UpdateImage()
     {
-        WWW www = new WWW("file:///" + path);
+        StartCoroutine(GetRequest("file:///" + path));
+        yield return new WaitForSeconds(0.1f);
+        //WWW www = new WWW("file:///" + path);
 
         /*GameObject button = new GameObject();
         button.transform.parent = contentButtons.transform;
@@ -45,10 +50,37 @@ public class UploadImageScript : MonoBehaviour
         duplicate.transform.parent = contentButtons.transform;
         duplicate.transform.localPosition = new Vector3(0, 0, 0);
         RawImage rawImage = duplicate.GetComponentsInChildren<RawImage>()[0];
-        rawImage.texture = www.texture;
+        rawImage.texture = newTexture; // www.texture;
         GameObject[] kids = contentButtons.GetComponentsInChildren<GameObject>();
         GameObject temp = kids[kids.Length - 1];
         kids[kids.Length - 1] = kids[kids.Length - 2];
         kids[kids.Length - 2] = temp;
     }
+    IEnumerator GetRequest(string uri)
+    {
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        {
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
+
+            string[] pages = uri.Split('/');
+            int page = pages.Length - 1;
+
+            switch (webRequest.result)
+            {
+                case UnityWebRequest.Result.ConnectionError:
+                case UnityWebRequest.Result.DataProcessingError:
+                    Debug.LogError(pages[page] + ": Error: " + webRequest.error);
+                    break;
+                case UnityWebRequest.Result.ProtocolError:
+                    Debug.LogError(pages[page] + ": HTTP Error: " + webRequest.error);
+                    break;
+                case UnityWebRequest.Result.Success:
+                    newTexture = ((DownloadHandlerTexture)webRequest.downloadHandler).texture;
+                    //Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
+                    break;
+            }
+        }
+    }
+
 }

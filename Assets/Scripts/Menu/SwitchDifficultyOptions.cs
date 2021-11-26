@@ -5,15 +5,17 @@ using TMPro;
 
 public class SwitchDifficultyOptions : MonoBehaviour
 {
-    int index;
-    string[] difficultyOptions = { "Easy", "Medium", "Hard"};
-    public TextMeshProUGUI difficultyText;
+    private int index;
+    private string[] difficultyOptions = { "Easy", "Medium", "Hard" };
+    [SerializeField]
+    private TextMeshProUGUI difficultyText;
     void Start()
     {
         index = 0;
+        UpdateDifficultyText();
     }
 
-    void Update()
+    void UpdateDifficultyText()
     {
         difficultyText.text = difficultyOptions[index];
     }
@@ -22,11 +24,18 @@ public class SwitchDifficultyOptions : MonoBehaviour
         index++;
         if (index > 2)
             index = 2;
+        UpdateDifficultyText();
     }
     public void Prevoius()
     {
         index--;
         if (index < 0)
             index = 0;
+        UpdateDifficultyText();
+    }
+
+    public string GetDifficulty()
+    {
+        return difficultyOptions[index];
     }
 }

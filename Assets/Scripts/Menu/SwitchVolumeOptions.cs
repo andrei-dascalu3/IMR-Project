@@ -4,15 +4,16 @@ using UnityEngine;
 using TMPro;
 public class SwitchVolumeOptions : MonoBehaviour
 {
-    int index;
-    public TextMeshProUGUI volumeText;
+    private int index;
+    [SerializeField]
+    private TextMeshProUGUI volumeText;
     void Start()
     {
         index = 0;
+        UpdateVolumeText();
     }
 
-    
-    void Update()
+    void UpdateVolumeText()
     {
         volumeText.text = index.ToString();
     }
@@ -21,11 +22,18 @@ public class SwitchVolumeOptions : MonoBehaviour
         index++;
         if (index > 100)
             index = 100;
+        UpdateVolumeText();
     }
     public void Previous()
     {
         index--;
         if (index < 0)
             index = 0;
+        UpdateVolumeText();
+    }
+
+    public int GetVolumeLevel()
+    {
+        return index;
     }
 }

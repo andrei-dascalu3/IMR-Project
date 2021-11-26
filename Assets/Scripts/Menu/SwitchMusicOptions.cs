@@ -6,14 +6,16 @@ using TMPro;
 
 public class SwitchMusicOptions : MonoBehaviour
 {
-    int index;
-    public TextMeshProUGUI volumeOption;
+    private int index;
+    [SerializeField]
+    private TextMeshProUGUI volumeOption;
     void Start()
     {
         index = 0;
+        UpdateMusicOptionText();
     }
 
-    void Update()
+    void UpdateMusicOptionText()
     {
         if (index < 0)
             index = 0;
@@ -26,10 +28,16 @@ public class SwitchMusicOptions : MonoBehaviour
     public void Next()
     {
         index++;
+        UpdateMusicOptionText();
     }
     public void Previous()
     {
         index--;
+        UpdateMusicOptionText();
+    }
 
+    public int GetMusicValue()
+    {
+        return index;
     }
 }

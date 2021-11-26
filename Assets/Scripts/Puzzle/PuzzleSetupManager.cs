@@ -15,7 +15,7 @@ public class PuzzleSetupManager : MonoBehaviour
         Renderer[] pieces = this.transform.GetComponentsInChildren<Renderer>();
         foreach (Renderer piece in pieces)
         {
-            Debug.Log(piece.name);
+            //Debug.Log(piece.name);
             piece.material.EnableKeyword("_NORMALMAP");
             piece.material.SetTexture("_MainTex", puzzleTexture);
         }

@@ -14,7 +14,7 @@ public class GameSetupController : MonoBehaviour
 
         playerSettings = playerSettingsGO.GetComponent<PlayerSettingsData>();
 
-        puzzleSphere.GetComponent<PuzzleSetupManager>().puzzleTexture = playerSettings.puzzleTexture;
+        //puzzleSphere.GetComponent<PuzzleSetupManager>().puzzleTexture = playerSettings.puzzleTexture;
     }
 
     // Start is called before the first frame update
