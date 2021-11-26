@@ -3166,7 +3166,7 @@ GameObject:
   - component: {fileID: 653277536826125619}
   - component: {fileID: 653277536826125618}
   m_Layer: 0
-  m_Name: GameSettingsMenuCanvas
+  m_Name: GameSettingsMenuCanvas-prototype1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

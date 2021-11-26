@@ -40,7 +40,7 @@ public class UploadImageScript : MonoBehaviour
         button.AddComponent<RawImage>();
         RawImage uploadedImage = button.GetComponent<RawImage>();
         uploadedImage.texture = www.texture;*/
-        
+
         GameObject duplicate = Instantiate(buttonCopy); ;
         duplicate.transform.parent = contentButtons.transform;
         duplicate.transform.localPosition = new Vector3(0, 0, 0);
