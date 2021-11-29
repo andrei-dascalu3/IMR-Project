@@ -10,9 +10,10 @@ public class SwipeMapMenu : MonoBehaviour
 
     void Update()
     {
-        float distance = 1f / (pos.Count - 1f);
+        pos = new List<float>(new float [transform.childCount]);
+        float distance = 1f / (pos.Capacity - 1f);
 
-        for (int i = 0; i < pos.Count; i++)
+        for (int i = 0; i < pos.Capacity; i++)
         {
             pos[i] = distance * i;
         }
@@ -22,7 +23,7 @@ public class SwipeMapMenu : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < pos.Count; i++)
+            for (int i = 0; i < pos.Capacity; i++)
             {
                 if (scroll_pos < pos[i] + (distance / 2) && scroll_pos > pos[i] - (distance / 2))
                 {
@@ -31,12 +32,12 @@ public class SwipeMapMenu : MonoBehaviour
                 }
             }
         }
-        for (int i = 0; i < pos.Count; i++)
+        for (int i = 0; i < pos.Capacity; i++)
         {
             if (scroll_pos < pos[i] + (distance / 2) && scroll_pos > pos[i] - (distance / 2))
             {
                 transform.GetChild(i).localScale = Vector2.Lerp(transform.GetChild(i).localScale, new Vector2(1f, 1f), 0.1f);
-                for (int a = 0; a < pos.Count; a++)
+                for (int a = 0; a < pos.Capacity; a++)
                 {
                     if (a != i)
                     {
