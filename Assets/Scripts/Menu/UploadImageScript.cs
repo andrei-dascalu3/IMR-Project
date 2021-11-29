@@ -24,21 +24,17 @@ public class UploadImageScript : MonoBehaviour
         UnityWebRequest www = UnityWebRequestTexture.GetTexture("file:///" + path);
         yield return www.SendWebRequest();
 
-        if (www.isNetworkError || www.isHttpError)
+        if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
         {
             Debug.Log(www.error);
         }
         else
         {
-            GameObject duplicate = Instantiate(buttonCopy); ;
-            duplicate.transform.parent = contentButtons.transform;
+            GameObject duplicate = Instantiate(buttonCopy);
+            duplicate.transform.SetParent(contentButtons.transform, false);
             duplicate.transform.localPosition = new Vector3(0, 0, 0);
             RawImage rawImage = duplicate.GetComponentsInChildren<RawImage>()[0];
-            rawImage.texture = ((DownloadHandlerTexture)www.downloadHandler).texture; 
-            GameObject[] kids = contentButtons.GetComponentsInChildren<GameObject>();
-            GameObject temp = kids[kids.Length - 1];
-            kids[kids.Length - 1] = kids[kids.Length - 2];
-            kids[kids.Length - 2] = temp;
+            rawImage.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
         }
         
     }
