@@ -5,26 +5,25 @@ using DG.Tweening;
 
 public class PuzzlePiece : MonoBehaviour
 {
-    private Transform placeToLand;
+    private Rigidbody ownRigidBody;
 
     public const float durationForPieceBreak = 3; //2
     public const float smallPieceScaleTarget = 0.1f;
 
-    //public const float shakeSpeed = 1; //how fast it shakes
-    //public const float shakeAmount = 0.2f; //how much it shakes
     public const float shakeSegments = 10;
     public const float shakeTimePerSegment = 2 / shakeSegments;
     public const float shakeStrenthMultiplier = 3;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    public bool placedCorrectly = false;
 
+    private void Awake()
+    {
+        ownRigidBody = GetComponent<Rigidbody>();
     }
 
-    public IEnumerator BreakPiece()
+    public IEnumerator BreakPiece(Vector3 placeToLand)
     {
-        transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+        ownRigidBody.constraints = RigidbodyConstraints.FreezePosition;
 
         float timer = 0f;
         while (timer < shakeTimePerSegment * shakeSegments)
@@ -33,25 +32,36 @@ public class PuzzlePiece : MonoBehaviour
             timer += shakeTimePerSegment;
             yield return new WaitForSeconds(shakeTimePerSegment);
         }
-        
-        ////yield return new WaitForSeconds(shakeTime / 2);
-        //transform.DOShakeRotation(shakeTime / 2, 15, 10, 10, false).;
-        //yield return new WaitForSeconds(shakeTime);
-        transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        transform.DOMove(placeToLand.position, durationForPieceBreak);
+
+        ownRigidBody.constraints = RigidbodyConstraints.None;
+        transform.DOMove(placeToLand, durationForPieceBreak);
         transform.DOScale(smallPieceScaleTarget, durationForPieceBreak);
         yield return new WaitForSeconds(durationForPieceBreak);
-        transform.GetComponent<Rigidbody>().useGravity = true;
+        ownRigidBody.useGravity = true;
     }
 
-    public void SetPlaceToLand(Transform place)
-    {
-        placeToLand = place;
-    }
 
-    // Update is called once per frame
-    void Update()
+    public IEnumerator PlaceOnPuzzle(PieceOriginalWorldTranformData destination, bool placedCorrectly, Vector3 placeToLandIfIncorrect)
     {
-        
+        ownRigidBody.useGravity = false;
+        ownRigidBody.constraints = RigidbodyConstraints.FreezePosition;
+        transform.DOMove(destination.originalLocation, durationForPieceBreak);
+        transform.DOScale(1, durationForPieceBreak);
+
+        yield return new WaitForSeconds(durationForPieceBreak);
+
+        if (placedCorrectly)
+        {
+            this.placedCorrectly = placedCorrectly;
+            transform.DORotateQuaternion(destination.originalRotation, durationForPieceBreak);
+            yield return new WaitForSeconds(durationForPieceBreak);
+            transform.position = destination.originalLocation;
+            transform.rotation = destination.originalRotation;
+            ownRigidBody.constraints = RigidbodyConstraints.FreezeAll;
+        }
+        else
+        {
+            StartCoroutine(BreakPiece(placeToLandIfIncorrect));
+        }
     }
 }

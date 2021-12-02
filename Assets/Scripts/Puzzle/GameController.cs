@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,49 +12,87 @@ public struct PieceOriginalWorldTranformData
 
 public class GameController : MonoBehaviour
 {
-    private List<PieceOriginalWorldTranformData> piecesOriginalTransforms;
+    public static GameController instance;
 
     private PlayerSettingsData playerSettings;
 
-    public PuzzleSetupManager puzzleManager;
+    private List<PieceOriginalWorldTranformData> piecesOriginalTransforms;
 
-    public Transform puzzle;
-    public Transform backgroundPuzzle;
+    [SerializeField]
+    private Transform currentlyHoverdBackroundPiece;
+    [SerializeField]
+    private Transform currentlyHeldPiece;
 
-    public Transform currentlyHoverdBackroundPiece;
-    public Transform currentlyHeldPiece;
+    public List<Transform> puzzlePiecesTransforms;
+    public List<Transform> backgroundPiecesTransforms;
+
+    public XRRayInteractor leftHand;
+    public XRRayInteractor rightHand;
+
+    private int piecesPlacedCorrectly = 0;
 
     private void Awake()
     {
-        playerSettings = GameObject.Find("PlayerSettingsObject").GetComponent<PlayerSettingsData>();
-        puzzleManager.puzzleTexture = playerSettings.puzzleTexture;
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            if (instance != this)
+            {
+                GameController.instance = this;
+                GameObject.Destroy(instance.gameObject);
+            }
+        }
 
+        puzzlePiecesTransforms = new List<Transform>(PuzzleSetupManager.instance.puzzle.GetComponentsInChildren<Transform>());
+        backgroundPiecesTransforms = new List<Transform>(PuzzleSetupManager.instance.backgroundPuzzle.GetComponentsInChildren<Transform>());
+
+        //GetPlayerSelectedPuzzleTexture();
 
         SavePiecesOriginalLocations();
+
+        SubscribeMethodsToXrEvents();
     }
 
     public void SavePiecesOriginalLocations()
     {
         piecesOriginalTransforms = new List<PieceOriginalWorldTranformData>();
-        Transform[] pieces = puzzle.GetComponentsInChildren<Transform>();
-        for (int i = 0; i < pieces.Length; i++)
+        for (int i = 0; i < puzzlePiecesTransforms.Count; i++)
         {
             PieceOriginalWorldTranformData ogTransform = new PieceOriginalWorldTranformData();
-            ogTransform.originalLocation = pieces[i].position;
-            ogTransform.originalRotation = pieces[i].rotation;
+            ogTransform.originalLocation = puzzlePiecesTransforms[i].transform.position;
+            ogTransform.originalRotation = puzzlePiecesTransforms[i].transform.rotation;
             piecesOriginalTransforms.Add(ogTransform);
         }
     }
 
+    private void SubscribeMethodsToXrEvents()
+    {
+        leftHand.selectEntered.AddListener(OnGrabEnter);
+        leftHand.selectExited.AddListener(OnGrabExit);
+        rightHand.selectEntered.AddListener(OnGrabEnter);
+        rightHand.selectExited.AddListener(OnGrabExit);
 
-    //every background puzzle piece should have 'XR Simple Interactable' component
-    //this function should appear in the event 'Hover Enter' in the components of all those pieces
-    public void OnBackgroundPuzzlePieceHoverEnter(HoverEnterEventArgs eventArgs)
+        leftHand.hoverEntered.AddListener(OnHoverEnter);
+        leftHand.hoverExited.AddListener(OnHoverExit);
+        rightHand.hoverEntered.AddListener(OnHoverEnter);
+        rightHand.hoverExited.AddListener(OnHoverExit);
+    }
+
+    private void GetPlayerSelectedPuzzleTexture()
+    {
+        playerSettings = GameObject.Find("PlayerSettingsObject").GetComponent<PlayerSettingsData>();
+        PuzzleSetupManager.instance.puzzleTexture = playerSettings.puzzleTexture;
+    }
+
+    public void OnHoverEnterBackgroundPuzzlePiece(HoverEnterEventArgs eventArgs)
     {
         currentlyHoverdBackroundPiece = eventArgs.interactable.transform;
     }
 
-    public void OnBackgroundPuzzlePieceHoverExit(HoverExitEventArgs eventArgs)
+    public void OnHoverExitBackgroundPuzzlePiece(HoverExitEventArgs eventArgs)
     {
         if (eventArgs.interactable.transform == currentlyHoverdBackroundPiece)
         {
@@ -61,4 +100,81 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void OnGrabEnter(SelectEnterEventArgs args)
+    {
+        currentlyHeldPiece = args.interactable.transform;
+        currentlyHeldPiece.gameObject.layer = 2;
+    }
+
+    public void Hello()
+    {
+        Debug.Log("helo");
+    }
+
+
+    public void OnGrabExit(SelectExitEventArgs args)
+    {
+
+
+        if (currentlyHoverdBackroundPiece == null)
+        {
+            return;
+        }
+        if (currentlyHeldPiece == null)
+        {
+            return;
+        }
+
+        TryPlacePiece(currentlyHeldPiece, currentlyHoverdBackroundPiece);
+        currentlyHeldPiece.gameObject.layer = 0;
+
+        currentlyHeldPiece = null;
+    }
+
+    public void OnHoverEnter(HoverEnterEventArgs args)
+    {
+        XRSimpleInteractable simpleInteractable = args.interactable.GetComponent<XRSimpleInteractable>();
+        if (simpleInteractable != null)
+        {
+            OnHoverEnterBackgroundPuzzlePiece(args);
+            return;
+        }
+    }
+
+    public void OnHoverExit(HoverExitEventArgs args)
+    {
+        XRSimpleInteractable simpleInteractable = args.interactable.GetComponent<XRSimpleInteractable>();
+        if (simpleInteractable != null)
+        {
+            OnHoverExitBackgroundPuzzlePiece(args);
+            return;
+        }
+    }
+
+    private void TryPlacePiece(Transform pieceToPlace, Transform backgroundPieceWherePlaced)
+    {
+        bool isCorrect;
+
+        int indexPieceToPlace = puzzlePiecesTransforms.IndexOf(pieceToPlace);
+        int indexPieceWherePlaced = backgroundPiecesTransforms.IndexOf(backgroundPieceWherePlaced);
+
+        isCorrect = indexPieceToPlace == indexPieceWherePlaced;
+
+        PieceOriginalWorldTranformData placeToPutPiece = piecesOriginalTransforms[indexPieceWherePlaced];
+        PuzzlePiecesMovementManager.instance.PlacePiece(pieceToPlace, placeToPutPiece, isCorrect);
+
+        if (isCorrect)
+        {
+            piecesPlacedCorrectly++;
+            if (piecesPlacedCorrectly == puzzlePiecesTransforms.Count)
+            {
+                WinAction();
+            }
+        }
+    }
+
+    private void WinAction()
+    {
+        throw new NotImplementedException();
+    }
 }

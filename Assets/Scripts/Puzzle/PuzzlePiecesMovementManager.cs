@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+
 public class PuzzlePiecesMovementManager : MonoBehaviour
 {
+    public static PuzzlePiecesMovementManager instance;
+
     private List<PuzzlePiece> puzzlePieces = new List<PuzzlePiece>();
     private List<Transform> placesForPiecesOnPlatform = new List<Transform>();
 
@@ -13,6 +16,28 @@ public class PuzzlePiecesMovementManager : MonoBehaviour
     public float timeUntilBreakPuzzle = 10;
 
     public void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            if (instance != this)
+            {
+                PuzzlePiecesMovementManager.instance = this;
+                GameObject.Destroy(instance.gameObject);
+            }
+        }
+
+        CreatePiecesAndLandingsLists();
+    }
+    private void Start()
+    {
+        BreakPuzzle();
+    }
+
+    private void CreatePiecesAndLandingsLists()
     {
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -25,10 +50,6 @@ public class PuzzlePiecesMovementManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        BreakPuzzle();
-    }
 
     public void BreakPuzzle()
     {
@@ -47,20 +68,16 @@ public class PuzzlePiecesMovementManager : MonoBehaviour
             } while (brokenPieces[x] == true);
             brokenPieces[x] = true;
             int indexPlaceToLand = Random.Range(0, placesForPiecesOnPlatform.Count);
-            puzzlePieces[x].SetPlaceToLand(placesForPiecesOnPlatform[indexPlaceToLand]);
-            StartCoroutine(puzzlePieces[x].BreakPiece());
+            //puzzlePieces[x].SetPlaceToLand(placesForPiecesOnPlatform[indexPlaceToLand].position);
+            StartCoroutine(puzzlePieces[x].BreakPiece(placesForPiecesOnPlatform[indexPlaceToLand].position));
         }
     }
 
 
-    public void PlacePiece()
+    public void PlacePiece(Transform pieceToPlace, PieceOriginalWorldTranformData destinationTransform, bool placedCorrectly)
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        PuzzlePiece puzzlePiece = pieceToPlace.gameObject.GetComponent<PuzzlePiece>();
+        int indexPlaceToLand = Random.Range(0, placesForPiecesOnPlatform.Count);
+        StartCoroutine(puzzlePiece.PlaceOnPuzzle(destinationTransform, placedCorrectly, placesForPiecesOnPlatform[indexPlaceToLand].position));
     }
 }

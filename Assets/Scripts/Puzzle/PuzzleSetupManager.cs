@@ -5,12 +5,30 @@ using UnityEngine;
 
 public class PuzzleSetupManager : MonoBehaviour
 {
+    public static PuzzleSetupManager instance;
+
     public Transform puzzle;
     public Transform backgroundPuzzle;
 
     public Texture puzzleTexture;
     public Texture backgroundPuzzleTexture;
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            if (instance != this)
+            {
+                PuzzleSetupManager.instance = this;
+                GameObject.Destroy(instance.gameObject);
+            }
+        }
+
+    }
     void Start()
     {
         ImportTexturePhotoToPuzzle(puzzle, puzzleTexture);
