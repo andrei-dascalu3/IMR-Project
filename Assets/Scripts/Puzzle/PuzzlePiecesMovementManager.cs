@@ -53,6 +53,11 @@ public class PuzzlePiecesMovementManager : MonoBehaviour
     }
 
 
+    public void PlacePiece()
+    {
+
+    }
+
     // Update is called once per frame
     void Update()
     {
