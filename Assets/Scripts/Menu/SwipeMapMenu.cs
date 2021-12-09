@@ -8,6 +8,7 @@ public class SwipeMapMenu : MonoBehaviour
     float scroll_pos = 0;
     List<float> pos = new List<float>();
     private Texture current_texture;
+    public Renderer puzzlePreviewSphere;
 
     void Update()
     {
@@ -39,6 +40,7 @@ public class SwipeMapMenu : MonoBehaviour
             {
                 current_texture = transform.GetChild(i).GetComponentInChildren<RawImage>().texture;
                 //Debug.Log(current_texture.name);
+                puzzlePreviewSphere.material.SetTexture("_MainTex", current_texture);
 
                 transform.GetChild(i).localScale = Vector2.Lerp(transform.GetChild(i).localScale, new Vector2(1f, 1f), 0.1f);
                 for (int a = 0; a < pos.Capacity; a++)

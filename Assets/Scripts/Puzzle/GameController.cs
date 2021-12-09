@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using TMPro;
 
 public struct PieceOriginalWorldTranformData
 {
@@ -31,6 +32,7 @@ public class GameController : MonoBehaviour
 
     private int piecesPlacedCorrectly = 0;
 
+    public GameObject winMessage;
     private void Awake()
     {
         if (instance == null)
@@ -115,7 +117,7 @@ public class GameController : MonoBehaviour
     public void OnGrabExit(SelectExitEventArgs args)
     {
 
-
+        currentlyHeldPiece.gameObject.layer = 0;
         if (currentlyHoverdBackroundPiece == null)
         {
             return;
@@ -126,7 +128,6 @@ public class GameController : MonoBehaviour
         }
 
         TryPlacePiece(currentlyHeldPiece, currentlyHoverdBackroundPiece);
-        currentlyHeldPiece.gameObject.layer = 0;
 
         currentlyHeldPiece = null;
     }
@@ -163,9 +164,12 @@ public class GameController : MonoBehaviour
         PieceOriginalWorldTranformData placeToPutPiece = piecesOriginalTransforms[indexPieceWherePlaced];
         PuzzlePiecesMovementManager.instance.PlacePiece(pieceToPlace, placeToPutPiece, isCorrect);
 
+        /*Debug.Log(indexPieceToPlace.ToString() + ' ' + indexPieceWherePlaced.ToString());*/
         if (isCorrect)
         {
-            piecesPlacedCorrectly++;
+            /*piecesPlacedCorrectly++;*/
+            // for testing purposes
+            piecesPlacedCorrectly = puzzlePiecesTransforms.Count;
             if (piecesPlacedCorrectly == puzzlePiecesTransforms.Count)
             {
                 WinAction();
@@ -175,6 +179,6 @@ public class GameController : MonoBehaviour
 
     private void WinAction()
     {
-        throw new NotImplementedException();
+        winMessage.SetActive(true);
     }
 }

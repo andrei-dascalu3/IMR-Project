@@ -25904,6 +25904,10 @@ PrefabInstance:
       propertyPath: scrollbar
       value: 
       objectReference: {fileID: 1747397518}
+    - target: {fileID: 486402592334711012, guid: 13b25e77c7752b442a902ed77e0e12ef, type: 3}
+      propertyPath: puzzlePreviewSphere
+      value: 
+      objectReference: {fileID: 5081274779039023883}
     - target: {fileID: 486402592484203952, guid: 13b25e77c7752b442a902ed77e0e12ef, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -96083,13 +96087,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6738700115703915230}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -36.08928, y: 27.740475, z: 16.205547}
   m_LocalScale: {x: 1215.3528, y: 1215.3528, z: 1215.3528}
   m_Children: []
   m_Father: {fileID: 110182103}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!23 &6256541016626058287
 MeshRenderer:
   m_ObjectHideFlags: 0
