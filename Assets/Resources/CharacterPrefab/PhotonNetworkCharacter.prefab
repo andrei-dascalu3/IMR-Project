@@ -74729,7 +74729,10 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 827710011704288764}
+  - {fileID: 5299076821220895665}
+  - {fileID: 2038382083249749619}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -75211,6 +75214,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6453284461012379731}
+  - component: {fileID: 5299076821220895665}
   m_Layer: 2
   m_Name: Right-Arm
   m_TagString: Untagged
@@ -75359,6 +75363,22 @@ Transform:
   m_Father: {fileID: 6453284460987599374}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5299076821220895665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6453284461012379728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &6453284461020099113
 GameObject:
   m_ObjectHideFlags: 0
@@ -86568,6 +86588,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6453284461900228466}
+  - component: {fileID: 827710011704288764}
   m_Layer: 2
   m_Name: Left-Arm
   m_TagString: Untagged
@@ -86716,6 +86737,22 @@ Transform:
   m_Father: {fileID: 6453284460987599374}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &827710011704288764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6453284461900228467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &6453284461901061416
 GameObject:
   m_ObjectHideFlags: 0
@@ -112947,6 +112984,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9040770364890553056}
   - component: {fileID: 8519847407450472533}
+  - component: {fileID: 2038382083249749619}
   m_Layer: 2
   m_Name: CharacterModelFull-prot1-noArms
   m_TagString: Untagged
@@ -112996,6 +113034,22 @@ MonoBehaviour:
   - {fileID: 5126863626293589554}
   - {fileID: 6453284461012379731}
   - {fileID: 2965058177356892353}
+--- !u!114 &2038382083249749619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8519847407450472538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &8522315925931309548
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,21 +5,18 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/LobbyMenuScenes/MainMeniu.unity
-    guid: 43d3e364943b114419818d20aab18540
-  - enabled: 0
-    path: Assets/Scenes/LobbyMenuScenes/PlaySettingMeniu.unity
-    guid: 91b22813df29a964496f7cec536daf1f
   - enabled: 1
-    path: Assets/Scenes/LobbyMenuScenes/BrokenWorldLobby.unity
+    path: Assets/Scenes/LobbyMenuScenes/BrokenWorldStartMenu.unity
     guid: c112950aaf64e1e4b809153c3b503639
+  - enabled: 0
+    path: Assets/Scenes/GameRoomScenes/Puzzle-Hard.unity
+    guid: 69d91158f57c32e44a914cf3f3f5aeea
   - enabled: 1
     path: Assets/Scenes/GameRoomScenes/Puzzle-Hard-Multiplayer.unity
     guid: 2a22cfa8a63d4fa4c8b2b0adcaa1a559
   - enabled: 1
-    path: Assets/Scenes/GameRoomScenes/Puzzle-Hard.unity
-    guid: 69d91158f57c32e44a914cf3f3f5aeea
+    path: Assets/Scenes/LobbyMenuScenes/MultiplayerLobby.unity
+    guid: 66b9159a74326ec4799627dd54bf2c86
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 02b8587b4edcb5548abb030845fefb3c, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: ef80faea29975c3489c0ec40f4b64fa7, type: 2}

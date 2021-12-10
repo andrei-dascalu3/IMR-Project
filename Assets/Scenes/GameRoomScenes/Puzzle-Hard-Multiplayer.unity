@@ -3708,7 +3708,6 @@ MonoBehaviour:
   backgroundPuzzle: {fileID: 617632066}
   puzzleTexture: {fileID: 0}
   backgroundPuzzleTexture: {fileID: 2800000, guid: f8d520ef834595641ad34cba69a9c4b5, type: 3}
-  playerSetting: {fileID: 0}
 --- !u!1 &408892145
 GameObject:
   m_ObjectHideFlags: 0
@@ -10448,7 +10447,7 @@ GameObject:
   - component: {fileID: 1164093946}
   - component: {fileID: 1164093945}
   m_Layer: 0
-  m_Name: GameSetupController
+  m_Name: GameController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

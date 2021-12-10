@@ -44,19 +44,7 @@ public class LobbyController : MonoBehaviour
         PlayerSettingsData.instance.volumeValue = volumeOptions.GetVolumeLevel();
         PlayerSettingsData.instance.timerValue = timerOptions.GetTimerValue();
 
-
-        if (gameMode == "SP")
-        {
-            SceneManager.LoadScene("Puzzle-" + PlayerSettingsData.instance.difficulty, LoadSceneMode.Single);
-        }
-        else
-        {
-            if (gameMode == "MPC")
-            {
-                PhotonLobby photonLobby = photonControllers[0].GetComponent<PhotonLobby>();
-                photonLobby.CreateRoom();
-            }
-        }
+        SceneManager.LoadScene("Puzzle-" + PlayerSettingsData.instance.difficulty, LoadSceneMode.Single);
     }
 
     public void OnSinglePlayerButtonPress()
@@ -91,10 +79,17 @@ public class LobbyController : MonoBehaviour
 
     public void OnRoomSettingsCreateButtonPress()
     {
+        PhotonLobbyController photonLobby = photonControllers[0].GetComponent<PhotonLobbyController>();
         if (gameMode == "MPJ")
         {
-            PhotonLobby photonLobby = photonControllers[0].GetComponent<PhotonLobby>();
             photonLobby.ConnectToRoom();
+        }
+        else
+        {
+            if (gameMode == "MPC")
+            {
+                photonLobby.CreateRoom();
+            }
         }
     }
 

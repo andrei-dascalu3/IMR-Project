@@ -33,20 +33,20 @@ public class GameController : MonoBehaviour
     private int piecesPlacedCorrectly = 0;
 
     public GameObject winMessage;
-    private void Awake()
+    private void OnEnable()
     {
         if (instance == null)
         {
             instance = this;
         }
-        else
-        {
-            if (instance != this)
-            {
-                GameController.instance = this;
-                GameObject.Destroy(instance.gameObject);
-            }
-        }
+        //else
+        //{
+        //    if (instance != this)
+        //    {
+        //        GameController.instance = this;
+        //        GameObject.Destroy(instance.gameObject);
+        //    }
+        //}
 
         puzzlePiecesTransforms = new List<Transform>(PuzzleSetupManager.instance.puzzle.GetComponentsInChildren<Transform>());
         backgroundPiecesTransforms = new List<Transform>(PuzzleSetupManager.instance.backgroundPuzzle.GetComponentsInChildren<Transform>());
