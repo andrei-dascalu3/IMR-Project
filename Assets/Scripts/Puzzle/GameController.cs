@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour
 {
     public static GameController instance;
 
-    private PlayerSettingsData playerSettings;
+    //private PlayerSettingsData playerSettings;
 
     private List<PieceOriginalWorldTranformData> piecesOriginalTransforms;
 
@@ -85,8 +85,9 @@ public class GameController : MonoBehaviour
 
     private void GetPlayerSelectedPuzzleTexture()
     {
-        playerSettings = GameObject.Find("PlayerSettingsObject").GetComponent<PlayerSettingsData>();
-        PuzzleSetupManager.instance.puzzleTexture = playerSettings.puzzleTexture;
+        //playerSettings = GameObject.Find("PlayerSettingsObject").GetComponent<PlayerSettingsData>();
+        PuzzleSetupManager.instance.puzzleTexture = PlayerSettingsData.instance.puzzleTexture;
+        // playerSettings.puzzleTexture;
     }
 
     public void OnHoverEnterBackgroundPuzzlePiece(HoverEnterEventArgs eventArgs)
@@ -107,12 +108,6 @@ public class GameController : MonoBehaviour
         currentlyHeldPiece = args.interactable.transform;
         currentlyHeldPiece.gameObject.layer = 2;
     }
-
-    public void Hello()
-    {
-        Debug.Log("helo");
-    }
-
 
     public void OnGrabExit(SelectExitEventArgs args)
     {

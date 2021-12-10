@@ -15,9 +15,9 @@ public class UploadImageScript : MonoBehaviour
 
     public void OpenExplorer()
     {
-        path = EditorUtility.OpenFilePanel("Show all images", "", "jpg,png,jpeg");
+        path = null;  //EditorUtility.OpenFilePanel("Show all images", "", "jpg,png,jpeg");
         StartCoroutine(GetTexture());
-        
+
     }
     IEnumerator GetTexture()
     {
@@ -36,7 +36,7 @@ public class UploadImageScript : MonoBehaviour
             RawImage rawImage = duplicate.GetComponentsInChildren<RawImage>()[0];
             rawImage.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
         }
-        
+
     }
 
 }

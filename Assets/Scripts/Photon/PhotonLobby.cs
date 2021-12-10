@@ -14,6 +14,8 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
     public TMP_InputField ownNameField;
     public TMP_InputField numberOfPlayersField;
 
+    public GameObject xrRigObject;
+
     private void Awake()
     {
         if (photonLobby == null)
@@ -28,6 +30,8 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
                 photonLobby = this;
             }
         }
+
+        DontDestroyOnLoad(xrRigObject);
     }
 
     public override void OnConnectedToMaster()
@@ -40,7 +44,9 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
     {
         int roomSize = GetRoomSize();
         string roomName = GetRoomName();
+
         PhotonNetwork.NickName = GetOwnName();
+        xrRigObject.name = GetOwnName();
 
         RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)roomSize };
 
@@ -61,6 +67,8 @@ public class PhotonLobby : MonoBehaviourPunCallbacks
     public void ConnectToRoom()
     {
         PhotonNetwork.NickName = GetOwnName();
+        xrRigObject.name = GetOwnName();
+
         string roomName = GetRoomName();
         PhotonNetwork.JoinRoom(roomName);
         Debug.Log("Starting to connect to room " + roomName);

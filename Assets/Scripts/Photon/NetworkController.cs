@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 
 public class NetworkController : MonoBehaviourPunCallbacks
 {
@@ -16,9 +17,4 @@ public class NetworkController : MonoBehaviourPunCallbacks
         Debug.Log("We are now connected to the " + PhotonNetwork.CloudRegion + " server!");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

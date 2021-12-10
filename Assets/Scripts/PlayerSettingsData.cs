@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerSettingsData : MonoBehaviour
 {
+    public static PlayerSettingsData instance;
+
     public Texture puzzleTexture;
 
     public string difficulty;
@@ -11,15 +13,19 @@ public class PlayerSettingsData : MonoBehaviour
     public int musicValue;
     public int timerValue;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        //puzzleTexture = BackgroundImageController.backgroundImage;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            if (this != instance)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+        DontDestroyOnLoad(gameObject);
     }
 }

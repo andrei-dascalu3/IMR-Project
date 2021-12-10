@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class LobbyController : MonoBehaviour
 {
-    public GameObject[] photonControllers;
+    public static LobbyController instance;
 
-    public PlayerSettingsData playerSettings;
+    public GameObject[] photonControllers;
 
     public SwitchDifficultyOptions difficultyOptions;
     public SwitchMusicOptions musicOptions;
@@ -20,27 +20,40 @@ public class LobbyController : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(playerSettings);
+        if (LobbyController.instance == null)
+        {
+            LobbyController.instance = this;
+        }
+        else
+        {
+            if (LobbyController.instance != this)
+            {
+                GameObject.Destroy(LobbyController.instance.gameObject);
+                LobbyController.instance = this;
+            }
+        }
+
     }
 
     public void OnStartGameButtonPress()
     {
-        playerSettings.puzzleTexture = swipeMap.GetSelectedPhoto();
-        playerSettings.difficulty = difficultyOptions.GetDifficulty();
-        playerSettings.musicValue = musicOptions.GetMusicValue();
-        playerSettings.volumeValue = volumeOptions.GetVolumeLevel();
-        playerSettings.timerValue = timerOptions.GetTimerValue();
+        DontDestroyOnLoad(PlayerSettingsData.instance.gameObject);
+        PlayerSettingsData.instance.puzzleTexture = swipeMap.GetSelectedPhoto();
+        PlayerSettingsData.instance.difficulty = difficultyOptions.GetDifficulty();
+        PlayerSettingsData.instance.musicValue = musicOptions.GetMusicValue();
+        PlayerSettingsData.instance.volumeValue = volumeOptions.GetVolumeLevel();
+        PlayerSettingsData.instance.timerValue = timerOptions.GetTimerValue();
 
 
         if (gameMode == "SP")
         {
-            SceneManager.LoadScene("Puzzle-" + playerSettings.difficulty, LoadSceneMode.Single);
+            SceneManager.LoadScene("Puzzle-" + PlayerSettingsData.instance.difficulty, LoadSceneMode.Single);
         }
         else
         {
-            PhotonLobby photonLobby = photonControllers[0].GetComponent<PhotonLobby>();
             if (gameMode == "MPC")
             {
+                PhotonLobby photonLobby = photonControllers[0].GetComponent<PhotonLobby>();
                 photonLobby.CreateRoom();
             }
         }

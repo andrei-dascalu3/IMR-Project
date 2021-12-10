@@ -12,7 +12,8 @@ public class PuzzleSetupManager : MonoBehaviour
 
     public Texture puzzleTexture;
     public Texture backgroundPuzzleTexture;
-    public PlayerSettingsData playerSetting;
+
+    //public PlayerSettingsData playerSetting;
 
     private void Awake()
     {
@@ -28,14 +29,14 @@ public class PuzzleSetupManager : MonoBehaviour
                 GameObject.Destroy(instance.gameObject);
             }
         }
-        playerSetting = GameObject.Find("PlayerSettingsObject").GetComponent<PlayerSettingsData>();
+        //playerSetting = GameObject.Find("PlayerSettingsObject").GetComponent<PlayerSettingsData>();
 
     }
     void Start()
     {
-        Debug.Log("texture name is : ");
-        puzzleTexture = playerSetting.puzzleTexture;
-        Debug.Log(puzzleTexture.name);
+        //puzzleTexture = playerSetting.puzzleTexture;
+
+        puzzleTexture = PlayerSettingsData.instance.puzzleTexture;
         ImportTexturePhotoToPuzzle(puzzle, puzzleTexture);
         ImportTexturePhotoToPuzzle(backgroundPuzzle, backgroundPuzzleTexture);
     }

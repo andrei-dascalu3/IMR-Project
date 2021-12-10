@@ -53,7 +53,12 @@ public class UiMenuChangeManager : MonoBehaviour
 
     public void OnRoomSettingsCreateButtonPress()
     {
-        settingsMenu.SetActive(true);
-        multiplayerRoomSettingsMenu.SetActive(false);
+        string gameMode = LobbyController.instance.gameMode;
+        if (gameMode == "MPC")
+        {
+            settingsMenu.SetActive(true);
+            multiplayerRoomSettingsMenu.SetActive(false);
+        }
+
     }
 }

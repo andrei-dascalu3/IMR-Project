@@ -3667,6 +3667,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 405076130}
+  - component: {fileID: 405076131}
   m_Layer: 0
   m_Name: Environment
   m_TagString: Untagged
@@ -3682,7 +3683,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 405076129}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.49414217, y: 2.9560733, z: -5.918491}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1431838774}
@@ -3691,6 +3692,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &405076131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405076129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b26439858bc4ee409f94e96858f9fb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  puzzle: {fileID: 4700357912217120075}
+  backgroundPuzzle: {fileID: 617632066}
+  puzzleTexture: {fileID: 0}
+  backgroundPuzzleTexture: {fileID: 2800000, guid: f8d520ef834595641ad34cba69a9c4b5, type: 3}
+  playerSetting: {fileID: 0}
 --- !u!1 &408892145
 GameObject:
   m_ObjectHideFlags: 0
@@ -5002,7 +5020,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 617632066}
-  - component: {fileID: 617632065}
   m_Layer: 0
   m_Name: puzzle-background
   m_TagString: Untagged
@@ -5010,23 +5027,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &617632065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 617632064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b26439858bc4ee409f94e96858f9fb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  puzzle: {fileID: 0}
-  backgroundPuzzle: {fileID: 0}
-  puzzleTexture: {fileID: 2800000, guid: f8d520ef834595641ad34cba69a9c4b5, type: 3}
-  backgroundPuzzleTexture: {fileID: 0}
-  playerSetting: {fileID: 0}
 --- !u!4 &617632066
 Transform:
   m_ObjectHideFlags: 0
@@ -5035,7 +5035,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 617632064}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.06414217, y: 12.813927, z: -14.681509}
+  m_LocalPosition: {x: -0.06414217, y: 12.813927, z: -18.09}
   m_LocalScale: {x: 12, y: 12, z: 12}
   m_Children:
   - {fileID: 316860296}
@@ -10472,6 +10472,7 @@ MonoBehaviour:
   backgroundPiecesTransforms: []
   leftHand: {fileID: 0}
   rightHand: {fileID: 0}
+  winMessage: {fileID: 0}
 --- !u!4 &1164093946
 Transform:
   m_ObjectHideFlags: 0
@@ -12237,7 +12238,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1431838771}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.49414217, y: -3.9560733, z: 3.4084911}
+  m_LocalPosition: {x: 0, y: -3.9560733, z: 0}
   m_LocalScale: {x: 10, y: 1, z: 10}
   m_Children:
   - {fileID: 198580608}
@@ -40563,7 +40564,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5364022668588070897}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.49414217, y: 10.863926, z: -12.29151}
+  m_LocalPosition: {x: -0.49414217, y: 10.863926, z: -15.700001}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 2797504339942049378}
@@ -43140,7 +43141,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4700357912217120075}
-  - component: {fileID: 5364022668588070898}
   - component: {fileID: 5364022668588070899}
   m_Layer: 0
   m_Name: hard-puzzle-prot5
@@ -43149,23 +43149,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &5364022668588070898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5364022668588070897}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b26439858bc4ee409f94e96858f9fb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  puzzle: {fileID: 0}
-  backgroundPuzzle: {fileID: 0}
-  puzzleTexture: {fileID: 2800000, guid: 7f57690ef2f9b7b47a66bd8b58563fe5, type: 3}
-  backgroundPuzzleTexture: {fileID: 0}
-  playerSetting: {fileID: 0}
 --- !u!114 &5364022668588070899
 MonoBehaviour:
   m_ObjectHideFlags: 0
