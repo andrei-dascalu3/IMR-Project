@@ -11,13 +11,13 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class PhotonRoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
 {
     public static PhotonRoomController room;
-    private PhotonView pv;
+    public PhotonView pv;
 
     private string levelName;
     private string currentLevelName;
 
     private static string sceneName;
-    private static bool startedLevel = false;
+    //private static bool startedLevel = false;
 
     public string roomName;
 
@@ -52,12 +52,10 @@ public class PhotonRoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
         myRig.SetActive(false);
         myRig.SetActive(true);
 
+        CreatePlayer();
+
         currentLevelName = scene.name;
-        if (currentLevelName == "MultiplayerLobby")
-        {
-            //CreatePlayer();
-        }
-        else
+        if (currentLevelName != "MultiplayerLobby")
         {
             GameController gameController = GameObject.Find("GameController").GetComponent<GameController>();
 
@@ -69,7 +67,7 @@ public class PhotonRoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
             gameController.rightHand = rightHandInteractor;
         }
 
-        startedLevel = true;
+        //startedLevel = true;
         sceneName = scene.name;
     }
 
@@ -77,8 +75,6 @@ public class PhotonRoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
     {
         Debug.Log("Creating player avatar.");
         GameObject newAvatarGO = PhotonNetwork.Instantiate(Path.Combine("CharacterPrefab", "PhotonNetworkCharacter"), new Vector3(0, 2.15f, 0), Quaternion.identity, 0);
-
-        DontDestroyOnLoad(newAvatarGO);
     }
 
     public override void OnJoinedRoom()
@@ -87,11 +83,6 @@ public class PhotonRoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
         Debug.Log("We have joined room");
 
         StartGameLobby();
-
-        //if (startedLevel && sceneName == currentLevelName)
-        //{
-        CreatePlayer();
-        //}
     }
 
     public void StartGameLobby()

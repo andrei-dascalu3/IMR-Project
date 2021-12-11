@@ -50,6 +50,7 @@ public class PhotonLobbyController : MonoBehaviourPunCallbacks
 
         RoomOptions roomOptions = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)roomSize };
 
+        PhotonRoomController.room.name = roomName;
         PhotonNetwork.CreateRoom(roomName, roomOptions);
         Debug.Log("Starting to create room " + roomName);
     }
