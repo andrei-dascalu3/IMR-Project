@@ -36,7 +36,7 @@ public class PhotonLobbyController : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        Debug.Log("BrokenWorldPlayer has connected to Photon master server.");
+        Debug.Log("Player has connected to Photon master server.");
         PhotonNetwork.AutomaticallySyncScene = true;
     }
 

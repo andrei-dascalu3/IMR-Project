@@ -27,49 +27,19 @@ public class MultiplayerLobbyController : MonoBehaviourPunCallbacks
         {
             helpMenu.SetActive(true);
         }
-
-        GameObject myRig = GameObject.Find(PhotonNetwork.NickName);
-        myRig.SetActive(false);
-        myRig.SetActive(true);
-
-    }
-
-    public override void OnPlayerEnteredRoom(Player newPlayer)
-    {
-        base.OnPlayerEnteredRoom(newPlayer);
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            gameSettingsMenu.SetActive(true);
-        }
-        else
-        {
-            helpMenu.SetActive(true);
-        }
-
-        DontDestroyOnLoad(PlayerSettingsData.instance.gameObject);
     }
 
     public void OnStartButtonPress()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            PlayerSettingsData.instance.puzzleTexture = swipeMap.GetSelectedPhoto();
-            PlayerSettingsData.instance.difficulty = difficultyOptions.GetDifficulty();
-            PlayerSettingsData.instance.musicValue = musicOptions.GetMusicValue();
-            PlayerSettingsData.instance.volumeValue = volumeOptions.GetVolumeLevel();
-            PlayerSettingsData.instance.timerValue = timerOptions.GetTimerValue();
+        PlayerSettingsData.instance.puzzleTexture = swipeMap.GetSelectedPhoto();
+        PlayerSettingsData.instance.difficulty = difficultyOptions.GetDifficulty();
+        PlayerSettingsData.instance.musicValue = musicOptions.GetMusicValue();
+        PlayerSettingsData.instance.volumeValue = volumeOptions.GetVolumeLevel();
+        PlayerSettingsData.instance.timerValue = timerOptions.GetTimerValue();
 
-            Debug.Log("Starting Game Scene.");
-            string levelName = GetLevelName();
-            PhotonNetwork.LoadLevel(levelName);
-        }
+        PhotonRoomController.room.StartGame();
     }
 
-    private string GetLevelName()
-    {
-        return "Puzzle-" + PlayerSettingsData.instance.difficulty + "-Multiplayer";
-    }
 
     public void OnExitButtonPress()
     {

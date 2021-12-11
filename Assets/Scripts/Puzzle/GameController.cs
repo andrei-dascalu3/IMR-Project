@@ -15,8 +15,6 @@ public class GameController : MonoBehaviour
 {
     public static GameController instance;
 
-    //private PlayerSettingsData playerSettings;
-
     private List<PieceOriginalWorldTranformData> piecesOriginalTransforms;
 
     [SerializeField]
@@ -33,7 +31,7 @@ public class GameController : MonoBehaviour
     private int piecesPlacedCorrectly = 0;
 
     public GameObject winMessage;
-    private void OnEnable()
+    private void Awake()
     {
         if (instance == null)
         {
@@ -51,10 +49,11 @@ public class GameController : MonoBehaviour
         puzzlePiecesTransforms = new List<Transform>(PuzzleSetupManager.instance.puzzle.GetComponentsInChildren<Transform>());
         backgroundPiecesTransforms = new List<Transform>(PuzzleSetupManager.instance.backgroundPuzzle.GetComponentsInChildren<Transform>());
 
-        //GetPlayerSelectedPuzzleTexture();
-
         SavePiecesOriginalLocations();
+    }
 
+    private void Start()
+    {
         SubscribeMethodsToXrEvents();
     }
 
@@ -81,13 +80,6 @@ public class GameController : MonoBehaviour
         leftHand.hoverExited.AddListener(OnHoverExit);
         rightHand.hoverEntered.AddListener(OnHoverEnter);
         rightHand.hoverExited.AddListener(OnHoverExit);
-    }
-
-    private void GetPlayerSelectedPuzzleTexture()
-    {
-        //playerSettings = GameObject.Find("PlayerSettingsObject").GetComponent<PlayerSettingsData>();
-        PuzzleSetupManager.instance.puzzleTexture = PlayerSettingsData.instance.puzzleTexture;
-        // playerSettings.puzzleTexture;
     }
 
     public void OnHoverEnterBackgroundPuzzlePiece(HoverEnterEventArgs eventArgs)
