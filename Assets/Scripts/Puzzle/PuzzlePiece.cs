@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class PuzzlePiece : MonoBehaviour
 {
-    private Rigidbody ownRigidBody;
+    public Rigidbody ownRigidBody;
 
     public const float durationForPieceBreak = 3; //2
     public const float smallPieceScaleTarget = 0.1f;
@@ -41,11 +41,11 @@ public class PuzzlePiece : MonoBehaviour
     }
 
 
-    public IEnumerator PlaceOnPuzzle(PieceOriginalWorldTranformData destination, bool placedCorrectly, Vector3 placeToLandIfIncorrect)
+    public IEnumerator PlaceOnPuzzle(PieceTranformData destination, bool placedCorrectly, Vector3 placeToLandIfIncorrect)
     {
         ownRigidBody.useGravity = false;
         ownRigidBody.constraints = RigidbodyConstraints.FreezePosition;
-        transform.DOMove(destination.originalLocation, durationForPieceBreak);
+        transform.DOMove(destination.position, durationForPieceBreak);
         transform.DOScale(1, durationForPieceBreak);
 
         yield return new WaitForSeconds(durationForPieceBreak);
@@ -53,10 +53,10 @@ public class PuzzlePiece : MonoBehaviour
         if (placedCorrectly)
         {
             this.placedCorrectly = placedCorrectly;
-            transform.DORotateQuaternion(destination.originalRotation, durationForPieceBreak);
+            transform.DORotateQuaternion(destination.rotation, durationForPieceBreak);
             yield return new WaitForSeconds(durationForPieceBreak);
-            transform.position = destination.originalLocation;
-            transform.rotation = destination.originalRotation;
+            transform.position = destination.position;
+            transform.rotation = destination.rotation;
             ownRigidBody.constraints = RigidbodyConstraints.FreezeAll;
         }
         else

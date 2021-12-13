@@ -1,4 +1,3 @@
-using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,40 +6,35 @@ using UnityEngine;
 
 public class PuzzlePiecesMovementManager : MonoBehaviour
 {
-    public static PuzzlePiecesMovementManager instance;
+    //public static PuzzlePiecesMovementManager instance;
 
-    private List<PuzzlePiece> puzzlePieces = new List<PuzzlePiece>();
-    private List<Transform> placesForPiecesOnPlatform = new List<Transform>();
+    protected List<PuzzlePiece> puzzlePieces = new List<PuzzlePiece>();
+    protected List<Transform> placesForPiecesOnPlatform = new List<Transform>();
 
     public Transform placesForPiecesOnPlatformParent;
 
-    public float timeUntilBreakPuzzle = 10;
+    public float timeUntilBreakPuzzle = 3;
 
-    public void Awake()
+    public virtual void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            if (instance != this)
-            {
-                PuzzlePiecesMovementManager.instance = this;
-                GameObject.Destroy(instance.gameObject);
-            }
-        }
+        //if (instance == null)
+        //{
+        //    instance = this;
+        //}
+        //else
+        //{
+        //    if (instance != this)
+        //    {
+        //        PuzzlePiecesMovementManager.instance = this;
+        //        GameObject.Destroy(instance.gameObject);
+        //    }
+        //}
 
         CreatePiecesAndLandingsLists();
     }
-    private void Start()
+    public virtual void Start()
     {
-        if (PhotonRoomController.room != null && !PhotonNetwork.IsMasterClient)
-        {
-            return;
-        }
-        BreakPuzzle();
-
+        Invoke("BreakPuzzle", timeUntilBreakPuzzle);
     }
 
     private void CreatePiecesAndLandingsLists()
@@ -70,20 +64,33 @@ public class PuzzlePiecesMovementManager : MonoBehaviour
         {
             do
             {
-                x = Random.Range(0, brokenPieces.Length);
+                x = GetIndexOfPieceToBreak();
             } while (brokenPieces[x] == true);
             brokenPieces[x] = true;
-            int indexPlaceToLand = Random.Range(0, placesForPiecesOnPlatform.Count);
-            //puzzlePieces[x].SetPlaceToLand(placesForPiecesOnPlatform[indexPlaceToLand].position);
-            StartCoroutine(puzzlePieces[x].BreakPiece(placesForPiecesOnPlatform[indexPlaceToLand].position));
+
+            int indexPlaceToLand = GetIndexOfPlaceToLand();
+            Vector3 placeToLand = placesForPiecesOnPlatform[indexPlaceToLand].position;
+            StartCoroutine(puzzlePieces[x].BreakPiece(placeToLand));
         }
     }
 
 
-    public void PlacePiece(Transform pieceToPlace, PieceOriginalWorldTranformData destinationTransform, bool placedCorrectly)
+    public virtual int GetIndexOfPieceToBreak()
+    {
+        return Random.Range(0, puzzlePieces.Count);
+    }
+
+    public virtual int GetIndexOfPlaceToLand()
+    {
+        return Random.Range(0, placesForPiecesOnPlatform.Count);
+    }
+
+
+    public void PlacePiece(Transform pieceToPlace, PieceTranformData destinationTransform, bool placedCorrectly)
     {
         PuzzlePiece puzzlePiece = pieceToPlace.gameObject.GetComponent<PuzzlePiece>();
-        int indexPlaceToLand = Random.Range(0, placesForPiecesOnPlatform.Count);
-        StartCoroutine(puzzlePiece.PlaceOnPuzzle(destinationTransform, placedCorrectly, placesForPiecesOnPlatform[indexPlaceToLand].position));
+        int indexPlaceToLand = GetIndexOfPlaceToLand();
+        Vector3 placeToLandIfFail = placesForPiecesOnPlatform[indexPlaceToLand].position;
+        StartCoroutine(puzzlePiece.PlaceOnPuzzle(destinationTransform, placedCorrectly, placeToLandIfFail));
     }
 }

@@ -5,17 +5,19 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using TMPro;
 
-public struct PieceOriginalWorldTranformData
+public struct PieceTranformData
 {
-    public Vector3 originalLocation;
-    public Quaternion originalRotation;
+    public Vector3 position;
+    public Quaternion rotation;
 }
 
 public class GameController : MonoBehaviour
 {
     public static GameController instance;
 
-    private List<PieceOriginalWorldTranformData> piecesOriginalTransforms;
+    private List<PieceTranformData> piecesOriginalTransforms;
+
+    public PuzzlePiecesMovementManager puzzleMovementManager;
 
     [SerializeField]
     private Transform currentlyHoverdBackroundPiece;
@@ -59,12 +61,12 @@ public class GameController : MonoBehaviour
 
     public void SavePiecesOriginalLocations()
     {
-        piecesOriginalTransforms = new List<PieceOriginalWorldTranformData>();
+        piecesOriginalTransforms = new List<PieceTranformData>();
         for (int i = 0; i < puzzlePiecesTransforms.Count; i++)
         {
-            PieceOriginalWorldTranformData ogTransform = new PieceOriginalWorldTranformData();
-            ogTransform.originalLocation = puzzlePiecesTransforms[i].transform.position;
-            ogTransform.originalRotation = puzzlePiecesTransforms[i].transform.rotation;
+            PieceTranformData ogTransform = new PieceTranformData();
+            ogTransform.position = puzzlePiecesTransforms[i].transform.position;
+            ogTransform.rotation = puzzlePiecesTransforms[i].transform.rotation;
             piecesOriginalTransforms.Add(ogTransform);
         }
     }
@@ -148,10 +150,9 @@ public class GameController : MonoBehaviour
 
         isCorrect = indexPieceToPlace == indexPieceWherePlaced;
 
-        PieceOriginalWorldTranformData placeToPutPiece = piecesOriginalTransforms[indexPieceWherePlaced];
-        PuzzlePiecesMovementManager.instance.PlacePiece(pieceToPlace, placeToPutPiece, isCorrect);
+        PieceTranformData placeToPutPiece = piecesOriginalTransforms[indexPieceWherePlaced];
+        puzzleMovementManager.PlacePiece(pieceToPlace, placeToPutPiece, isCorrect);
 
-        /*Debug.Log(indexPieceToPlace.ToString() + ' ' + indexPieceWherePlaced.ToString());*/
         if (isCorrect)
         {
             /*piecesPlacedCorrectly++;*/
