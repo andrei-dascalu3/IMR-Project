@@ -5,9 +5,11 @@ using TMPro;
 
 public class UiMenuChangeManager : MonoBehaviour
 {
+    public GameObject exitButton;
     public GameObject gameModeButtons;
     public GameObject mainMenu;
     public GameObject settingsMenu;
+    public GameObject helpMenu;
     public GameObject multiplayerRoomSettingsMenu;
 
     public GameObject roomSettingsOnlyForCreate;
@@ -18,15 +20,11 @@ public class UiMenuChangeManager : MonoBehaviour
         gameModeButtons.SetActive(true);
     }
 
-    //public void OnHelpButtonPress()
-    //{
-
-    //}
-
-    //public void OnExitButtonPress()
-    //{
-
-    //}
+    public void OnHelpButtonPress()
+    {
+        mainMenu.SetActive(false);
+        helpMenu.SetActive(true);
+    }
 
     public void OnSinglePlayerButtonPress()
     {
