@@ -17320,6 +17320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cbdc93160766324382fca506afdc883, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pv: {fileID: 0}
   roomName: 
 --- !u!4 &1179293037
 Transform:
@@ -17703,6 +17704,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1206589315}
   - component: {fileID: 1206589314}
+  - component: {fileID: 1206589316}
   m_Layer: 0
   m_Name: MenusObject
   m_TagString: Untagged
@@ -17745,6 +17747,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1206589316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206589313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa1a467fd8040f34dbbd40714bf7288a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1210356366
 GameObject:
   m_ObjectHideFlags: 0
@@ -21158,6 +21172,34 @@ PrefabInstance:
     - target: {fileID: 7710845674390186290, guid: bf1dbcb975a61074cb4ddd6732942b0b, type: 3}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7710845674390186293, guid: bf1dbcb975a61074cb4ddd6732942b0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7710845674390186293, guid: bf1dbcb975a61074cb4ddd6732942b0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7710845674390186293, guid: bf1dbcb975a61074cb4ddd6732942b0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1206589316}
+    - target: {fileID: 7710845674390186293, guid: bf1dbcb975a61074cb4ddd6732942b0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7710845674390186293, guid: bf1dbcb975a61074cb4ddd6732942b0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ExitButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 7710845674390186293, guid: bf1dbcb975a61074cb4ddd6732942b0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ExitButtonScript, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7710845674390186293, guid: bf1dbcb975a61074cb4ddd6732942b0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf1dbcb975a61074cb4ddd6732942b0b, type: 3}

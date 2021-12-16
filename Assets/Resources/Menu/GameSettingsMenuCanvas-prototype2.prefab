@@ -1213,7 +1213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42cf2773dd0b1a04c9a20ff679706a65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollbar: {fileID: 486402592847166364}
+  scrollbar: {fileID: 0}
+  puzzlePreviewSphere: {fileID: 0}
 --- !u!1 &486402592402533609
 GameObject:
   m_ObjectHideFlags: 0
@@ -2269,6 +2270,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   contentButtons: {fileID: 486402592334710936}
   buttonCopy: {fileID: 486402593166688399}
+  newTexture: {fileID: 0}
 --- !u!1 &486402592847166364
 GameObject:
   m_ObjectHideFlags: 0
@@ -4245,7 +4247,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &486402593775798554
 MonoBehaviour:
   m_ObjectHideFlags: 0
