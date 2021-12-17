@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PhotonView))]
+
 public class PuzzlePiecesMovementManagerMultiplayer : PuzzlePiecesMovementManager
 {
     public PhotonView pv;
@@ -12,7 +12,7 @@ public class PuzzlePiecesMovementManagerMultiplayer : PuzzlePiecesMovementManage
     public int[] orderToBreakPieces;
     public int[] piecesLandingPlaces;
 
-    public float timeExtraToEnablePhotonTransforms = 3f;
+    public float timeExtraToEnablePhotonTransforms = 1f;
     public float timeUntilStartAnimationFinishes;
 
     public int piecesBroken = 0;
@@ -26,6 +26,12 @@ public class PuzzlePiecesMovementManagerMultiplayer : PuzzlePiecesMovementManage
         pv = GetComponent<PhotonView>();
 
         base.Awake();
+
+        for (int i = 0; i < puzzlePieces.Count; i++)
+        {
+            puzzlePieces[i].GetComponent<PhotonView>().Synchronization = ViewSynchronization.Off;
+            puzzlePieces[i].GetComponent<PhotonView>().OwnershipTransfer = OwnershipOption.Takeover;
+        }
 
         if (PhotonNetwork.IsMasterClient)
         {
@@ -117,7 +123,11 @@ public class PuzzlePiecesMovementManagerMultiplayer : PuzzlePiecesMovementManage
     [PunRPC]
     public void EnablePhotonTransforms()
     {
-        pv.Synchronization = ViewSynchronization.UnreliableOnChange;
+        //pv.Synchronization = ViewSynchronization.UnreliableOnChange;
+        for (int i = 0; i < puzzlePieces.Count; i++)
+        {
+            puzzlePieces[i].GetComponent<PhotonView>().Synchronization = ViewSynchronization.UnreliableOnChange;
+        }
     }
 
     [PunRPC]

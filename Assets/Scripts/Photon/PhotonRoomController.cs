@@ -57,7 +57,7 @@ public class PhotonRoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
         currentLevelName = scene.name;
         if (currentLevelName != "MultiplayerLobby")
         {
-            GameController gameController = GameObject.Find("GameController").GetComponent<GameController>();
+            GameControllerMultiplayer gameController = GameObject.Find("GameController").GetComponent<GameControllerMultiplayer>();
 
             Transform handsParentTransform = myRig.transform.GetChild(1).GetChild(0);
             XRRayInteractor leftHandInteractor = handsParentTransform.GetChild(1).GetComponent<XRRayInteractor>();
