@@ -285,7 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b712157b9087d44f921f65ab626291d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pv: {fileID: 0}
+  pv: {fileID: 1215018506}
   gameSettingsMenu: {fileID: 1749261857}
   helpMenu: {fileID: 7710845673266689872}
   difficultyOptions: {fileID: 823876776}
@@ -816,6 +816,10 @@ PrefabInstance:
     - target: {fileID: 7152820737908162470, guid: 13b25e77c7752b442a902ed77e0e12ef, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -150
+      objectReference: {fileID: 0}
+    - target: {fileID: 8153029917764855627, guid: 13b25e77c7752b442a902ed77e0e12ef, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13b25e77c7752b442a902ed77e0e12ef, type: 3}
