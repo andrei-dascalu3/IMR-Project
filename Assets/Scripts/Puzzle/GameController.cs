@@ -41,14 +41,6 @@ public class GameController : MonoBehaviour
         {
             instance = this;
         }
-        //else
-        //{
-        //    if (instance != this)
-        //    {
-        //        GameController.instance = this;
-        //        GameObject.Destroy(instance.gameObject);
-        //    }
-        //}
 
         puzzlePiecesTransforms = new List<Transform>(PuzzleSetupManager.instance.puzzle.GetComponentsInChildren<Transform>());
         puzzlePiecesTransforms.RemoveAt(0);
@@ -70,8 +62,8 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < puzzlePiecesTransforms.Count; i++)
         {
             PieceTranformData ogTransform = new PieceTranformData();
-            ogTransform.position = puzzlePiecesTransforms[i].transform.localPosition;
-            ogTransform.rotation = puzzlePiecesTransforms[i].transform.localRotation;
+            ogTransform.position = puzzlePiecesTransforms[i].transform.position;
+            ogTransform.rotation = puzzlePiecesTransforms[i].transform.rotation;
             piecesOriginalTransforms.Add(ogTransform);
         }
     }
@@ -153,7 +145,7 @@ public class GameController : MonoBehaviour
         int indexPieceToPlace = puzzlePiecesTransforms.IndexOf(pieceToPlace);
         int indexPieceWherePlaced = backgroundPiecesTransforms.IndexOf(backgroundPieceWherePlaced);
 
-        isCorrect = indexPieceToPlace == indexPieceWherePlaced;
+        isCorrect = (indexPieceToPlace == indexPieceWherePlaced);
 
         PieceTranformData placeToPutPiece = piecesOriginalTransforms[indexPieceWherePlaced];
 

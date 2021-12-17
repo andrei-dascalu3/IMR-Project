@@ -49,7 +49,9 @@ public class GameControllerMultiplayer : GameController
     {
         pv.RPC("SyncCorrectPiecesPlaced", RpcTarget.Others, indexPieceToPlace);
 
+        //piecesPlacedCorrectly++;
         piecesPlacedCorrectly = puzzlePiecesTransforms.Count;
+
         puzzlePiecesTransforms[indexPieceToPlace].gameObject.GetComponent<PhotonView>().Synchronization = ViewSynchronization.Off;
     }
 
@@ -62,11 +64,12 @@ public class GameControllerMultiplayer : GameController
 
         Transform pieceToPlace = puzzlePiecesTransforms[indexPieceToPlace];
 
-        Debug.Log(indexPieceToPlace);
+        //Debug.Log(indexPieceToPlace);
 
         //puzzleMovementManager.PlacePiece(pieceToPlace, placeToPutPiece, true);
-        puzzlePiecesTransforms[indexPieceToPlace].localPosition = placeToPutPiece.position;
-        puzzlePiecesTransforms[indexPieceToPlace].localRotation = placeToPutPiece.rotation;
+        pieceToPlace.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        pieceToPlace.position = placeToPutPiece.position;
+        pieceToPlace.rotation = placeToPutPiece.rotation;
 
         //piecesPlacedCorrectly++;
         piecesPlacedCorrectly = puzzlePiecesTransforms.Count;

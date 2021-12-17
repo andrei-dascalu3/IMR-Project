@@ -46,7 +46,7 @@ public class PuzzlePiece : MonoBehaviour
         ownRigidBody.useGravity = false;
         ownRigidBody.constraints = RigidbodyConstraints.FreezePosition;
         transform.DOMove(destination.position, durationForPieceBreak);
-        Debug.Log(destination.position);
+        //Debug.Log(destination.position);
         transform.DOScale(1, durationForPieceBreak);
 
         yield return new WaitForSeconds(durationForPieceBreak);

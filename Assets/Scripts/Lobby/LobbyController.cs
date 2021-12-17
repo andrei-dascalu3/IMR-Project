@@ -4,6 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum GameModes
+{
+    SINGLE_PLAYER,
+    MULTI_PLAYER_CREATE,
+    MULTI_PLAYER_JOIN
+}
+
 public class LobbyController : MonoBehaviour
 {
     public static LobbyController instance;
@@ -16,7 +23,7 @@ public class LobbyController : MonoBehaviour
     public SwitchVolumeOptions volumeOptions;
     public SwipeMapMenu swipeMap;
 
-    public string gameMode;
+    public GameModes gameMode;
 
     private void Awake()
     {
@@ -51,7 +58,7 @@ public class LobbyController : MonoBehaviour
     {
         GameObject photonMonoGO = GameObject.Find("PhotonMono");
         photonMonoGO.GetComponent<PhotonHandler>().ApplyDontDestroyOnLoad = false;
-        gameMode = "SP";
+        gameMode = GameModes.SINGLE_PLAYER;
     }
 
     public void OnCreateRoomButtonPress()
@@ -63,7 +70,7 @@ public class LobbyController : MonoBehaviour
 
         GameObject photonMonoGO = GameObject.Find("PhotonMono");
         photonMonoGO.GetComponent<PhotonHandler>().ApplyDontDestroyOnLoad = true;
-        gameMode = "MPC";
+        gameMode = GameModes.MULTI_PLAYER_CREATE;
     }
 
     public void OnJoinRoomButtonPress()
@@ -74,32 +81,22 @@ public class LobbyController : MonoBehaviour
         }
         GameObject photonMonoGO = GameObject.Find("PhotonMono");
         photonMonoGO.GetComponent<PhotonHandler>().ApplyDontDestroyOnLoad = true;
-        gameMode = "MPJ";
+        gameMode = GameModes.MULTI_PLAYER_JOIN;
     }
 
     public void OnRoomSettingsCreateButtonPress()
     {
         PhotonLobbyController photonLobby = photonControllers[0].GetComponent<PhotonLobbyController>();
-        if (gameMode == "MPJ")
+        if (gameMode == GameModes.MULTI_PLAYER_JOIN)
         {
             photonLobby.ConnectToRoom();
         }
         else
         {
-            if (gameMode == "MPC")
+            if (gameMode == GameModes.MULTI_PLAYER_CREATE)
             {
                 photonLobby.CreateRoom();
             }
         }
     }
-
-    //public void OnHelpButtonPress()
-    //{
-
-    //}
-
-    //public void OnExitButtonPress()
-    //{
-
-    //}
 }

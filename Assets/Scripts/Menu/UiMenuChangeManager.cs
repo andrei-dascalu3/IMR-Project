@@ -33,7 +33,7 @@ public class UiMenuChangeManager : MonoBehaviour
     }
 
     public void OnCreateRoomButtonPress()
-    {//if connected to master server???
+    {
         mainMenu.SetActive(false);
         multiplayerRoomSettingsMenu.SetActive(true);
         roomSettingsOnlyForCreate.SetActive(true);
@@ -42,7 +42,6 @@ public class UiMenuChangeManager : MonoBehaviour
 
     public void OnJoinRoomButtonPress()
     {
-        //if connected to master server???
         mainMenu.SetActive(false);
         multiplayerRoomSettingsMenu.SetActive(true);
         roomSettingsOnlyForCreate.SetActive(false);
@@ -51,12 +50,11 @@ public class UiMenuChangeManager : MonoBehaviour
 
     public void OnRoomSettingsCreateButtonPress()
     {
-        string gameMode = LobbyController.instance.gameMode;
-        if (gameMode == "MPC")
+        GameModes gameMode = LobbyController.instance.gameMode;
+        if (gameMode == GameModes.MULTI_PLAYER_CREATE)
         {
             settingsMenu.SetActive(true);
             multiplayerRoomSettingsMenu.SetActive(false);
         }
-
     }
 }
