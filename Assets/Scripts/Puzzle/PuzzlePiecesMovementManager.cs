@@ -17,6 +17,7 @@ public class PuzzlePiecesMovementManager : MonoBehaviour
 
     public virtual void Awake()
     {
+
         //if (instance == null)
         //{
         //    instance = this;
@@ -39,10 +40,11 @@ public class PuzzlePiecesMovementManager : MonoBehaviour
 
     private void CreatePiecesAndLandingsLists()
     {
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            puzzlePieces.Add(transform.GetChild(i).GetComponent<PuzzlePiece>());
-        }
+        puzzlePieces = new List<PuzzlePiece>(transform.GetComponentsInChildren<PuzzlePiece>());
+        //for (int i = 0; i < transform.childCount; i++)
+        //{
+        //    puzzlePieces.Add(transform.GetChild(i).GetComponent<PuzzlePiece>());
+        //}
 
         for (int i = 0; i < placesForPiecesOnPlatformParent.childCount; i++)
         {
@@ -89,7 +91,8 @@ public class PuzzlePiecesMovementManager : MonoBehaviour
     public void PlacePiece(Transform pieceToPlace, PieceTranformData destinationTransform, bool placedCorrectly)
     {
         PuzzlePiece puzzlePiece = pieceToPlace.gameObject.GetComponent<PuzzlePiece>();
-        int indexPlaceToLand = GetIndexOfPlaceToLand();
+        //int indexPlaceToLand = GetIndexOfPlaceToLand();
+        int indexPlaceToLand = Random.Range(0, placesForPiecesOnPlatform.Count);
         Vector3 placeToLandIfFail = placesForPiecesOnPlatform[indexPlaceToLand].position;
         StartCoroutine(puzzlePiece.PlaceOnPuzzle(destinationTransform, placedCorrectly, placeToLandIfFail));
     }

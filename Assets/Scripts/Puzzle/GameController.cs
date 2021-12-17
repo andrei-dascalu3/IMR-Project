@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using TMPro;
 
+[System.Serializable]
 public struct PieceTranformData
 {
     public Vector3 position;
@@ -15,14 +16,14 @@ public class GameController : MonoBehaviour
 {
     public static GameController instance;
 
-    private List<PieceTranformData> piecesOriginalTransforms;
+    public List<PieceTranformData> piecesOriginalTransforms;
 
     public PuzzlePiecesMovementManager puzzleMovementManager;
 
     [SerializeField]
-    private Transform currentlyHoverdBackroundPiece;
+    protected Transform currentlyHoverdBackroundPiece;
     [SerializeField]
-    private Transform currentlyHeldPiece;
+    protected Transform currentlyHeldPiece;
 
     public List<Transform> puzzlePiecesTransforms;
     public List<Transform> backgroundPiecesTransforms;
@@ -30,10 +31,11 @@ public class GameController : MonoBehaviour
     public XRRayInteractor leftHand;
     public XRRayInteractor rightHand;
 
-    private int piecesPlacedCorrectly = 0;
+    protected int piecesPlacedCorrectly = 0;
 
     public GameObject winMessage;
-    private void Awake()
+
+    public virtual void Awake()
     {
         if (instance == null)
         {
@@ -49,12 +51,15 @@ public class GameController : MonoBehaviour
         //}
 
         puzzlePiecesTransforms = new List<Transform>(PuzzleSetupManager.instance.puzzle.GetComponentsInChildren<Transform>());
+        puzzlePiecesTransforms.RemoveAt(0);
+
         backgroundPiecesTransforms = new List<Transform>(PuzzleSetupManager.instance.backgroundPuzzle.GetComponentsInChildren<Transform>());
+        backgroundPiecesTransforms.RemoveAt(0);
 
         SavePiecesOriginalLocations();
     }
 
-    private void Start()
+    public virtual void Start()
     {
         SubscribeMethodsToXrEvents();
     }
@@ -65,8 +70,8 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < puzzlePiecesTransforms.Count; i++)
         {
             PieceTranformData ogTransform = new PieceTranformData();
-            ogTransform.position = puzzlePiecesTransforms[i].transform.position;
-            ogTransform.rotation = puzzlePiecesTransforms[i].transform.rotation;
+            ogTransform.position = puzzlePiecesTransforms[i].transform.localPosition;
+            ogTransform.rotation = puzzlePiecesTransforms[i].transform.localRotation;
             piecesOriginalTransforms.Add(ogTransform);
         }
     }
@@ -91,19 +96,19 @@ public class GameController : MonoBehaviour
 
     public void OnHoverExitBackgroundPuzzlePiece(HoverExitEventArgs eventArgs)
     {
-        if (eventArgs.interactable.transform == currentlyHoverdBackroundPiece)
-        {
-            currentlyHoverdBackroundPiece = null;
-        }
+        //if (eventArgs.interactable.transform == currentlyHoverdBackroundPiece)
+        //{
+        //    currentlyHoverdBackroundPiece = null;
+        //}
     }
 
-    public void OnGrabEnter(SelectEnterEventArgs args)
+    public virtual void OnGrabEnter(SelectEnterEventArgs args)
     {
         currentlyHeldPiece = args.interactable.transform;
         currentlyHeldPiece.gameObject.layer = 2;
     }
 
-    public void OnGrabExit(SelectExitEventArgs args)
+    public virtual void OnGrabExit(SelectExitEventArgs args)
     {
 
         currentlyHeldPiece.gameObject.layer = 0;
@@ -141,7 +146,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void TryPlacePiece(Transform pieceToPlace, Transform backgroundPieceWherePlaced)
+    public virtual void TryPlacePiece(Transform pieceToPlace, Transform backgroundPieceWherePlaced)
     {
         bool isCorrect;
 
@@ -151,13 +156,13 @@ public class GameController : MonoBehaviour
         isCorrect = indexPieceToPlace == indexPieceWherePlaced;
 
         PieceTranformData placeToPutPiece = piecesOriginalTransforms[indexPieceWherePlaced];
+
         puzzleMovementManager.PlacePiece(pieceToPlace, placeToPutPiece, isCorrect);
 
         if (isCorrect)
         {
-            /*piecesPlacedCorrectly++;*/
-            // for testing purposes
-            piecesPlacedCorrectly = puzzlePiecesTransforms.Count;
+            OnPieceCorrectPlace(indexPieceToPlace);
+
             if (piecesPlacedCorrectly == puzzlePiecesTransforms.Count)
             {
                 WinAction();
@@ -165,7 +170,14 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void WinAction()
+    public virtual void OnPieceCorrectPlace(int indexPieceToPlace)
+    {
+        /*piecesPlacedCorrectly++;*/
+        // for testing purposes
+        piecesPlacedCorrectly = puzzlePiecesTransforms.Count;
+    }
+
+    public virtual void WinAction()
     {
         winMessage.SetActive(true);
     }
