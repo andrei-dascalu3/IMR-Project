@@ -29,11 +29,13 @@ public class PuzzlePiece : MonoBehaviour
         while (timer < shakeTimePerSegment * shakeSegments)
         {
             transform.DOShakeRotation(shakeTimePerSegment, 3 + shakeStrenthMultiplier * timer * (5 / (shakeTimePerSegment * shakeSegments)), 5, 3, false);
+
             timer += shakeTimePerSegment;
             yield return new WaitForSeconds(shakeTimePerSegment);
         }
 
         ownRigidBody.constraints = RigidbodyConstraints.None;
+        //transform.DOLocalMove(placeToLand, durationForPieceBreak);
         transform.DOMove(placeToLand, durationForPieceBreak);
         transform.DOScale(smallPieceScaleTarget, durationForPieceBreak);
         yield return new WaitForSeconds(durationForPieceBreak);
@@ -45,8 +47,10 @@ public class PuzzlePiece : MonoBehaviour
     {
         ownRigidBody.useGravity = false;
         ownRigidBody.constraints = RigidbodyConstraints.FreezePosition;
+
+        //ownRigidBody.isKinematic = true;
+
         transform.DOMove(destination.position, durationForPieceBreak);
-        //Debug.Log(destination.position);
         transform.DOScale(1, durationForPieceBreak);
 
         yield return new WaitForSeconds(durationForPieceBreak);
@@ -54,10 +58,13 @@ public class PuzzlePiece : MonoBehaviour
         if (placedCorrectly)
         {
             this.placedCorrectly = placedCorrectly;
+
             transform.DORotateQuaternion(destination.rotation, durationForPieceBreak);
             yield return new WaitForSeconds(durationForPieceBreak);
+
             transform.position = destination.position;
             transform.rotation = destination.rotation;
+
             ownRigidBody.constraints = RigidbodyConstraints.FreezeAll;
         }
         else
