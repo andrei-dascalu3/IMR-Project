@@ -97,25 +97,38 @@ public class GameController : MonoBehaviour
     public virtual void OnGrabEnter(SelectEnterEventArgs args)
     {
         currentlyHeldPiece = args.interactable.transform;
-        currentlyHeldPiece.gameObject.layer = 2;
+        SetPieceGrabable(false, puzzlePiecesTransforms.IndexOf(currentlyHeldPiece));
     }
 
     public virtual void OnGrabExit(SelectExitEventArgs args)
     {
-
-        currentlyHeldPiece.gameObject.layer = 0;
         if (currentlyHoverdBackroundPiece == null)
         {
+            SetPieceGrabable(true, puzzlePiecesTransforms.IndexOf(currentlyHeldPiece));
             return;
         }
+
         if (currentlyHeldPiece == null)
         {
+            SetPieceGrabable(true, puzzlePiecesTransforms.IndexOf(currentlyHeldPiece));
             return;
         }
 
         TryPlacePiece(currentlyHeldPiece, currentlyHoverdBackroundPiece);
 
         currentlyHeldPiece = null;
+    }
+
+    public virtual void SetPieceGrabable(bool b, int pieceIndex)
+    {
+        if(b)
+        {
+            puzzlePiecesTransforms[pieceIndex].gameObject.layer = 0;
+        }
+        else
+        {
+            puzzlePiecesTransforms[pieceIndex].gameObject.layer = 2;
+        }
     }
 
     public void OnHoverEnter(HoverEnterEventArgs args)
@@ -153,13 +166,17 @@ public class GameController : MonoBehaviour
 
         if (isCorrect)
         {
-            OnPieceCorrectPlace(indexPieceToPlace);
-
-            if (piecesPlacedCorrectly == puzzlePiecesTransforms.Count)
-            {
-                WinAction();
-            }
+            OnPieceCorrectPlace(indexPieceToPlace);   
         }
+        else
+        {
+            OnPieceIncorrectPlace(indexPieceToPlace);    
+        }
+    }
+
+    public virtual void OnPieceIncorrectPlace(int indexPieceToPlace)
+    {
+        SetPieceGrabable(true, indexPieceToPlace);
     }
 
     public virtual void OnPieceCorrectPlace(int indexPieceToPlace)
@@ -167,6 +184,11 @@ public class GameController : MonoBehaviour
         /*piecesPlacedCorrectly++;*/
         // for testing purposes
         piecesPlacedCorrectly = puzzlePiecesTransforms.Count;
+
+        if (piecesPlacedCorrectly == puzzlePiecesTransforms.Count)
+        {
+            WinAction();
+        }
     }
 
     public virtual void WinAction()

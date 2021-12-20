@@ -12,26 +12,28 @@ public class PuzzlePiecesMovementManagerMultiplayer : PuzzlePiecesMovementManage
     public int[] orderToBreakPieces;
     public int[] piecesLandingPlaces;
 
-    public float timeExtraToEnablePhotonTransforms = 1f;
+    public float timeExtraToEnablePhotonTransforms = 5;
     public float timeUntilStartAnimationFinishes;
 
     public int piecesBroken = 0;
 
-    float[] positions;
-    float[] rotations;
-    float[] scales;
-
     public override void Awake()
     {
         pv = GetComponent<PhotonView>();
+        pv.Synchronization = ViewSynchronization.ReliableDeltaCompressed;
+        pv.observableSearch = PhotonView.ObservableSearch.AutoFindAll;
+
+        //for (int i = 0; i < puzzlePieces.Count; i++)
+        //{
+        //    PhotonView piecePv = puzzlePieces[i].GetComponent<PhotonView>();
+        //    piecePv.enabled = false;
+        //    piecePv.observableSearch = PhotonView.ObservableSearch.Manual;
+        //    piecePv.ObservedComponents.Clear();
+
+        //    pv.ObservedComponents.Add(piecePv.GetComponent<PhotonTransformView>());
+        //} 
 
         base.Awake();
-
-        for (int i = 0; i < puzzlePieces.Count; i++)
-        {
-            puzzlePieces[i].GetComponent<PhotonView>().Synchronization = ViewSynchronization.Off;
-            puzzlePieces[i].GetComponent<PhotonView>().OwnershipTransfer = OwnershipOption.Takeover;
-        }
 
         if (PhotonNetwork.IsMasterClient)
         {
@@ -45,33 +47,16 @@ public class PuzzlePiecesMovementManagerMultiplayer : PuzzlePiecesMovementManage
 
     public override void Start()
     {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            base.Start();
+        }
 
-        base.Start();
-        //if (PhotonNetwork.IsMasterClient)
-        //{
-        //    positions = new float[puzzlePieces.Count * 3];
-        //    rotations = new float[puzzlePieces.Count * 3];
-        //    scales = new float[puzzlePieces.Count * 3];
-
-
-        //}
-        //else
-        //{
-        //    //Invoke("RemovePiecesConstraints", timeUntilStartAnimationFinishes + timeExtraToEnablePhotonTransforms);
-        //}
-
-
+        Debug.Log(timeExtraToEnablePhotonTransforms);
+        Debug.Log(timeUntilStartAnimationFinishes);
         Invoke("EnablePhotonTransforms", timeExtraToEnablePhotonTransforms + timeUntilStartAnimationFinishes);
         Invoke("DisablePiecesCollision", timeExtraToEnablePhotonTransforms + timeUntilStartAnimationFinishes);
     }
-
-    //public void RemovePiecesConstraints()
-    //{
-    //    for (int i = 0; i < puzzlePieces.Count; i++)
-    //    {
-    //        puzzlePieces[i].ownRigidBody.constraints = RigidbodyConstraints.None;
-    //    }
-    //}
 
     private void InitStartAnimationIndexes()
     {
@@ -123,59 +108,26 @@ public class PuzzlePiecesMovementManagerMultiplayer : PuzzlePiecesMovementManage
     [PunRPC]
     public void EnablePhotonTransforms()
     {
-        //pv.Synchronization = ViewSynchronization.UnreliableOnChange;
+        pv.ObservedComponents.Clear();
+
         for (int i = 0; i < puzzlePieces.Count; i++)
         {
-            puzzlePieces[i].GetComponent<PhotonView>().Synchronization = ViewSynchronization.UnreliableOnChange;
+            PhotonView piecePv = puzzlePieces[i].gameObject.AddComponent<PhotonView>();
+            //PhotonView piecePv = puzzlePieces[i].GetComponent<PhotonView>();
+            //piecePv.enabled = true;
+            piecePv.Synchronization = ViewSynchronization.Off;
+            piecePv.OwnershipTransfer = OwnershipOption.Takeover;
+            piecePv.ViewID = i + 2;
+            piecePv.observableSearch = PhotonView.ObservableSearch.AutoFindAll;
+            //piecePv.ObservedComponents.Add(piecePv.GetComponent<PhotonTransformView>()); 
         }
+
+        Debug.Log("Created pieces PhotonViews");
     }
 
     [PunRPC]
     public void DisablePiecesCollision()
     {
         Physics.IgnoreLayerCollision(6, 6);
-    }
-
-    //[PunRPC]
-    //public void UpdatePuzzlePiecesTransforms(float[] positions, float[] rotations, float[] scales)
-    //{
-    //    //for (int i = 0; i < puzzlePieces.Count; i++)
-    //    //{
-    //    //    //puzzlePieces[i].transform.position = tranformData.position;
-    //    //    //puzzlePieces[i].transform.rotation = tranformData.rotation;
-    //    //    //puzzlePieces[i].transform.localScale = tranformData.scale;
-    //    //}
-    //    for (int i = 0; i < puzzlePieces.Count; i++)
-    //    {
-    //        puzzlePieces[i].transform.position = new Vector3(positions[i], positions[i + puzzlePieces.Count], positions[i + 2 * puzzlePieces.Count]);
-    //        puzzlePieces[i].transform.rotation = new Quaternion(rotations[i], rotations[i + puzzlePieces.Count], rotations[i + 2 * puzzlePieces.Count], 0);
-    //        puzzlePieces[i].transform.localScale = new Vector3(scales[i], scales[i + puzzlePieces.Count], scales[i + 2 * puzzlePieces.Count]);
-    //    }
-    //}
-
-    private void Update()
-    {
-        //if (PhotonNetwork.IsMasterClient)
-        //{
-        //    for (int i = 0; i < puzzlePieces.Count; i++)
-        //    {
-        //        //piecesTranformDatas[i].position = puzzlePieces[i].transform.position;
-        //        //piecesTranformDatas[i].rotation = puzzlePieces[i].transform.rotation;
-        //        //piecesTranformDatas[i].scale = puzzlePieces[i].transform.localScale;
-        //        positions[i] = puzzlePieces[i].transform.position.x;
-        //        positions[i + puzzlePieces.Count] = puzzlePieces[i].transform.position.y;
-        //        positions[i + 2 * puzzlePieces.Count] = puzzlePieces[i].transform.position.z;
-
-        //        rotations[i] = puzzlePieces[i].transform.rotation.x;
-        //        rotations[i + puzzlePieces.Count] = puzzlePieces[i].transform.rotation.y;
-        //        rotations[i + 2 * puzzlePieces.Count] = puzzlePieces[i].transform.rotation.z;
-
-        //        scales[i] = puzzlePieces[i].transform.localScale.x;
-        //        scales[i + puzzlePieces.Count] = puzzlePieces[i].transform.localScale.y;
-        //        scales[i + 2 * puzzlePieces.Count] = puzzlePieces[i].transform.localScale.z;
-        //    }
-
-        //    pv.RPC("UpdatePuzzlePiecesTransforms", RpcTarget.Others, positions, rotations, scales);
-        //}
     }
 }
