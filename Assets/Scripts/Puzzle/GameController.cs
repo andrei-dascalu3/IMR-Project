@@ -1,71 +1,25 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-using TMPro;
-
-[System.Serializable]
-public struct PieceTranformData
-{
-    public Vector3 position;
-    public Quaternion rotation;
-}
 
 public class GameController : MonoBehaviour
 {
-    public static GameController instance;
-
-    public List<PieceTranformData> piecesOriginalTransforms;
-
-    public PuzzlePiecesMovementManager puzzleMovementManager;
+    public PuzzlePiecesManager puzzleManager;
 
     [SerializeField]
     protected Transform currentlyHoverdBackroundPiece;
     [SerializeField]
     protected Transform currentlyHeldPiece;
 
-    public List<Transform> puzzlePiecesTransforms;
-    public List<Transform> backgroundPiecesTransforms;
-
     public XRRayInteractor leftHand;
     public XRRayInteractor rightHand;
 
-    protected int piecesPlacedCorrectly = 0;
-
     public GameObject winMessage;
 
-    public virtual void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-
-        puzzlePiecesTransforms = new List<Transform>(PuzzleSetupManager.instance.puzzle.GetComponentsInChildren<Transform>());
-        puzzlePiecesTransforms.RemoveAt(0);
-
-        backgroundPiecesTransforms = new List<Transform>(PuzzleSetupManager.instance.backgroundPuzzle.GetComponentsInChildren<Transform>());
-        backgroundPiecesTransforms.RemoveAt(0);
-
-        SavePiecesOriginalLocations();
-    }
+    protected int piecesPlacedCorrectly = 0;
 
     public virtual void Start()
     {
         SubscribeMethodsToXrEvents();
-    }
-
-    public void SavePiecesOriginalLocations()
-    {
-        piecesOriginalTransforms = new List<PieceTranformData>();
-        for (int i = 0; i < puzzlePiecesTransforms.Count; i++)
-        {
-            PieceTranformData ogTransform = new PieceTranformData();
-            ogTransform.position = puzzlePiecesTransforms[i].transform.position;
-            ogTransform.rotation = puzzlePiecesTransforms[i].transform.rotation;
-            piecesOriginalTransforms.Add(ogTransform);
-        }
     }
 
     private void SubscribeMethodsToXrEvents()
@@ -97,38 +51,27 @@ public class GameController : MonoBehaviour
     public virtual void OnGrabEnter(SelectEnterEventArgs args)
     {
         currentlyHeldPiece = args.interactable.transform;
-        SetPieceGrabable(false, puzzlePiecesTransforms.IndexOf(currentlyHeldPiece));
+
+        puzzleManager.SetPieceGrabable(false, currentlyHeldPiece);
     }
 
     public virtual void OnGrabExit(SelectExitEventArgs args)
     {
         if (currentlyHoverdBackroundPiece == null)
         {
-            SetPieceGrabable(true, puzzlePiecesTransforms.IndexOf(currentlyHeldPiece));
+            puzzleManager.SetPieceGrabable(true, currentlyHeldPiece);
             return;
         }
 
         if (currentlyHeldPiece == null)
         {
-            SetPieceGrabable(true, puzzlePiecesTransforms.IndexOf(currentlyHeldPiece));
+            puzzleManager.SetPieceGrabable(true, currentlyHeldPiece);
             return;
         }
 
         TryPlacePiece(currentlyHeldPiece, currentlyHoverdBackroundPiece);
 
         currentlyHeldPiece = null;
-    }
-
-    public virtual void SetPieceGrabable(bool b, int pieceIndex)
-    {
-        if(b)
-        {
-            puzzlePiecesTransforms[pieceIndex].gameObject.layer = 0;
-        }
-        else
-        {
-            puzzlePiecesTransforms[pieceIndex].gameObject.layer = 2;
-        }
     }
 
     public void OnHoverEnter(HoverEnterEventArgs args)
@@ -155,14 +98,12 @@ public class GameController : MonoBehaviour
     {
         bool isCorrect;
 
-        int indexPieceToPlace = puzzlePiecesTransforms.IndexOf(pieceToPlace);
-        int indexPieceWherePlaced = backgroundPiecesTransforms.IndexOf(backgroundPieceWherePlaced);
+        int indexPieceToPlace = puzzleManager.puzzlePiecesTransforms.IndexOf(pieceToPlace);
+        int indexPieceDestination = puzzleManager.backgroundPiecesTransforms.IndexOf(backgroundPieceWherePlaced);
 
-        isCorrect = (indexPieceToPlace == indexPieceWherePlaced);
+        isCorrect = (indexPieceToPlace == indexPieceDestination);
 
-        PieceTranformData placeToPutPiece = piecesOriginalTransforms[indexPieceWherePlaced];
-
-        puzzleMovementManager.PlacePiece(pieceToPlace, placeToPutPiece, isCorrect);
+        puzzleManager.PlacePiece(pieceToPlace, indexPieceDestination, isCorrect);
 
         if (isCorrect)
         {
@@ -176,16 +117,16 @@ public class GameController : MonoBehaviour
 
     public virtual void OnPieceIncorrectPlace(int indexPieceToPlace)
     {
-        SetPieceGrabable(true, indexPieceToPlace);
+        puzzleManager.SetPieceGrabable(true, indexPieceToPlace);
     }
 
     public virtual void OnPieceCorrectPlace(int indexPieceToPlace)
     {
         /*piecesPlacedCorrectly++;*/
         // for testing purposes
-        piecesPlacedCorrectly = puzzlePiecesTransforms.Count;
+        piecesPlacedCorrectly = puzzleManager.puzzlePiecesTransforms.Count;
 
-        if (piecesPlacedCorrectly == puzzlePiecesTransforms.Count)
+        if (piecesPlacedCorrectly == puzzleManager.puzzlePiecesTransforms.Count)
         {
             WinAction();
         }

@@ -35,7 +35,6 @@ public class NetworkAvatar : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (pv.IsMine)

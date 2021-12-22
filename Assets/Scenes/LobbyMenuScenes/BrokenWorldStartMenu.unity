@@ -9392,6 +9392,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 677446746}
+  - component: {fileID: 677446747}
   m_Layer: 2
   m_Name: XrRigObject
   m_TagString: Untagged
@@ -9415,6 +9416,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &677446747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677446745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 649fddc945b3c5b48b2be19b6512f4f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerObject: {fileID: 2664416539618363501}
+  bodyParts:
+  - {fileID: 5637961426130045678}
+  - {fileID: 1920352056481293756}
+  - {fileID: 1016247807}
+  - {fileID: 5711783695618720367}
+  - {fileID: 2209274315043988671}
+  - {fileID: 1941846750}
+  - {fileID: 8117928222415870540}
 --- !u!1 &686643115
 GameObject:
   m_ObjectHideFlags: 0
@@ -14872,7 +14894,7 @@ MonoBehaviour:
   timerOptions: {fileID: 64752581}
   volumeOptions: {fileID: 878128871}
   swipeMap: {fileID: 1129982111}
-  gameMode: 
+  gameMode: 0
 --- !u!1 &1006213121
 GameObject:
   m_ObjectHideFlags: 0
@@ -68897,7 +68919,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2664416539618363501}
-  - component: {fileID: 3436871130547262168}
   m_Layer: 2
   m_Name: CharacterModelFull-prot1-noArms
   m_TagString: Untagged
@@ -68905,27 +68926,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &3436871130547262168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3436871130547262167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 649fddc945b3c5b48b2be19b6512f4f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerObject: {fileID: 2664416539618363501}
-  bodyParts:
-  - {fileID: 5637961426130045678}
-  - {fileID: 1920352056481293756}
-  - {fileID: 1016247807}
-  - {fileID: 5711783695618720367}
-  - {fileID: 2209274315043988671}
-  - {fileID: 1941846750}
-  - {fileID: 8117928222415870540}
 --- !u!4 &3442821308907807724
 Transform:
   m_ObjectHideFlags: 0
