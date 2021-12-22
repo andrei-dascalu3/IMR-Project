@@ -25,8 +25,9 @@ public class GameControllerMultiplayer : GameController
         PhotonView piecePv = args.interactable.gameObject.GetComponent<PhotonView>();
         piecePv.TransferOwnership(PhotonNetwork.LocalPlayer);
 
-        pv.RPC("SetSyncPiece", RpcTarget.All, true, puzzlePiecesTransforms.IndexOf(piecePv.transform));
+        //pv.RPC("SetSyncPiece", RpcTarget.All, true, puzzlePiecesTransforms.IndexOf(piecePv.transform));
 
+        pv.RPC("SetPieceGrabable", RpcTarget.Others, false, puzzlePiecesTransforms.IndexOf(piecePv.transform));
         base.OnGrabEnter(args);
     }
 
@@ -49,6 +50,7 @@ public class GameControllerMultiplayer : GameController
         PhotonView piecePv = args.interactable.gameObject.GetComponent<PhotonView>();
         if (piecePv.AmOwner)
         {
+            pv.RPC("SetPieceGrabable", RpcTarget.Others, true, puzzlePiecesTransforms.IndexOf(piecePv.transform));
             base.OnGrabExit(args);
         }
     }
@@ -63,8 +65,6 @@ public class GameControllerMultiplayer : GameController
         PhotonView piecePv = pieceToPlace.GetComponent<PhotonView>();
         if (piecePv.AmOwner)
         {
-            //pv.RPC("SetSyncPiece", RpcTarget.All, false, puzzlePiecesTransforms.IndexOf(piecePv.transform));
-
             pv.RPC("SetPieceGrabable", RpcTarget.Others, false, puzzlePiecesTransforms.IndexOf(piecePv.transform));
 
             base.TryPlacePiece(pieceToPlace, backgroundPieceWherePlaced);
@@ -79,8 +79,8 @@ public class GameControllerMultiplayer : GameController
 
     public override void OnPieceCorrectPlace(int indexPieceToPlace)
     {
-        pv.RPC("SetSyncPiece", RpcTarget.All, false, 
-            puzzlePiecesTransforms.IndexOf(puzzlePiecesTransforms[indexPieceToPlace].transform));
+        //pv.RPC("SetSyncPiece", RpcTarget.All, false, 
+        //    puzzlePiecesTransforms.IndexOf(puzzlePiecesTransforms[indexPieceToPlace].transform));
 
         pv.RPC("SyncCorrectPiecesPlaced", RpcTarget.Others, indexPieceToPlace);
 

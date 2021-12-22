@@ -21,17 +21,7 @@ public class PuzzlePiecesMovementManagerMultiplayer : PuzzlePiecesMovementManage
     {
         pv = GetComponent<PhotonView>();
         pv.Synchronization = ViewSynchronization.ReliableDeltaCompressed;
-        pv.observableSearch = PhotonView.ObservableSearch.AutoFindAll;
-
-        //for (int i = 0; i < puzzlePieces.Count; i++)
-        //{
-        //    PhotonView piecePv = puzzlePieces[i].GetComponent<PhotonView>();
-        //    piecePv.enabled = false;
-        //    piecePv.observableSearch = PhotonView.ObservableSearch.Manual;
-        //    piecePv.ObservedComponents.Clear();
-
-        //    pv.ObservedComponents.Add(piecePv.GetComponent<PhotonTransformView>());
-        //} 
+        pv.observableSearch = PhotonView.ObservableSearch.Manual;
 
         base.Awake();
 
@@ -47,13 +37,20 @@ public class PuzzlePiecesMovementManagerMultiplayer : PuzzlePiecesMovementManage
 
     public override void Start()
     {
+        for (int i = 0; i < puzzlePieces.Count; i++)
+        {
+            PhotonView piecePv = puzzlePieces[i].gameObject.GetComponent<PhotonView>();
+            piecePv.observableSearch = PhotonView.ObservableSearch.Manual;
+            piecePv.ObservedComponents.Clear();
+
+            pv.ObservedComponents.Add(piecePv.GetComponent<PhotonTransformView>());
+        }
+
         if (PhotonNetwork.IsMasterClient)
         {
             base.Start();
         }
 
-        Debug.Log(timeExtraToEnablePhotonTransforms);
-        Debug.Log(timeUntilStartAnimationFinishes);
         Invoke("EnablePhotonTransforms", timeExtraToEnablePhotonTransforms + timeUntilStartAnimationFinishes);
         Invoke("DisablePiecesCollision", timeExtraToEnablePhotonTransforms + timeUntilStartAnimationFinishes);
     }
@@ -112,17 +109,19 @@ public class PuzzlePiecesMovementManagerMultiplayer : PuzzlePiecesMovementManage
 
         for (int i = 0; i < puzzlePieces.Count; i++)
         {
-            PhotonView piecePv = puzzlePieces[i].gameObject.AddComponent<PhotonView>();
-            //PhotonView piecePv = puzzlePieces[i].GetComponent<PhotonView>();
-            //piecePv.enabled = true;
-            piecePv.Synchronization = ViewSynchronization.Off;
+            //PhotonView piecePv = puzzlePieces[i].gameObject.AddComponent<PhotonView>();
+            PhotonView piecePv = puzzlePieces[i].gameObject.GetComponent<PhotonView>();
+            piecePv.ObservedComponents.Add(piecePv.GetComponent<PhotonTransformView>());
+            //piecePv.Synchronization = ViewSynchronization.Off;
+            piecePv.Synchronization = ViewSynchronization.ReliableDeltaCompressed;
             piecePv.OwnershipTransfer = OwnershipOption.Takeover;
-            piecePv.ViewID = i + 2;
-            piecePv.observableSearch = PhotonView.ObservableSearch.AutoFindAll;
-            //piecePv.ObservedComponents.Add(piecePv.GetComponent<PhotonTransformView>()); 
+            //piecePv.ViewID = i + 2;
+            //piecePv.observableSearch = PhotonView.ObservableSearch.AutoFindAll;
+            //if (!PhotonNetwork.IsMasterClient)
+              //  piecePv.TransferOwnership(PhotonNetwork.MasterClient);
         }
 
-        Debug.Log("Created pieces PhotonViews");
+        Debug.Log("Enables pieces PhotonView s");
     }
 
     [PunRPC]
