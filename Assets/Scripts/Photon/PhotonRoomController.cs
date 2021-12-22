@@ -79,10 +79,50 @@ public class PhotonRoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
 
     public override void OnJoinedRoom()
     {
+        string name;
+
+        foreach(Player player in PhotonNetwork.CurrentRoom.Players.Values)
+        {
+            name = player.NickName;
+
+            if (name == PhotonNetwork.NickName && !player.IsLocal)
+            {
+                //OTHER PLAYER WITH SAME NAME
+                //Debug.Log("Exiting room, because nickname already exists.");
+                //PhotonLobbyController.photonLobby.OnJoinFailUniqueNickname(name);
+                //PhotonNetwork.LeaveRoom();
+            }
+        }
+
         base.OnJoinedRoom();
         Debug.Log("We have joined room");
 
         StartGameLobby();
+    }
+
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        base.OnJoinRoomFailed(returnCode, message);
+        Debug.Log("Failed to join room");
+        Debug.Log(message);
+
+        PhotonLobbyController.photonLobby.AddErrorMessage(message);
+    }
+
+    public override void OnCreateRoomFailed(short returnCode, string message)
+    {
+        base.OnCreateRoomFailed(returnCode, message);
+        Debug.Log(message + " error code: " + returnCode);
+
+        if (returnCode == 32766)
+        {
+            PhotonLobbyController.photonLobby.AddErrorMessage("A room with this name already exists");
+        }
+        else
+        {
+            PhotonLobbyController.photonLobby.AddErrorMessage(message);
+        }
+       
     }
 
     public void StartGameLobby()

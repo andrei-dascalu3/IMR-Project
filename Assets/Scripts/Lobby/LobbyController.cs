@@ -1,6 +1,4 @@
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -84,7 +82,7 @@ public class LobbyController : MonoBehaviour
         gameMode = GameModes.MULTI_PLAYER_JOIN;
     }
 
-    public void OnRoomSettingsCreateButtonPress()
+    public void OnRoomSettingsCreateJoinButtonPress()
     {
         PhotonLobbyController photonLobby = photonControllers[0].GetComponent<PhotonLobbyController>();
         if (gameMode == GameModes.MULTI_PLAYER_JOIN)

@@ -23,17 +23,21 @@ public class GameControllerMultiplayer : GameController
     public override void OnGrabEnter(SelectEnterEventArgs args)
     {
         PhotonView piecePv = args.interactable.gameObject.GetComponent<PhotonView>();
-        piecePv.TransferOwnership(PhotonNetwork.LocalPlayer);
 
-        puzzleManagerMultiplayer.pv.RPC("SetPieceGrabable", RpcTarget.Others, false, puzzleManagerMultiplayer.puzzlePiecesTransforms.IndexOf(piecePv.transform));
+        if (piecePv != null)
+        {
+            piecePv.TransferOwnership(PhotonNetwork.LocalPlayer);
 
-        base.OnGrabEnter(args);
+            puzzleManagerMultiplayer.pv.RPC("SetPieceGrabable", RpcTarget.Others, false, puzzleManagerMultiplayer.puzzlePiecesTransforms.IndexOf(piecePv.transform));
+
+            base.OnGrabEnter(args);
+        }   
     }
 
     public override void OnGrabExit(SelectExitEventArgs args)
     {
         PhotonView piecePv = args.interactable.gameObject.GetComponent<PhotonView>();
-        if (piecePv.AmOwner)
+        if (piecePv != null && piecePv.AmOwner)
         {
             puzzleManagerMultiplayer.pv.RPC("SetPieceGrabable", RpcTarget.Others, true, puzzleManagerMultiplayer.puzzlePiecesTransforms.IndexOf(piecePv.transform));
             base.OnGrabExit(args);

@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
-using System;
 
 public class PhotonLobbyController : MonoBehaviourPunCallbacks
 {
@@ -13,6 +10,8 @@ public class PhotonLobbyController : MonoBehaviourPunCallbacks
     public TMP_InputField roomNameField;
     public TMP_InputField ownNameField;
     public TMP_InputField numberOfPlayersField;
+
+    public TMP_Text multiplayerSettingsMenuErrorTextArea;
 
     public GameObject xrRigObject;
 
@@ -55,13 +54,6 @@ public class PhotonLobbyController : MonoBehaviourPunCallbacks
         Debug.Log("Starting to create room " + roomName);
     }
 
-    public override void OnCreateRoomFailed(short returnCode, string message)
-    {
-        base.OnCreateRoomFailed(returnCode, message);
-        Debug.Log(message);
-        //EXISTA DEJA O CAMERA CU NUMELE ASTA??? TODO
-    }
-
     public void ConnectToRoom()
     {
         PhotonNetwork.NickName = GetOwnName();
@@ -70,15 +62,6 @@ public class PhotonLobbyController : MonoBehaviourPunCallbacks
         string roomName = GetRoomName();
         PhotonNetwork.JoinRoom(roomName);
         Debug.Log("Starting to connect to room " + roomName);
-    }
-
-    public override void OnJoinRoomFailed(short returnCode, string message)
-    {
-        base.OnJoinRoomFailed(returnCode, message);
-        Debug.Log("Failed to join room");
-        Debug.Log(message);
-        //TODO: verifica de ce nu s-a putut conecta in functie de returnCode
-        //daca room e full, sau daca room nu exista
     }
 
     public void CancelConnectingToRoom()
@@ -96,5 +79,16 @@ public class PhotonLobbyController : MonoBehaviourPunCallbacks
     private string GetOwnName()
     {
         return ownNameField.text;
+    }
+
+    public void OnJoinFailUniqueNickname(string name)
+    {
+        AddErrorMessage("There exists a player with the nickname " + name + " already.");
+    }
+
+    public void AddErrorMessage(string message)
+    {
+        multiplayerSettingsMenuErrorTextArea.gameObject.SetActive(true);
+        multiplayerSettingsMenuErrorTextArea.text = message;
     }
 }

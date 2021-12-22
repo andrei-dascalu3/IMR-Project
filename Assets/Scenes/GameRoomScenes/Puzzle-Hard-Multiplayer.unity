@@ -64519,11 +64519,11 @@ MonoBehaviour:
   placesForPiecesOnPlatformParent: {fileID: 198580608}
   timeUntilBreakPuzzle: 3
   timeUntilBreakPuzzleFinish: 0
-  timeExtraToDisablePiecesCollision: 5
+  timeExtraToDisablePiecesCollision: 3
   pv: {fileID: 5364022668588070898}
   orderToBreakPieces: 
   piecesLandingPlaces: 
-  timeExtraToEnablePhotonTransforms: 5
+  timeExtraToEnablePhotonTransforms: 3
   piecesBroken: 0
 --- !u!23 &5388325476268718694
 MeshRenderer:

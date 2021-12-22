@@ -19387,6 +19387,7 @@ MonoBehaviour:
   roomNameField: {fileID: 1279355265}
   ownNameField: {fileID: 1053443613}
   numberOfPlayersField: {fileID: 126495558}
+  multiplayerSettingsMenuErrorTextArea: {fileID: 4656984678393655872}
   xrRigObject: {fileID: 677446745}
 --- !u!1 &1300234864
 GameObject:
@@ -80961,6 +80962,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1206589315}
     m_Modifications:
+    - target: {fileID: 14381181887895533, guid: add253ad2db204743a6bd1fde7224416, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2751295200585340381, guid: add253ad2db204743a6bd1fde7224416, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2983196458730152056, guid: add253ad2db204743a6bd1fde7224416, type: 3}
+      propertyPath: m_Name
+      value: Error Message Text Area
+      objectReference: {fileID: 0}
+    - target: {fileID: 2983196458730152056, guid: add253ad2db204743a6bd1fde7224416, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3070655669274988851, guid: add253ad2db204743a6bd1fde7224416, type: 3}
       propertyPath: mainMenu
       value: 
@@ -80969,9 +80986,17 @@ PrefabInstance:
       propertyPath: currentMenu
       value: 
       objectReference: {fileID: 412158975076442912}
+    - target: {fileID: 3511104520494185308, guid: add253ad2db204743a6bd1fde7224416, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3931797789586127331, guid: add253ad2db204743a6bd1fde7224416, type: 3}
       propertyPath: m_RootOrder
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127324854394012524, guid: add253ad2db204743a6bd1fde7224416, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4656984678016438122, guid: add253ad2db204743a6bd1fde7224416, type: 3}
       propertyPath: m_Color.a
@@ -81090,6 +81115,10 @@ PrefabInstance:
       value: -183
       objectReference: {fileID: 0}
     - target: {fileID: 4656984678378364797, guid: add253ad2db204743a6bd1fde7224416, type: 3}
+      propertyPath: m_Colors.m_FadeDuration
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4656984678378364797, guid: add253ad2db204743a6bd1fde7224416, type: 3}
       propertyPath: m_Colors.m_NormalColor.a
       value: 0.40392157
       objectReference: {fileID: 0}
@@ -81116,6 +81145,10 @@ PrefabInstance:
     - target: {fileID: 4656984678378364797, guid: add253ad2db204743a6bd1fde7224416, type: 3}
       propertyPath: m_Colors.m_PressedColor.r
       value: 0.5647059
+      objectReference: {fileID: 0}
+    - target: {fileID: 4656984678378364797, guid: add253ad2db204743a6bd1fde7224416, type: 3}
+      propertyPath: m_Colors.m_ColorMultiplier
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4656984678378364797, guid: add253ad2db204743a6bd1fde7224416, type: 3}
       propertyPath: m_Colors.m_SelectedColor.b
@@ -81355,7 +81388,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4978912470450438668, guid: add253ad2db204743a6bd1fde7224416, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnRoomSettingsCreateButtonPress
+      value: OnRoomSettingsCreateJoinButtonPress
       objectReference: {fileID: 0}
     - target: {fileID: 4978912470450438668, guid: add253ad2db204743a6bd1fde7224416, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -81533,13 +81566,25 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8149668254677668782, guid: add253ad2db204743a6bd1fde7224416, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: add253ad2db204743a6bd1fde7224416, type: 3}
 --- !u!1 &4656984678393655867 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 872884391147629368, guid: add253ad2db204743a6bd1fde7224416, type: 3}
   m_PrefabInstance: {fileID: 4656984678393655866}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4656984678393655872 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3511104520494185308, guid: add253ad2db204743a6bd1fde7224416, type: 3}
+  m_PrefabInstance: {fileID: 4656984678393655866}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &4661525356583221029
 MeshFilter:
   m_ObjectHideFlags: 0
