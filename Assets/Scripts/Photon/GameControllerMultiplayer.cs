@@ -22,6 +22,8 @@ public class GameControllerMultiplayer : GameController
 
     public override void OnGrabEnter(SelectEnterEventArgs args)
     {
+        PlacePieceUnderOriginalParent(args.interactable.gameObject.transform);
+
         PhotonView piecePv = args.interactable.gameObject.GetComponent<PhotonView>();
 
         if (piecePv != null)
@@ -32,6 +34,14 @@ public class GameControllerMultiplayer : GameController
 
             base.OnGrabEnter(args);
         }   
+    }
+
+    public void PlacePieceUnderOriginalParent(Transform piece)
+    {
+        //XRGrabInteractable xRGrabInteractable = piece.GetComponent<XRGrabInteractable>();
+        //piece.SetParent(xRGrabInteractable.m_OriginalSceneParent);
+
+        piece.SetParent(PuzzleSetupManager.instance.puzzle);
     }
 
     public override void OnGrabExit(SelectExitEventArgs args)
