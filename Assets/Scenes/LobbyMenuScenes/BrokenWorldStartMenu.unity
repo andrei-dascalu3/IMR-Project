@@ -9429,14 +9429,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObject: {fileID: 2664416539618363501}
-  bodyParts:
-  - {fileID: 5637961426130045678}
-  - {fileID: 1920352056481293756}
-  - {fileID: 1016247807}
-  - {fileID: 5711783695618720367}
-  - {fileID: 2209274315043988671}
-  - {fileID: 1941846750}
-  - {fileID: 8117928222415870540}
+  headCamera: {fileID: 2084726029}
+  head: {fileID: 783118131}
+  body: {fileID: 1920352056481293756}
+  leftArm: {fileID: 1016247807}
+  leftForeArm: {fileID: 5711783695618720367}
+  rightArm: {fileID: 1941846750}
+  rightForeArm: {fileID: 8117928222415870540}
+  neck: {fileID: 2209274315043988671}
 --- !u!1 &686643115
 GameObject:
   m_ObjectHideFlags: 0
@@ -10557,6 +10557,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 777171609}
   m_Mesh: {fileID: 4772863619395140860, guid: 39e487167b14de644bd7fccd32648638, type: 3}
+--- !u!1 &783118130
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 783118131}
+  m_Layer: 2
+  m_Name: Head
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &783118131
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783118130}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 5637961426130045678}
+  m_Father: {fileID: 2664416539618363501}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &797224619
 GameObject:
   m_ObjectHideFlags: 0
@@ -32035,7 +32066,7 @@ GameObject:
   - component: {fileID: 2084726027}
   - component: {fileID: 2084726026}
   m_Layer: 2
-  m_Name: Main Camera
+  m_Name: Main Camera - Eyes
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59650,7 +59681,7 @@ Transform:
   m_LocalPosition: {x: 0.019000024, y: -1.44, z: -0.35000038}
   m_LocalScale: {x: 5.842746, y: 7.013419, z: 13.663999}
   m_Children:
-  - {fileID: 5637961426130045678}
+  - {fileID: 783118131}
   - {fileID: 1920352056481293756}
   - {fileID: 938171031041182788}
   - {fileID: 5711783695618720367}
@@ -68921,7 +68952,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2664416539618363501}
   m_Layer: 2
-  m_Name: CharacterModelFull-prot1-noArms
+  m_Name: CharacterBodyNoArms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91438,7 +91469,7 @@ Transform:
   m_GameObject: {fileID: 6852004139469265834}
   m_LocalRotation: {x: -0, y: -0, z: -0.07614052, w: 0.99709713}
   m_LocalPosition: {x: 0, y: 0.0012251154, z: 0.1029352}
-  m_LocalScale: {x: 0.7877511, y: 0.6617549, z: 0.33800185}
+  m_LocalScale: {x: 0.78775096, y: 0.6617551, z: 0.33800185}
   m_Children:
   - {fileID: 5905427629549766558}
   - {fileID: 248934616053534335}
@@ -91634,7 +91665,7 @@ Transform:
   - {fileID: 2260213262876506106}
   - {fileID: 4478184148180743108}
   - {fileID: 9169883936461106065}
-  m_Father: {fileID: 2664416539618363501}
+  m_Father: {fileID: 783118131}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &5641420689099548455
@@ -103229,7 +103260,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5637961426130045678}
   m_Layer: 2
-  m_Name: Head
+  m_Name: Head-Rotation-Offset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

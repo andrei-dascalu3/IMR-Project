@@ -74771,14 +74771,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObject: {fileID: 9040770364890553056}
-  bodyParts:
-  - {fileID: 1707071024729217123}
-  - {fileID: 4839357508525815601}
-  - {fileID: 6453284461900228466}
-  - {fileID: 1642398812082671842}
-  - {fileID: 5126863626293589554}
-  - {fileID: 6453284461012379731}
-  - {fileID: 2965058177356892353}
+  headCamera: {fileID: 0}
+  head: {fileID: 0}
+  body: {fileID: 0}
+  leftArm: {fileID: 0}
+  leftForeArm: {fileID: 0}
+  rightArm: {fileID: 0}
+  rightForeArm: {fileID: 0}
+  neck: {fileID: 0}
 --- !u!1 &6453284460997722248
 GameObject:
   m_ObjectHideFlags: 0
