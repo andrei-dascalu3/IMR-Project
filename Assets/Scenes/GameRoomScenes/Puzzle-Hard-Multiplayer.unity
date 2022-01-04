@@ -30370,8 +30370,9 @@ GameObject:
   - component: {fileID: 1919512251}
   - component: {fileID: 1919512250}
   - component: {fileID: 1919512249}
-  m_Layer: 2
-  m_Name: Wall (4)
+  - component: {fileID: 1919512252}
+  m_Layer: 8
+  m_Name: Ceiling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30385,8 +30386,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1919512247}
   m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0.053, y: 6.72, z: 0.139}
-  m_LocalScale: {x: 0.18598, y: -1.7917521, z: 1.986962}
+  m_LocalPosition: {x: -0.027, y: 9.41, z: -0.021}
+  m_LocalScale: {x: 0.18598, y: -2.6483886, z: 1.986962}
   m_Children: []
   m_Father: {fileID: 1431838774}
   m_RootOrder: 4
@@ -30453,6 +30454,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1919512247}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1919512252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919512247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12fac09be72578a4eb6b665d27292d4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  puzzleManager: {fileID: 5364022668588070899}
+  piecesLayer: 6
 --- !u!1 &1927724456
 GameObject:
   m_ObjectHideFlags: 0

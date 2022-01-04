@@ -1,4 +1,5 @@
 using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,38 +10,90 @@ public class NetworkAvatar : MonoBehaviour
 {
     public PhotonView pv;
 
-    public Transform head;
-    public Transform torso;
+    public Transform body;
     public Transform leftHand;
     public Transform rightHand;
 
-    public Transform xrHead;
-    public Transform xrTorso;
+    public Transform xrBody;
     public Transform xrLeftHand;
     public Transform xrRightHand;
+
+    public BrokenWorldPlayer ownXrAvatar;
 
     private void Start()
     {
         if (pv.IsMine)
         {
-            GameObject ownXrRigObject = GameObject.Find(PhotonNetwork.NickName);
-
-            Transform ownCharacterTransform = ownXrRigObject.transform.GetChild(1);
-
-            Transform cameraOffset = ownCharacterTransform.GetChild(0);
-
-            xrHead = cameraOffset.GetChild(0).GetChild(0);
-            xrLeftHand = cameraOffset.GetChild(1).GetChild(0);
-            xrRightHand = cameraOffset.GetChild(2).GetChild(0);
+            SyncAvatarColor();
+            FindOwnBodyParts();
+            DisableOwnRenderers();
         }
+    }
+
+    private void SyncAvatarColor()
+    {
+        ownXrAvatar = GameObject.Find(PhotonNetwork.NickName).GetComponent<BrokenWorldPlayer>();
+        Color color = ownXrAvatar.ownAvatarColor;
+        pv.RPC("ChangeNetworkAvatarColor", RpcTarget.All, color.r, color.g, color.b);
+    }
+
+    private void DisableOwnRenderers()
+    {
+        for(int i = 0; i < body.childCount; i++)
+        {
+            DisableOwnRendererForBodypart(body.GetChild(i));
+        }
+
+        DisableOwnRendererForBodypart(leftHand);
+        DisableOwnRendererForBodypart(rightHand);
+    }
+
+    private void DisableOwnRendererForBodypart(Transform part)
+    {
+        for (int i = 0; i < part.childCount; i++)
+        {
+            part.GetChild(i).GetComponent<Renderer>().enabled = false;
+        }
+    }
+
+    private void FindOwnBodyParts()
+    {
+        GameObject ownXrRigObject = GameObject.Find(PhotonNetwork.NickName);
+
+        //Transform ownCharacterTransform = ownXrRigObject.transform.GetChild(1);
+        Transform ownCharacterTransform = ownXrRigObject.transform.Find("XR Rig - Character");
+        
+        Transform cameraOffset = ownCharacterTransform.Find("Camera Offset");   //.GetChild(0);
+
+        xrBody = cameraOffset.Find("Main Camera - Body").Find("CharacterBodyNoArms");
+        //xrHead = cameraOffset.GetChild(0).GetChild(0);
+        xrLeftHand = cameraOffset.Find("LeftHand Controller").Find("Left-Arm");
+        //xrLeftHand = cameraOffset.GetChild(1).GetChild(0);
+        xrRightHand = cameraOffset.Find("RightHand Controller").Find("Right-Arm");
+        //xrRightHand = cameraOffset.GetChild(2).GetChild(0);
+    }
+
+    [PunRPC]
+    public void ChangeNetworkAvatarColor(float r, float g, float b)
+    {
+        AvatarColorer avatarColorer = new AvatarColorer();
+
+        Color color = new Color(r, g, b);
+
+        for(int i = 0; i < body.childCount; i++)
+        {
+            avatarColorer.ChangeAvatarPartColor(body.GetChild(i), color);
+        }
+        avatarColorer.ChangeAvatarPartColor(leftHand, color);
+        avatarColorer.ChangeAvatarPartColor(rightHand, color);
     }
 
     void Update()
     {
         if (pv.IsMine)
         {
-            head.position = xrHead.position;
-            head.rotation = xrHead.rotation;
+            body.position = xrBody.position;
+            body.rotation = xrBody.rotation;
 
             leftHand.position = xrLeftHand.position;
             leftHand.rotation = xrLeftHand.rotation;

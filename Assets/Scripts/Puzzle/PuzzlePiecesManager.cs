@@ -56,14 +56,17 @@ public class PuzzlePiecesManager : MonoBehaviour
 
     private void CreatePiecesAndLandingsLists()
     {
-        puzzlePiecesTransforms = new List<Transform>(transform.GetComponentsInChildren<Transform>());
+        puzzlePiecesTransforms = new List<Transform>
+            (transform.GetComponentsInChildren<Transform>());
         puzzlePiecesTransforms.RemoveAt(0);
 
-        backgroundPiecesTransforms = new List<Transform>(PuzzleSetupManager.instance.backgroundPuzzle.GetComponentsInChildren<Transform>());
+        backgroundPiecesTransforms = new List<Transform>
+            (PuzzleSetupManager.instance.backgroundPuzzle.GetComponentsInChildren<Transform>());
         backgroundPiecesTransforms.RemoveAt(0);
 
         //puzzlePieces = new List<PuzzlePiece>(transform.GetComponentsInChildren<PuzzlePiece>());
-        placesForPiecesOnPlatform = new List<Transform>(placesForPiecesOnPlatformParent.GetComponentsInChildren<Transform>());
+        placesForPiecesOnPlatform = new List<Transform>
+            (placesForPiecesOnPlatformParent.GetComponentsInChildren<Transform>());
         placesForPiecesOnPlatform.RemoveAt(0);
     }
 

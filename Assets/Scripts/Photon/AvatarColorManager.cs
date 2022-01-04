@@ -1,0 +1,75 @@
+using Photon.Pun;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class AvatarColorManager : MonoBehaviour
+{
+    public BrokenWorldPlayer avatar;
+    public List<Button> colorButtons;
+
+    public Button nextButton;
+
+    public GameObject helpMenu;
+    public GameObject settingsMenu;
+    public GameObject colorMenu;
+
+    public NetworkAvatar networkAvatar;
+
+    private AvatarColorer colorer = new AvatarColorer();
+
+    void Start()
+    {
+        GetAvatarsFromScene();
+
+        SubscribeButtonsFunction();
+    }
+
+    private void GetAvatarsFromScene()
+    {
+        avatar = GameObject.Find(PhotonNetwork.NickName).GetComponent<BrokenWorldPlayer>();
+
+        GameObject[] rootObjects = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
+        for (int i = 0; i < rootObjects.Length; i++) 
+        {
+            if(rootObjects[i].name == "PhotonNetworkCharacter(Clone)")
+            {
+                NetworkAvatar someNetworkAvatar = rootObjects[i].GetComponent<NetworkAvatar>();
+                if (someNetworkAvatar.pv.IsMine)
+                {
+                    networkAvatar = someNetworkAvatar;
+                    break;
+                }
+            }
+        }
+    }
+
+    private void SubscribeButtonsFunction()
+    {
+        for(int i = 0; i < colorButtons.Count; i++)
+        {
+            Color color = colorButtons[i].transform.GetChild(0).GetComponent<Image>().color;
+            colorButtons[i].onClick.AddListener(delegate { colorer.ChangeAvatarColor(avatar, color); });
+            colorButtons[i].onClick.AddListener(delegate { avatar.SetColor(color); });
+            colorButtons[i].onClick.AddListener(delegate { ChangeNetworkAvatarColor(color); });
+        }
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            nextButton.onClick.AddListener(delegate { settingsMenu.SetActive(true); });
+            nextButton.onClick.AddListener(delegate { colorMenu.SetActive(false); });
+        }
+        else
+        {
+            nextButton.onClick.AddListener(delegate { helpMenu.SetActive(true); });
+            nextButton.onClick.AddListener(delegate { colorMenu.SetActive(false); });
+        }
+    }
+
+    private void ChangeNetworkAvatarColor(Color color)
+    {
+        networkAvatar.pv.RPC("ChangeNetworkAvatarColor", RpcTarget.AllBuffered, color.r, color.g, color.b);
+    }
+}

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,11 +18,14 @@ public class BrokenWorldPlayer : MonoBehaviour
     public Transform rightForeArm;
     public Transform neck;
 
-    private Quaternion headStartRotation;
+    public Color ownAvatarColor;
+
+    //private Quaternion headStartRotation;
 
     private void Awake()
     {
-        headStartRotation = head.rotation;
+        ownAvatarColor = leftArm.GetChild(0).GetComponent<Renderer>().material.color; //new Color(125, 125, 125, 1);
+       // headStartRotation = head.rotation;
     }
 
     public void BreakCharacter()
@@ -43,17 +47,22 @@ public class BrokenWorldPlayer : MonoBehaviour
         }
     }
 
+    internal void SetColor(Color color)
+    {
+        ownAvatarColor = color;
+    }
+
     //public void Update()
     //{
-        //head.rotation = headCamera.rotation;
+    //head.rotation = headCamera.rotation;
 
-        //head.rotation = new Quaternion(
-        //    headCamera.rotation.x + headStartRotation.x,
-        //    headCamera.rotation.y + headStartRotation.y,
-        //    headCamera.rotation.z + headStartRotation.y,
-        //    headCamera.rotation.w);
+    //head.rotation = new Quaternion(
+    //    headCamera.rotation.x + headStartRotation.x,
+    //    headCamera.rotation.y + headStartRotation.y,
+    //    headCamera.rotation.z + headStartRotation.y,
+    //    headCamera.rotation.w);
 
-        //head.localRotation = new Quaternion(head.localRotation.x, headCamera.rotation.x, headCamera.rotation.y, head.localRotation.w);
+    //head.localRotation = new Quaternion(head.localRotation.x, headCamera.rotation.x, headCamera.rotation.y, head.localRotation.w);
 
     //    head.rotation = new Quaternion(
     //headCamera.rotation.x + headStartRotation.x,
@@ -61,22 +70,22 @@ public class BrokenWorldPlayer : MonoBehaviour
     //headCamera.rotation.z + headStartRotation.z,
     //headCamera.rotation.w);
 
-        //    body.rotation = new Quaternion(
-        //        body.rotation.x, 
-        //        head.rotation.y, 
-        //        body.rotation.z, 
-        //        body.rotation.w);
+    //    body.rotation = new Quaternion(
+    //        body.rotation.x, 
+    //        head.rotation.y, 
+    //        body.rotation.z, 
+    //        body.rotation.w);
 
-        //    leftForeArm.rotation = new Quaternion(
-        //        leftForeArm.rotation.x, 
-        //        head.rotation.y, 
-        //        leftForeArm.rotation.z, 
-        //        leftForeArm.rotation.w);
+    //    leftForeArm.rotation = new Quaternion(
+    //        leftForeArm.rotation.x, 
+    //        head.rotation.y, 
+    //        leftForeArm.rotation.z, 
+    //        leftForeArm.rotation.w);
 
-        //    rightForeArm.rotation = new Quaternion(
-        //        rightForeArm.rotation.x, 
-        //        head.rotation.y, 
-        //        rightForeArm.rotation.z, 
-        //        rightForeArm.rotation.w);
+    //    rightForeArm.rotation = new Quaternion(
+    //        rightForeArm.rotation.x, 
+    //        head.rotation.y, 
+    //        rightForeArm.rotation.z, 
+    //        rightForeArm.rotation.w);
     //}
-    }
+}

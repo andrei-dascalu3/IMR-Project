@@ -74750,12 +74750,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pv: {fileID: -6888497225775654148}
-  head: {fileID: 9040770364890553056}
-  torso: {fileID: 0}
+  body: {fileID: 9040770364890553056}
   leftHand: {fileID: 6453284461900228466}
   rightHand: {fileID: 6453284461012379731}
-  xrHead: {fileID: 0}
-  xrTorso: {fileID: 0}
+  xrBody: {fileID: 0}
   xrLeftHand: {fileID: 0}
   xrRightHand: {fileID: 0}
 --- !u!114 &5983241205544567335
@@ -74772,13 +74770,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerObject: {fileID: 9040770364890553056}
   headCamera: {fileID: 0}
-  head: {fileID: 0}
-  body: {fileID: 0}
-  leftArm: {fileID: 0}
-  leftForeArm: {fileID: 0}
-  rightArm: {fileID: 0}
-  rightForeArm: {fileID: 0}
-  neck: {fileID: 0}
+  head: {fileID: 1707071024729217123}
+  body: {fileID: 4839357508525815601}
+  leftArm: {fileID: 6453284461900228466}
+  leftForeArm: {fileID: 1642398812082671842}
+  rightArm: {fileID: 6453284461012379731}
+  rightForeArm: {fileID: 2965058177356892353}
+  neck: {fileID: 5126863626293589554}
 --- !u!1 &6453284460997722248
 GameObject:
   m_ObjectHideFlags: 0

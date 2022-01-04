@@ -67,7 +67,6 @@ public class PhotonRoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
             gameController.rightHand = rightHandInteractor;
         }
 
-        //startedLevel = true;
         sceneName = scene.name;
     }
 

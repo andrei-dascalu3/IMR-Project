@@ -9,8 +9,8 @@ public class MultiplayerLobbyController : MonoBehaviourPunCallbacks
 {
     public PhotonView pv;
 
-    public GameObject gameSettingsMenu;
-    public GameObject helpMenu;
+    //public GameObject gameSettingsMenu;
+    //public GameObject helpMenu;
 
     public SwitchDifficultyOptions difficultyOptions;
     public SwitchMusicOptions musicOptions;
@@ -32,16 +32,14 @@ public class MultiplayerLobbyController : MonoBehaviourPunCallbacks
                                             .GetComponent<Renderer>()
                                             .material;
 
-        if (PhotonNetwork.IsMasterClient)
-        {
-            gameSettingsMenu.SetActive(true);
-
-
-        }
-        else
-        {
-            helpMenu.SetActive(true);
-        }
+        //if (PhotonNetwork.IsMasterClient)
+        //{
+        //    gameSettingsMenu.SetActive(true);
+        //}
+        //else
+        //{
+        //    helpMenu.SetActive(true);
+        //}
 
         pv = GetComponent<PhotonView>();
     }
