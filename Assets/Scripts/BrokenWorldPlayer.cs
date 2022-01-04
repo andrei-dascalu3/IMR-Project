@@ -43,15 +43,23 @@ public class BrokenWorldPlayer : MonoBehaviour
         }
     }
 
-    public void Update()
-    {
-        //head.rotation = headCamera.rotation * head.up;
+    //public void Update()
+    //{
+        //head.rotation = headCamera.rotation;
 
-        //    head.rotation = new Quaternion(
-        //        headCamera.rotation.x + headStartRotation.x, 
-        //        headCamera.rotation.y + headStartRotation.y, 
-        //        headCamera.rotation.z + headStartRotation.z, 
-        //        headCamera.rotation.w);
+        //head.rotation = new Quaternion(
+        //    headCamera.rotation.x + headStartRotation.x,
+        //    headCamera.rotation.y + headStartRotation.y,
+        //    headCamera.rotation.z + headStartRotation.y,
+        //    headCamera.rotation.w);
+
+        //head.localRotation = new Quaternion(head.localRotation.x, headCamera.rotation.x, headCamera.rotation.y, head.localRotation.w);
+
+    //    head.rotation = new Quaternion(
+    //headCamera.rotation.x + headStartRotation.x,
+    //headCamera.rotation.y + headStartRotation.y,
+    //headCamera.rotation.z + headStartRotation.z,
+    //headCamera.rotation.w);
 
         //    body.rotation = new Quaternion(
         //        body.rotation.x, 
@@ -70,5 +78,5 @@ public class BrokenWorldPlayer : MonoBehaviour
         //        head.rotation.y, 
         //        rightForeArm.rotation.z, 
         //        rightForeArm.rotation.w);
-        }
+    //}
     }
