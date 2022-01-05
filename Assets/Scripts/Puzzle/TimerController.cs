@@ -15,6 +15,7 @@ public class TimerController : MonoBehaviour
     private bool timerGoing;
 
     private float elapsedTime;
+    private String timeLimit;
 
     private void Awake()
     {
@@ -23,15 +24,30 @@ public class TimerController : MonoBehaviour
 
     private void Start()
     {
-        timeCounter.text = "Time: 00:00.00";
-        timerGoing = false;
-        BeginTimer();
+        Debug.Log(PlayerSettingsData.instance.timerValue);
+        if (PlayerSettingsData.instance.timerValue != 0)
+        {
+           // timeLimit = getTimeFormat(PlayerSettingsData.instance.timerValue);
+            //Debug.Log(timeLimit);
+
+            timeCounter.text = "Time: 00:00:00";
+            timerGoing = false;
+            BeginTimer();
+        }
+    }
+    
+    private String getTimeFormat(int timer_value)
+    {
+        TimeSpan t = TimeSpan.FromSeconds(timer_value);
+        string answer = string.Format("{0:D2}:{1:D2}:{2:D2}", t.Minutes, t.Seconds, t.Milliseconds);
+
+        return answer;
     }
 
     public void BeginTimer()
     {
         timerGoing = true;
-        elapsedTime = 0f;
+        elapsedTime = PlayerSettingsData.instance.timerValue;
 
         StartCoroutine(UpdateTimer());
     }
@@ -45,8 +61,11 @@ public class TimerController : MonoBehaviour
     {
         while (timerGoing)
         {
-            elapsedTime += Time.deltaTime;
+            elapsedTime -= Time.deltaTime;
+            //Debug.Log(elapsedTime);
             timePlaying = TimeSpan.FromSeconds(elapsedTime);
+            //Debug.Log(timePlaying);
+            
             string timePlayingStr = "Time: " + timePlaying.ToString("mm':'ss'.'ff");
             timeCounter.text = timePlayingStr;
 
