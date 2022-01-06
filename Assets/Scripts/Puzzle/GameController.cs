@@ -20,6 +20,7 @@ public class GameController : MonoBehaviour
     public virtual void Start()
     {
         SubscribeMethodsToXrEvents();
+        SoundManagerScript.PlaySound("shockwave");
     }
 
     private void SubscribeMethodsToXrEvents()

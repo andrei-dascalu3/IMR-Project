@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SoundManagerScript : MonoBehaviour
 {
-    public static AudioClip grabPiece, insertPiece, backgroundMusic;
+    public static AudioClip grabPiece, insertPiece, backgroundMusic, clickedButtonSound, clickedOptionSound, explosionSound;
     static AudioSource audioSrc;
 
     // Start is called before the first frame update
@@ -12,6 +12,9 @@ public class SoundManagerScript : MonoBehaviour
     {
         grabPiece = Resources.Load<AudioClip>("Audio/Fast Swish");
         insertPiece = Resources.Load<AudioClip>("Audio/Snap");
+        clickedButtonSound = Resources.Load<AudioClip>("Audio/ButtonClicked");
+        clickedOptionSound = Resources.Load<AudioClip>("Audio/OptionClicked");
+        explosionSound = Resources.Load<AudioClip>("Audio/Shockwave");
         audioSrc = GetComponent<AudioSource>();
     }
 
@@ -27,8 +30,21 @@ public class SoundManagerScript : MonoBehaviour
             case "insert":
                 audioSrc.PlayOneShot(insertPiece);
                 break;
+            case "explosion":
+                audioSrc.PlayOneShot(explosionSound);
+                break;
             default:
                 break;
         }
+    }
+
+    public static void ClickedButtonSound()
+    {
+        audioSrc.PlayOneShot(clickedButtonSound);
+    }
+
+    public static void ClickedOptionSound()
+    {
+        audioSrc.PlayOneShot(clickedOptionSound);
     }
 }
