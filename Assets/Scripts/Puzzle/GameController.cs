@@ -53,6 +53,9 @@ public class GameController : MonoBehaviour
         currentlyHeldPiece = args.interactable.transform;
 
         puzzleManager.SetPieceGrabable(false, currentlyHeldPiece);
+
+        // sound effect
+        SoundManagerScript.PlaySound("grab");
     }
 
     public virtual void OnGrabExit(SelectExitEventArgs args)
@@ -125,6 +128,9 @@ public class GameController : MonoBehaviour
         /*piecesPlacedCorrectly++;*/
         // for testing purposes
         piecesPlacedCorrectly = puzzleManager.puzzlePiecesTransforms.Count;
+
+        //sound effect
+        SoundManagerScript.PlaySound("insert");
 
         if (piecesPlacedCorrectly == puzzleManager.puzzlePiecesTransforms.Count)
         {

@@ -9,6 +9,9 @@ public class SwitchMusicOptions : MonoBehaviour
     private int index;
     [SerializeField]
     private TextMeshProUGUI volumeOption;
+    [SerializeField]
+    private GameObject musicManager;
+
     void Start()
     {
         index = 0;
@@ -22,8 +25,15 @@ public class SwitchMusicOptions : MonoBehaviour
         if (index > 1)
             index = 1;
         if (index == 0)
+        {
             volumeOption.text = "On";
-        else volumeOption.text = "Off";
+            musicManager.GetComponent<AudioSource>().Play();
+        }
+        else
+        {
+            volumeOption.text = "Off";
+            musicManager.GetComponent<AudioSource>().Stop();
+        }
     }
     public void Next()
     {
