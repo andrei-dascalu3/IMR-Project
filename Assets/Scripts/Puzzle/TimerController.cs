@@ -36,7 +36,7 @@ public class TimerController : MonoBehaviour
         }
     }
     
-    private String getTimeFormat(int timer_value)
+    private String GetTimeFormat(int timer_value)
     {
         TimeSpan t = TimeSpan.FromSeconds(timer_value);
         string answer = string.Format("{0:D2}:{1:D2}:{2:D2}", t.Minutes, t.Seconds, t.Milliseconds);
