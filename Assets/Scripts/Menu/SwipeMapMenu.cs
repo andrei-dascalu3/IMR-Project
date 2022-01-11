@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class SwipeMapMenu : MonoBehaviour
 {
-    public Scrollbar scrollbar;    
+    public Scrollbar scrollbar;
     float scroll_pos = 0;
     List<float> pos = new List<float>();
     private Texture current_texture;
@@ -12,7 +12,7 @@ public class SwipeMapMenu : MonoBehaviour
 
     void Update()
     {
-        pos = new List<float>(new float [transform.childCount]);
+        pos = new List<float>(new float[transform.childCount]);
         float distance = 1f / (pos.Capacity - 1f);
 
         for (int i = 0; i < pos.Capacity; i++)
@@ -30,7 +30,7 @@ public class SwipeMapMenu : MonoBehaviour
                 if (scroll_pos < pos[i] + (distance / 2) && scroll_pos > pos[i] - (distance / 2))
                 {
                     scrollbar.value = Mathf.Lerp(scrollbar.value, pos[i], 0.1f);
-                    
+
                 }
             }
         }

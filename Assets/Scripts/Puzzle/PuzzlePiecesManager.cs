@@ -28,6 +28,11 @@ public class PuzzlePiecesManager : MonoBehaviour
 
     public virtual void Awake()
     {
+
+    }
+
+    public virtual void Start()
+    {
         CreatePiecesAndLandingsLists();
 
         timeUntilBreakPuzzleFinish = PuzzlePiece.durationForPieceBreak
@@ -35,11 +40,9 @@ public class PuzzlePiecesManager : MonoBehaviour
                                         + timeUntilBreakPuzzle;
 
         SavePiecesOriginalLocations();
-    }
-    public virtual void Start()
-    {
-        Invoke("BreakPuzzle", timeUntilBreakPuzzle);
-        Invoke("DisablePiecesCollision", timeExtraToDisablePiecesCollision + timeUntilBreakPuzzleFinish);
+
+        Invoke(nameof(BreakPuzzle), timeUntilBreakPuzzle);
+        Invoke(nameof(DisablePiecesCollision), timeExtraToDisablePiecesCollision + timeUntilBreakPuzzleFinish);
     }
 
     public void SavePiecesOriginalLocations()
@@ -56,12 +59,10 @@ public class PuzzlePiecesManager : MonoBehaviour
 
     private void CreatePiecesAndLandingsLists()
     {
-        puzzlePiecesTransforms = new List<Transform>
-            (transform.GetComponentsInChildren<Transform>());
+        puzzlePiecesTransforms = new List<Transform>(transform.GetComponentsInChildren<Transform>());
         puzzlePiecesTransforms.RemoveAt(0);
 
-        backgroundPiecesTransforms = new List<Transform>
-            (PuzzleSetupManager.instance.backgroundPuzzle.GetComponentsInChildren<Transform>());
+        backgroundPiecesTransforms = new List<Transform>(PuzzleSetupManager.instance.backgroundPuzzle.GetComponentsInChildren<Transform>());
         backgroundPiecesTransforms.RemoveAt(0);
 
         //puzzlePieces = new List<PuzzlePiece>(transform.GetComponentsInChildren<PuzzlePiece>());
@@ -73,7 +74,7 @@ public class PuzzlePiecesManager : MonoBehaviour
     public void BreakPuzzle()
     {
         //bool[] brokenPieces = new bool[puzzlePieces.Count];
-        bool[] brokenPieces = new bool[puzzlePiecesTransforms.Count]; 
+        bool[] brokenPieces = new bool[puzzlePiecesTransforms.Count];
         for (int i = 0; i < brokenPieces.Length; i++)
         {
             brokenPieces[i] = false;

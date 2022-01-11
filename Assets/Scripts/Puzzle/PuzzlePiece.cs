@@ -8,11 +8,13 @@ public class PuzzlePiece : MonoBehaviour
     public Rigidbody ownRigidBody;
 
     public const float durationForPieceBreak = 3; //2
-    public const float smallPieceScaleTarget = 0.1f;
+    public float smallPieceScaleTarget = 0.1f;
 
     public const float shakeSegments = 10;
     public const float shakeTimePerSegment = 2 / shakeSegments;
-    public const float shakeStrenthMultiplier = 3;
+    public float shakeStrengthMultiplier = 3;
+    public float shakeStrengthStart = 3;
+    public int shakeVibrato = 5;
 
     public bool placedCorrectly = false;
 
@@ -28,7 +30,7 @@ public class PuzzlePiece : MonoBehaviour
         float timer = 0f;
         while (timer < shakeTimePerSegment * shakeSegments)
         {
-            transform.DOShakeRotation(shakeTimePerSegment, 3 + shakeStrenthMultiplier * timer * (5 / (shakeTimePerSegment * shakeSegments)), 5, 3, false);
+            transform.DOShakeRotation(shakeTimePerSegment, shakeStrengthStart + shakeStrengthMultiplier * timer * (5 / (shakeTimePerSegment * shakeSegments)), shakeVibrato, 3, false);
 
             timer += shakeTimePerSegment;
             yield return new WaitForSeconds(shakeTimePerSegment);

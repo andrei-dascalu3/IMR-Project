@@ -74756,6 +74756,7 @@ MonoBehaviour:
   xrBody: {fileID: 0}
   xrLeftHand: {fileID: 0}
   xrRightHand: {fileID: 0}
+  ownXrAvatar: {fileID: 0}
 --- !u!114 &5983241205544567335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74777,6 +74778,7 @@ MonoBehaviour:
   rightArm: {fileID: 6453284461012379731}
   rightForeArm: {fileID: 2965058177356892353}
   neck: {fileID: 5126863626293589554}
+  ownAvatarColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &6453284460997722248
 GameObject:
   m_ObjectHideFlags: 0

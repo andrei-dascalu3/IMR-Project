@@ -32,7 +32,7 @@ RenderSettings:
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 0}
   m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
-  m_DefaultReflectionMode: 0
+  m_DefaultReflectionMode: 1
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
@@ -3123,6 +3123,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1139662363320296508, guid: 13b25e77c7752b442a902ed77e0e12ef, type: 3}
+      propertyPath: musicManager
+      value: 
+      objectReference: {fileID: 1854271228}
     - target: {fileID: 3188560990134373930, guid: 13b25e77c7752b442a902ed77e0e12ef, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
