@@ -53,6 +53,8 @@ public class GameController : MonoBehaviour
     {
         currentlyHeldPiece = args.interactable.transform;
 
+        //currentlyHeldPiece.parent = PuzzleSetupManager.instance.puzzle.transform;
+
         puzzleManager.SetPieceGrabable(false, currentlyHeldPiece);
 
         // sound effect
