@@ -17,7 +17,7 @@ public class TimerController : MonoBehaviour
     private bool timerGoing;
 
     private float elapsedTime;
-    private String timeLimit;
+    private string timeLimit;
 
     private void Awake()
     {
@@ -29,7 +29,7 @@ public class TimerController : MonoBehaviour
         Debug.Log(PlayerSettingsData.instance.timerValue);
         if (PlayerSettingsData.instance.timerValue != 0)
         {
-           // timeLimit = getTimeFormat(PlayerSettingsData.instance.timerValue);
+            // timeLimit = getTimeFormat(PlayerSettingsData.instance.timerValue);
             //Debug.Log(timeLimit);
 
             timeCounter.text = "Time: 00:00:00";
@@ -37,7 +37,7 @@ public class TimerController : MonoBehaviour
             BeginTimer();
         }
     }
-    
+
     private String GetTimeFormat(int timer_value)
     {
         TimeSpan t = TimeSpan.FromSeconds(timer_value);
@@ -67,11 +67,11 @@ public class TimerController : MonoBehaviour
             //Debug.Log(elapsedTime);
             timePlaying = TimeSpan.FromSeconds(elapsedTime);
             //Debug.Log(timePlaying);
-            
+
             string timePlayingStr = "Time: " + timePlaying.ToString("mm':'ss'.'ff");
             timeCounter.text = timePlayingStr;
 
-            if(elapsedTime <= 0)
+            if (elapsedTime <= 0)
             {
                 EndTimer();
                 gameController.LoseAction();

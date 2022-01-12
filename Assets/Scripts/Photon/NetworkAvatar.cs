@@ -13,10 +13,18 @@ public class NetworkAvatar : MonoBehaviour
     public Transform body;
     public Transform leftHand;
     public Transform rightHand;
+    public Transform head;
+    public Transform rightForeArm;
+    public Transform leftForeArm;
+    public Transform neck;
 
     public Transform xrBody;
+    public Transform xrNeck;
+    public Transform xrRightForeArm;
+    public Transform xrLeftForeArm;
     public Transform xrLeftHand;
     public Transform xrRightHand;
+    public Transform xrHead;
 
     public BrokenWorldPlayer ownXrAvatar;
 
@@ -39,11 +47,11 @@ public class NetworkAvatar : MonoBehaviour
 
     private void DisableOwnRenderers()
     {
-        for(int i = 0; i < body.childCount; i++)
-        {
-            DisableOwnRendererForBodypart(body.GetChild(i));
-        }
-
+        DisableOwnRendererForBodypart(neck);
+        DisableOwnRendererForBodypart(leftForeArm);
+        DisableOwnRendererForBodypart(rightForeArm);
+        DisableOwnRendererForBodypart(head);
+        DisableOwnRendererForBodypart(body);
         DisableOwnRendererForBodypart(leftHand);
         DisableOwnRendererForBodypart(rightHand);
     }
@@ -60,17 +68,20 @@ public class NetworkAvatar : MonoBehaviour
     {
         GameObject ownXrRigObject = GameObject.Find(PhotonNetwork.NickName);
 
-        //Transform ownCharacterTransform = ownXrRigObject.transform.GetChild(1);
         Transform ownCharacterTransform = ownXrRigObject.transform.Find("XR Rig - Character");
-        
-        Transform cameraOffset = ownCharacterTransform.Find("Camera Offset");   //.GetChild(0);
+
+        Transform cameraOffset = ownCharacterTransform.Find("Camera Offset");
 
         xrBody = cameraOffset.Find("Main Camera - Body").Find("CharacterBodyNoArms");
-        //xrHead = cameraOffset.GetChild(0).GetChild(0);
+
+        xrNeck = xrBody.Find("Neck");
+        xrLeftForeArm = xrBody.Find("Left-ForeArm");
+        xrRightForeArm = xrBody.Find("Right-ForeArm");
+        xrHead = xrBody.Find("Head");
+        xrBody = xrBody.Find("Body");
+
         xrLeftHand = cameraOffset.Find("LeftHand Controller").Find("Left-Arm");
-        //xrLeftHand = cameraOffset.GetChild(1).GetChild(0);
         xrRightHand = cameraOffset.Find("RightHand Controller").Find("Right-Arm");
-        //xrRightHand = cameraOffset.GetChild(2).GetChild(0);
     }
 
     [PunRPC]
@@ -80,7 +91,7 @@ public class NetworkAvatar : MonoBehaviour
 
         Color color = new Color(r, g, b);
 
-        for(int i = 0; i < body.childCount; i++)
+        for (int i = 0; i < body.childCount; i++)
         {
             avatarColorer.ChangeAvatarPartColor(body.GetChild(i), color);
         }
