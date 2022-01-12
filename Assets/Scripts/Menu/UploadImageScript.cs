@@ -15,7 +15,7 @@ public class UploadImageScript : MonoBehaviour
 
     public void OpenExplorer()
     {
-        path = null;  //EditorUtility.OpenFilePanel("Show all images", "", "jpg,png,jpeg");
+        path = null;/*EditorUtility.OpenFilePanel("Show all images", "", "jpg,png,jpeg");*/
         StartCoroutine(GetTexture());
 
     }

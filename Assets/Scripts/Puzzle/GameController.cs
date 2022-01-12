@@ -14,6 +14,8 @@ public class GameController : MonoBehaviour
     public XRRayInteractor rightHand;
 
     public GameObject winMessage;
+    public GameObject loseMessage;
+    public GameObject soundManager;
 
     protected int piecesPlacedCorrectly = 0;
 
@@ -144,5 +146,13 @@ public class GameController : MonoBehaviour
     public virtual void WinAction()
     {
         winMessage.SetActive(true);
+    }
+
+    public virtual void LoseAction()
+    {
+        loseMessage.SetActive(true);
+        AudioClip loseClip = Resources.Load<AudioClip>("Audio/LoseTrack");
+        AudioSource audioSrc = soundManager.GetComponent<AudioSource>();
+        audioSrc.PlayOneShot(loseClip);
     }
 }

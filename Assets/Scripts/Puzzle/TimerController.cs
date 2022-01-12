@@ -7,6 +7,8 @@ using TMPro;
 
 public class TimerController : MonoBehaviour
 {
+    public BrokenWorldPlayer player;
+    public GameController gameController;
     public static TimerController instance;
 
     public TextMeshProUGUI timeCounter;
@@ -69,6 +71,12 @@ public class TimerController : MonoBehaviour
             string timePlayingStr = "Time: " + timePlaying.ToString("mm':'ss'.'ff");
             timeCounter.text = timePlayingStr;
 
+            if(elapsedTime <= 0)
+            {
+                EndTimer();
+                gameController.LoseAction();
+                player.BreakCharacter();
+            }
             yield return null;
         }
     }
