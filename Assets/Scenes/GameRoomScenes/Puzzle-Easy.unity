@@ -1195,7 +1195,7 @@ GameObject:
   m_Component:
   - component: {fileID: 57077397}
   m_Layer: 0
-  m_Name: background-puzzle
+  m_Name: Puzzle-background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109963,7 +109963,7 @@ GameObject:
   - component: {fileID: 6788025714548204289}
   - component: {fileID: 6158735990906993084}
   m_Layer: 6
-  m_Name: easy-puzzle-v33
+  m_Name: Puzzle-Easy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
