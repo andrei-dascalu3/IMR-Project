@@ -126,6 +126,7 @@ public class GameController : MonoBehaviour
     public virtual void OnPieceIncorrectPlace(int indexPieceToPlace)
     {
         puzzleManager.SetPieceGrabable(true, indexPieceToPlace);
+        SoundManagerScript.PlaySound("wrongPlace");
     }
 
     public virtual void OnPieceCorrectPlace(int indexPieceToPlace)
@@ -134,13 +135,12 @@ public class GameController : MonoBehaviour
         // for testing purposes
         piecesPlacedCorrectly = puzzleManager.puzzlePiecesTransforms.Count;
 
-        //sound effect
-        SoundManagerScript.PlaySound("insert");
-
         if (piecesPlacedCorrectly == puzzleManager.puzzlePiecesTransforms.Count)
         {
             WinAction();
         }
+        // sound effect
+        SoundManagerScript.PlaySound("rightPlace");
     }
 
     public virtual void WinAction()

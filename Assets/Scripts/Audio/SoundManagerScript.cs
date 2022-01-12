@@ -5,16 +5,18 @@ using UnityEngine;
 public class SoundManagerScript : MonoBehaviour
 {
     public static AudioClip grabPiece, insertPiece, backgroundMusic, clickedButtonSound, clickedOptionSound, explosionSound;
+    public static AudioClip rightPlaceSound, wrongPlaceSound;
     static AudioSource audioSrc;
 
     // Start is called before the first frame update
     void Start()
     {
         grabPiece = Resources.Load<AudioClip>("Audio/Fast Swish");
-        insertPiece = Resources.Load<AudioClip>("Audio/Snap");
         clickedButtonSound = Resources.Load<AudioClip>("Audio/ButtonClicked");
         clickedOptionSound = Resources.Load<AudioClip>("Audio/OptionClicked");
         explosionSound = Resources.Load<AudioClip>("Audio/Shockwave");
+        rightPlaceSound = Resources.Load<AudioClip>("Audio/RightPlace");
+        wrongPlaceSound = Resources.Load<AudioClip>("Audio/WrongPlace");
         audioSrc = GetComponent<AudioSource>();
     }
 
@@ -27,11 +29,14 @@ public class SoundManagerScript : MonoBehaviour
                 audioSrc.time = 0.3f;
                 audioSrc.PlayOneShot(grabPiece);
                 break;
-            case "insert":
-                audioSrc.PlayOneShot(insertPiece);
-                break;
             case "explosion":
                 audioSrc.PlayOneShot(explosionSound);
+                break;
+            case "rightPlace":
+                audioSrc.PlayOneShot(rightPlaceSound);
+                break;
+            case "wrongPlace":
+                audioSrc.PlayOneShot(wrongPlaceSound);
                 break;
             default:
                 break;
