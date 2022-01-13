@@ -15,8 +15,6 @@ public class PuzzleSetupManager : MonoBehaviour
 
     public PuzzlePiecesManager piecesManager;
 
-    //public PlayerSettingsData playerSetting;
-
     private void Awake()
     {
         if (instance == null)
@@ -31,14 +29,11 @@ public class PuzzleSetupManager : MonoBehaviour
                 GameObject.Destroy(instance.gameObject);
             }
         }
-        //playerSetting = GameObject.Find("PlayerSettingsObject").GetComponent<PlayerSettingsData>();
 
         piecesManager.CreatePiecesAndLandingsLists();
     }
     void Start()
     {
-        //puzzleTexture = playerSetting.puzzleTexture;
-
         puzzleTexture = PlayerSettingsData.instance.puzzleTexture;
         ImportTexturePhotoToPuzzle(puzzle, puzzleTexture);
         ImportTexturePhotoToPuzzle(backgroundPuzzle, backgroundPuzzleTexture);

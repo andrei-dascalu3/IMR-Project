@@ -32,20 +32,6 @@ public class AvatarColorManager : MonoBehaviour
         avatar = BrokenWorldPlayer.player;
 
         networkAvatar = PhotonRoomController.room.ownNetworkAvatar;
-
-        //GameObject[] rootObjects = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
-        //for (int i = 0; i < rootObjects.Length; i++) 
-        //{
-        //    if(rootObjects[i].name == "PhotonNetworkCharacter(Clone)")
-        //    {
-        //        NetworkAvatar someNetworkAvatar = rootObjects[i].GetComponent<NetworkAvatar>();
-        //        if (someNetworkAvatar.pv.IsMine)
-        //        {
-        //            networkAvatar = someNetworkAvatar;
-        //            break;
-        //        }
-        //    }
-        //}
     }
 
     private void SubscribeButtonsFunction()

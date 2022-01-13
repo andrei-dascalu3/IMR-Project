@@ -1,8 +1,10 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -27,14 +29,15 @@ public class BrokenWorldPlayer : MonoBehaviour
 
     public Color ownAvatarColor;
 
-    //private Quaternion headStartRotation;
+    public Vector3 characterBreakCameraPositionTarget;
+    public Quaternion characterBreakCameraRotationTarget;
+    public float characterBreakCameraTransitionDuration;
 
     private void Awake()
     {
         player = this;
 
-        ownAvatarColor = leftArm.GetChild(0).GetComponent<Renderer>().material.color; //new Color(125, 125, 125, 1);
-                                                                                      // headStartRotation = head.rotation;
+        ownAvatarColor = leftArm.GetChild(0).GetComponent<Renderer>().material.color; 
 
         DontDestroyOnLoad(gameObject);
 
@@ -55,6 +58,13 @@ public class BrokenWorldPlayer : MonoBehaviour
 
     public void BreakCharacter()
     {
+        RiseCamera();
+
+        rightController.enabled = false;
+        leftController.enabled = false;
+        rightController.GetComponent<ActionBasedController>().enabled = false;
+        leftController.GetComponent<ActionBasedController>().enabled = false;
+
         BreakCharacterPart(head);
         BreakCharacterPart(body);
         BreakCharacterPart(leftArm);
@@ -62,6 +72,18 @@ public class BrokenWorldPlayer : MonoBehaviour
         BreakCharacterPart(rightArm);
         BreakCharacterPart(rightForeArm);
         BreakCharacterPart(neck);
+    }
+
+    private void RiseCamera()
+    {
+        Transform fullBodyTransform = body.parent;
+        Transform cameraTransform = fullBodyTransform.parent;
+        fullBodyTransform.SetParent(cameraTransform.parent);
+
+        cameraTransform.GetComponent<TrackedPoseDriver>().enabled = false;
+
+        cameraTransform.DOLocalMove(characterBreakCameraPositionTarget, characterBreakCameraTransitionDuration);
+        cameraTransform.DORotateQuaternion(characterBreakCameraRotationTarget, characterBreakCameraTransitionDuration);
     }
 
     public void BreakCharacterPart(Transform part)

@@ -14,8 +14,6 @@ public class PuzzlePiecesManager : MonoBehaviour
 {
     public List<PieceTranformData> piecesOriginalTransforms;
 
-    //protected List<PuzzlePiece> puzzlePieces = new List<PuzzlePiece>();
-
     public List<Transform> puzzlePiecesTransforms;
     public List<Transform> backgroundPiecesTransforms;
 
@@ -65,7 +63,6 @@ public class PuzzlePiecesManager : MonoBehaviour
         backgroundPiecesTransforms = new List<Transform>(setupManager.backgroundPuzzle.GetComponentsInChildren<Transform>());
         backgroundPiecesTransforms.RemoveAt(0);
 
-        //puzzlePieces = new List<PuzzlePiece>(transform.GetComponentsInChildren<PuzzlePiece>());
         placesForPiecesOnPlatform = new List<Transform>
             (placesForPiecesOnPlatformParent.GetComponentsInChildren<Transform>());
         placesForPiecesOnPlatform.RemoveAt(0);
@@ -73,7 +70,6 @@ public class PuzzlePiecesManager : MonoBehaviour
 
     public void BreakPuzzle()
     {
-        //bool[] brokenPieces = new bool[puzzlePieces.Count];
         bool[] brokenPieces = new bool[puzzlePiecesTransforms.Count];
         for (int i = 0; i < brokenPieces.Length; i++)
         {
@@ -107,8 +103,6 @@ public class PuzzlePiecesManager : MonoBehaviour
         return Random.Range(0, placesForPiecesOnPlatform.Count);
     }
 
-
-    //public void PlacePiece(Transform pieceToPlace, PieceTranformData destinationTransform, bool placedCorrectly)
     public void PlacePiece(Transform pieceToPlace, int indexPieceDestination, bool placedCorrectly)
     {
         Debug.Log(indexPieceDestination);
@@ -116,7 +110,7 @@ public class PuzzlePiecesManager : MonoBehaviour
 
         PuzzlePiece puzzlePiece = pieceToPlace.gameObject.GetComponent<PuzzlePiece>();
 
-        //int indexPlaceToLand = GetIndexOfPlaceToLand();
+        //int indexPlaceToLand = (this as PuzzlePiecesManager).GetIndexOfPlaceToLand();
         int indexPlaceToLand = Random.Range(0, placesForPiecesOnPlatform.Count);
         Vector3 placeToLandIfFail = placesForPiecesOnPlatform[indexPlaceToLand].position;
 

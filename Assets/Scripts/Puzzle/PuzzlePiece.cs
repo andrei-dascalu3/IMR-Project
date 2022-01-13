@@ -39,7 +39,6 @@ public class PuzzlePiece : MonoBehaviour
         }
 
         ownRigidBody.constraints = RigidbodyConstraints.None;
-        //transform.DOLocalMove(placeToLand, durationForPieceBreak);
         transform.DOMove(placeToLand, durationForPieceBreak);
         transform.DOScale(smallPieceScaleTarget, durationForPieceBreak);
         yield return new WaitForSeconds(durationForPieceBreak);
@@ -55,8 +54,6 @@ public class PuzzlePiece : MonoBehaviour
 
         ownRigidBody.useGravity = false;
         ownRigidBody.constraints = RigidbodyConstraints.FreezePosition;
-
-        //ownRigidBody.isKinematic = true;
 
         transform.DOMove(destination.position, durationForPieceBreak);
         transform.DOScale(1, durationForPieceBreak);

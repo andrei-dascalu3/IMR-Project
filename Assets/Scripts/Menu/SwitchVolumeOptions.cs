@@ -26,11 +26,6 @@ public class SwitchVolumeOptions : MonoBehaviour
         UpdateVolumeText();
     }
 
-    //private void Update()
-    //{
-    //    musicManager.volume = (float) index / 40F;
-    //}
-
     void UpdateVolumeText()
     {
         volumeText.text = index.ToString();

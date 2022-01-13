@@ -17,7 +17,6 @@ public class PhotonRoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
     private string currentLevelName;
 
     private static string sceneName;
-    //private static bool startedLevel = false;
 
     public string roomName;
 

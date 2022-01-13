@@ -81,15 +81,6 @@ public class GameControllerMultiplayer : GameController
 
         base.OnPieceCorrectPlace(indexPieceToPlace);
 
-        //if(testWinConditionGame)
-        //{
-        //    piecesPlacedCorrectly = puzzleManagerMultiplayer.puzzlePiecesTransforms.Count;
-        //}
-        //else
-        //{
-        //    piecesPlacedCorrectly++;
-        //}
-
         puzzleManagerMultiplayer.puzzlePiecesTransforms[indexPieceToPlace]
             .gameObject.GetComponent<PhotonView>().Synchronization = ViewSynchronization.Off;
 

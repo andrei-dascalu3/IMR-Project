@@ -88,7 +88,6 @@ public class GameController : MonoBehaviour
 
         if (currentlyHeldPiece == null)
         {
-            //puzzleManager.SetPieceGrabable(true, currentlyHeldPiece);
             return;
         }
 

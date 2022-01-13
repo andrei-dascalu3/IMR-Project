@@ -73,14 +73,6 @@ public class NetworkAvatar : MonoBehaviour
 
     private void FindOwnBodyParts()
     {
-        //GameObject ownXrRigObject = GameObject.Find(PhotonNetwork.NickName);
-
-        //Transform ownCharacterTransform = ownXrRigObject.transform.Find("XR Rig - Character");
-
-        //Transform cameraOffset = ownCharacterTransform.Find("Camera Offset");
-
-        //xrBody = cameraOffset.Find("Main Camera - Body").Find("CharacterBodyNoArms");
-
         xrBody = ownXrAvatar.playerObject;
         //xrNeck = ownXrAvatar.neck;
         //xrLeftForeArm = ownXrAvatar.leftForeArm;
@@ -89,15 +81,6 @@ public class NetworkAvatar : MonoBehaviour
 
         xrLeftHand = ownXrAvatar.leftArm;
         xrRightHand = ownXrAvatar.rightArm;
-
-        //xrNeck = xrBody.Find("Neck");
-        //xrLeftForeArm = xrBody.Find("Left-ForeArm");
-        //xrRightForeArm = xrBody.Find("Right-ForeArm");
-        //xrHead = xrBody.Find("Head");
-        //xrBody = xrBody.Find("Body");
-
-        //xrLeftHand = cameraOffset.Find("LeftHand Controller").Find("Left-Arm");
-        //xrRightHand = cameraOffset.Find("RightHand Controller").Find("Right-Arm");
     }
 
     [PunRPC]

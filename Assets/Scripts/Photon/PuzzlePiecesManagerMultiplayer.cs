@@ -104,16 +104,11 @@ public class PuzzlePiecesManagerMultiplayer : PuzzlePiecesManager
 
         for (int i = 0; i < puzzlePiecesTransforms.Count; i++)
         {
-            //PhotonView piecePv = puzzlePieces[i].gameObject.AddComponent<PhotonView>();
             PhotonView piecePv = puzzlePiecesTransforms[i].gameObject.GetComponent<PhotonView>();
+
             piecePv.ObservedComponents.Add(piecePv.GetComponent<PhotonTransformView>());
-            //piecePv.Synchronization = ViewSynchronization.Off;
             piecePv.Synchronization = ViewSynchronization.ReliableDeltaCompressed;
             piecePv.OwnershipTransfer = OwnershipOption.Takeover;
-            //piecePv.ViewID = i + 2;
-            //piecePv.observableSearch = PhotonView.ObservableSearch.AutoFindAll;
-            //if (!PhotonNetwork.IsMasterClient)
-            //  piecePv.TransferOwnership(PhotonNetwork.MasterClient);
         }
 
         Debug.Log("Enables pieces PhotonView s");
