@@ -6,16 +6,16 @@ using TMPro;
 public class SwitchTimerOptions : MonoBehaviour
 {
     private int index;
-    private int volumeStep;
-    private int maxVolume;
+    private const int volumeStep = 300;
+    private const int maxVolume = 1800;
     [SerializeField]
     private TextMeshProUGUI timerText;
 
     void Start()
     {
         index = 0;
-        volumeStep = 300;
-        maxVolume = 1800;
+        //volumeStep = 300;
+        //maxVolume = 1800;
         UpdateTimerText();
     }
 
