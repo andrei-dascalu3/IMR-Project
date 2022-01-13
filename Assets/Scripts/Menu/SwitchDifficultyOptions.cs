@@ -22,15 +22,15 @@ public class SwitchDifficultyOptions : MonoBehaviour
     public void Next()
     {
         index++;
-        if (index > 2)
-            index = 2;
+        if (index > difficultyOptions.Length - 1)
+            index = 0;
         UpdateDifficultyText();
     }
     public void Prevoius()
     {
         index--;
         if (index < 0)
-            index = 0;
+            index = difficultyOptions.Length - 1;
         UpdateDifficultyText();
     }
 

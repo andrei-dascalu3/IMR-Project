@@ -9,7 +9,7 @@ public class InvisibleCeilingPiecesCollisionScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("DisableCeilingCollision", puzzleManager.timeUntilBreakPuzzleFinish + puzzleManager.timeExtraToDisablePiecesCollision);
+        Invoke(nameof(DisableCeilingCollision), puzzleManager.timeUntilBreakPuzzleFinish + puzzleManager.timeExtraToDisablePiecesCollision);
     }
 
     // Update is called once per frame

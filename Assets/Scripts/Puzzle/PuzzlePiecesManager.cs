@@ -151,10 +151,12 @@ public class PuzzlePiecesManager : MonoBehaviour
         PuzzlePiece puzzlePiece = puzzlePiecesTransforms[pieceIndex].GetComponent<PuzzlePiece>();
         if (b)
         {
+            puzzlePiecesTransforms[pieceIndex].GetComponent<Rigidbody>().isKinematic = false;
             puzzlePiece.SetSelfLayer(LayerDataObject.instance.puzzlePieceLayer);
         }
         else
         {
+            puzzlePiecesTransforms[pieceIndex].GetComponent<Rigidbody>().isKinematic = true;
             puzzlePiece.SetSelfLayer(LayerDataObject.instance.ungrabablePuzzlePieceLayer);
         }
     }

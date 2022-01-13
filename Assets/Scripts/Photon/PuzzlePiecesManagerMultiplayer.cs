@@ -113,7 +113,7 @@ public class PuzzlePiecesManagerMultiplayer : PuzzlePiecesManager
             //piecePv.ViewID = i + 2;
             //piecePv.observableSearch = PhotonView.ObservableSearch.AutoFindAll;
             //if (!PhotonNetwork.IsMasterClient)
-              //  piecePv.TransferOwnership(PhotonNetwork.MasterClient);
+            //  piecePv.TransferOwnership(PhotonNetwork.MasterClient);
         }
 
         Debug.Log("Enables pieces PhotonView s");

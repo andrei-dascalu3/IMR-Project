@@ -1464,7 +1464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   exitButton: {fileID: 7710845673087057053}
   gameModeButtons: {fileID: 0}
-  mainMenu: {fileID: 0}
+  mainMenu: {fileID: 7710845673266689872}
   settingsMenu: {fileID: 0}
   helpMenu: {fileID: 7710845673516611943}
   multiplayerRoomSettingsMenu: {fileID: 0}

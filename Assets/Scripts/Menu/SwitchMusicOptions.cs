@@ -14,7 +14,7 @@ public class SwitchMusicOptions : MonoBehaviour
 
     void Start()
     {
-        if(musicManager == null)
+        if (musicManager == null)
         {
             musicManager = PlayerSettingsData.instance.GetComponent<AudioSource>();
         }
