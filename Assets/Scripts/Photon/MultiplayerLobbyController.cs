@@ -59,9 +59,11 @@ public class MultiplayerLobbyController : MonoBehaviourPunCallbacks
         PlayerSettingsData.instance.musicValue = musicValue;
         PlayerSettingsData.instance.volumeValue = volumeValue;
         PlayerSettingsData.instance.timerValue = timerValue;
+
+        PlayerSettingsData.instance.UpdateOwnGameObjects();
     }
 
-    public void OnStartButtonPress()
+    public void UpdatePlayerSettings()
     {
         if (PhotonNetwork.IsMasterClient)
         {
@@ -71,11 +73,19 @@ public class MultiplayerLobbyController : MonoBehaviourPunCallbacks
             PlayerSettingsData.instance.volumeValue = volumeOptions.GetVolumeLevel();
             PlayerSettingsData.instance.timerValue = timerOptions.GetTimerValue();
 
-            pv.RPC("SyncSettings", RpcTarget.Others,
+            pv.RPC(nameof(SyncSettings), RpcTarget.Others,
                                                 PlayerSettingsData.instance.difficulty,
                                                 PlayerSettingsData.instance.musicValue,
                                                 PlayerSettingsData.instance.volumeValue,
                                                 PlayerSettingsData.instance.timerValue);
+        }
+    }
+
+    public void OnStartButtonPress()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            UpdatePlayerSettings();
 
             PhotonRoomController.room.StartGame();
         }
@@ -88,12 +98,6 @@ public class MultiplayerLobbyController : MonoBehaviourPunCallbacks
         {
             pv.RPC("SyncBackgroundTexture", RpcTarget.OthersBuffered, textureIndex);
         }
-    }
-
-
-    public void OnExitButtonPress()
-    {
-
     }
 
     private void Update()

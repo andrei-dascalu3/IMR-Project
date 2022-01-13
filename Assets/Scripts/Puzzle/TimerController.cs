@@ -7,11 +7,11 @@ using TMPro;
 
 public class TimerController : MonoBehaviour
 {
-    public BrokenWorldPlayer player;
-    public GameController gameController;
     public static TimerController instance;
 
-    public TextMeshProUGUI timeCounter;
+    private TextMeshProUGUI timeCounter;
+
+    public GameController gameController;
 
     private TimeSpan timePlaying;
     private bool timerGoing;
@@ -26,6 +26,8 @@ public class TimerController : MonoBehaviour
 
     private void Start()
     {
+        timeCounter = CanvasElementsObjectScript.playerCanvas.timerText;
+
         Debug.Log(PlayerSettingsData.instance.timerValue);
         if (PlayerSettingsData.instance.timerValue != 0)
         {
@@ -75,7 +77,7 @@ public class TimerController : MonoBehaviour
             {
                 EndTimer();
                 gameController.LoseAction();
-                player.BreakCharacter();
+
             }
             yield return null;
         }

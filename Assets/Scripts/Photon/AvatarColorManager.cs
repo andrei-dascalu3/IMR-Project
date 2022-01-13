@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class AvatarColorManager : MonoBehaviour
 {
-    public BrokenWorldPlayer avatar;
+    private BrokenWorldPlayer avatar;
     public List<Button> colorButtons;
 
     public Button nextButton;
@@ -29,21 +29,23 @@ public class AvatarColorManager : MonoBehaviour
 
     private void GetAvatarsFromScene()
     {
-        avatar = GameObject.Find(PhotonNetwork.NickName).GetComponent<BrokenWorldPlayer>();
+        avatar = BrokenWorldPlayer.player;
 
-        GameObject[] rootObjects = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
-        for (int i = 0; i < rootObjects.Length; i++) 
-        {
-            if(rootObjects[i].name == "PhotonNetworkCharacter(Clone)")
-            {
-                NetworkAvatar someNetworkAvatar = rootObjects[i].GetComponent<NetworkAvatar>();
-                if (someNetworkAvatar.pv.IsMine)
-                {
-                    networkAvatar = someNetworkAvatar;
-                    break;
-                }
-            }
-        }
+        networkAvatar = PhotonRoomController.room.ownNetworkAvatar;
+
+        //GameObject[] rootObjects = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
+        //for (int i = 0; i < rootObjects.Length; i++) 
+        //{
+        //    if(rootObjects[i].name == "PhotonNetworkCharacter(Clone)")
+        //    {
+        //        NetworkAvatar someNetworkAvatar = rootObjects[i].GetComponent<NetworkAvatar>();
+        //        if (someNetworkAvatar.pv.IsMine)
+        //        {
+        //            networkAvatar = someNetworkAvatar;
+        //            break;
+        //        }
+        //    }
+        //}
     }
 
     private void SubscribeButtonsFunction()
@@ -70,6 +72,6 @@ public class AvatarColorManager : MonoBehaviour
 
     private void ChangeNetworkAvatarColor(Color color)
     {
-        networkAvatar.pv.RPC("ChangeNetworkAvatarColor", RpcTarget.AllBuffered, color.r, color.g, color.b);
+        networkAvatar.pv.RPC(nameof(ChangeNetworkAvatarColor), RpcTarget.AllBuffered, color.r, color.g, color.b);
     }
 }

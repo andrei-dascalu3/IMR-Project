@@ -22,23 +22,23 @@ public class PuzzlePiecesManager : MonoBehaviour
     public Transform placesForPiecesOnPlatformParent;
     protected List<Transform> placesForPiecesOnPlatform = new List<Transform>();
 
+    public PuzzleSetupManager setupManager;
+
     public float timeUntilBreakPuzzle = 3;
     public float timeUntilBreakPuzzleFinish;
     public float timeExtraToDisablePiecesCollision = 5;
 
     public virtual void Awake()
     {
+        CreatePiecesAndLandingsLists();
 
+        timeUntilBreakPuzzleFinish = PuzzlePiece.durationForPieceBreak
+                                + PuzzlePiece.shakeSegments * PuzzlePiece.shakeTimePerSegment
+                                + timeUntilBreakPuzzle;
     }
 
     public virtual void Start()
     {
-        CreatePiecesAndLandingsLists();
-
-        timeUntilBreakPuzzleFinish = PuzzlePiece.durationForPieceBreak
-                                        + PuzzlePiece.shakeSegments * PuzzlePiece.shakeTimePerSegment
-                                        + timeUntilBreakPuzzle;
-
         SavePiecesOriginalLocations();
 
         Invoke(nameof(BreakPuzzle), timeUntilBreakPuzzle);
@@ -57,12 +57,12 @@ public class PuzzlePiecesManager : MonoBehaviour
         }
     }
 
-    private void CreatePiecesAndLandingsLists()
+    public void CreatePiecesAndLandingsLists()
     {
         puzzlePiecesTransforms = new List<Transform>(transform.GetComponentsInChildren<Transform>());
         puzzlePiecesTransforms.RemoveAt(0);
 
-        backgroundPiecesTransforms = new List<Transform>(PuzzleSetupManager.instance.backgroundPuzzle.GetComponentsInChildren<Transform>());
+        backgroundPiecesTransforms = new List<Transform>(setupManager.backgroundPuzzle.GetComponentsInChildren<Transform>());
         backgroundPiecesTransforms.RemoveAt(0);
 
         //puzzlePieces = new List<PuzzlePiece>(transform.GetComponentsInChildren<PuzzlePiece>());
@@ -111,6 +111,7 @@ public class PuzzlePiecesManager : MonoBehaviour
     //public void PlacePiece(Transform pieceToPlace, PieceTranformData destinationTransform, bool placedCorrectly)
     public void PlacePiece(Transform pieceToPlace, int indexPieceDestination, bool placedCorrectly)
     {
+        Debug.Log(indexPieceDestination);
         PieceTranformData placeToPutPiece = piecesOriginalTransforms[indexPieceDestination];
 
         PuzzlePiece puzzlePiece = pieceToPlace.gameObject.GetComponent<PuzzlePiece>();
@@ -124,32 +125,37 @@ public class PuzzlePiecesManager : MonoBehaviour
 
     public void DisablePiecesCollision()
     {
-        Physics.IgnoreLayerCollision(6, 6);
-        Physics.IgnoreLayerCollision(6, 7);
-        Physics.IgnoreLayerCollision(7, 6);
+        int grabablePieceLayer = LayerDataObject.instance.puzzlePieceLayer;
+        int ungrabablePieceLayer = LayerDataObject.instance.ungrabablePuzzlePieceLayer;
+
+        Physics.IgnoreLayerCollision(grabablePieceLayer, grabablePieceLayer);
+        Physics.IgnoreLayerCollision(grabablePieceLayer, ungrabablePieceLayer);
+        Physics.IgnoreLayerCollision(ungrabablePieceLayer, grabablePieceLayer);
     }
 
     public void SetPieceGrabable(bool b, Transform piece)
     {
+        PuzzlePiece puzzlePiece = piece.GetComponent<PuzzlePiece>();
         if (b)
         {
-            piece.gameObject.layer = 6;
+            puzzlePiece.SetSelfLayer(LayerDataObject.instance.puzzlePieceLayer);
         }
         else
         {
-            piece.gameObject.layer = 7;
+            puzzlePiece.SetSelfLayer(LayerDataObject.instance.ungrabablePuzzlePieceLayer);
         }
     }
 
     public virtual void SetPieceGrabable(bool b, int pieceIndex)
     {
+        PuzzlePiece puzzlePiece = puzzlePiecesTransforms[pieceIndex].GetComponent<PuzzlePiece>();
         if (b)
         {
-            puzzlePiecesTransforms[pieceIndex].gameObject.layer = 6;
+            puzzlePiece.SetSelfLayer(LayerDataObject.instance.puzzlePieceLayer);
         }
         else
         {
-            puzzlePiecesTransforms[pieceIndex].gameObject.layer = 7;
+            puzzlePiece.SetSelfLayer(LayerDataObject.instance.ungrabablePuzzlePieceLayer);
         }
     }
 }

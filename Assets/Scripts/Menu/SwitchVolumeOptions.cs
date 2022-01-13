@@ -4,22 +4,32 @@ using UnityEngine;
 using TMPro;
 public class SwitchVolumeOptions : MonoBehaviour
 {
-    public GameObject musicManager;
+    public AudioSource musicManager;
     private int index;
     private int upperLimit;
     [SerializeField]
     private TextMeshProUGUI volumeText;
     void Start()
     {
-        index = 10;
+        if(musicManager == null)
+        {
+            musicManager = PlayerSettingsData.instance.GetComponent<AudioSource>();
+            index = 10;
+            musicManager.volume = (float)index / 40F;
+        }
+        else
+        {
+            index = 10;
+        }
+        
         upperLimit = 20;
         UpdateVolumeText();
     }
 
-    private void Update()
-    {
-        musicManager.GetComponent<AudioSource>().volume = (float) index / 40F;
-    }
+    //private void Update()
+    //{
+    //    musicManager.volume = (float) index / 40F;
+    //}
 
     void UpdateVolumeText()
     {
@@ -30,6 +40,8 @@ public class SwitchVolumeOptions : MonoBehaviour
         index++;
         if (index > upperLimit)
             index = upperLimit;
+
+        musicManager.volume = (float)index / 40F;
         UpdateVolumeText();
     }
     public void Previous()
@@ -37,6 +49,8 @@ public class SwitchVolumeOptions : MonoBehaviour
         index--;
         if (index < 0)
             index = 0;
+
+        musicManager.volume = (float)index / 40F;
         UpdateVolumeText();
     }
 

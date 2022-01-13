@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -10,32 +11,45 @@ public class GameController : MonoBehaviour
     [SerializeField]
     protected Transform currentlyHeldPiece;
 
-    public XRRayInteractor leftHand;
-    public XRRayInteractor rightHand;
+    protected CanvasElementsObjectScript canvasElements;
 
-    public GameObject winMessage;
-    public GameObject loseMessage;
     public GameObject soundManager;
 
     protected int piecesPlacedCorrectly = 0;
 
+    public bool testWinConditionGame;
+
     public virtual void Start()
-    {
+    {       
+        EnableTimer();
+
         SubscribeMethodsToXrEvents();
+
         SoundManagerScript.PlaySound("shockwave");
+    }
+
+    private void EnableTimer()
+    {
+        canvasElements = CanvasElementsObjectScript.playerCanvas;
+        canvasElements.timerCanvas.SetActive(true);
     }
 
     private void SubscribeMethodsToXrEvents()
     {
-        leftHand.selectEntered.AddListener(OnGrabEnter);
-        leftHand.selectExited.AddListener(OnGrabExit);
-        rightHand.selectEntered.AddListener(OnGrabEnter);
-        rightHand.selectExited.AddListener(OnGrabExit);
+        XRRayInteractor leftController = BrokenWorldPlayer.player.leftController;
+        XRRayInteractor rightController = BrokenWorldPlayer.player.rightController;
 
-        leftHand.hoverEntered.AddListener(OnHoverEnter);
-        leftHand.hoverExited.AddListener(OnHoverExit);
-        rightHand.hoverEntered.AddListener(OnHoverEnter);
-        rightHand.hoverExited.AddListener(OnHoverExit);
+        leftController.selectEntered.AddListener(OnGrabEnter);
+        leftController.selectExited.AddListener(OnGrabExit);
+
+        rightController.selectEntered.AddListener(OnGrabEnter);
+        rightController.selectExited.AddListener(OnGrabExit);
+
+        leftController.hoverEntered.AddListener(OnHoverEnter);
+        leftController.hoverExited.AddListener(OnHoverExit);
+
+        rightController.hoverEntered.AddListener(OnHoverEnter);
+        rightController.hoverExited.AddListener(OnHoverExit);
     }
 
     public void OnHoverEnterBackgroundPuzzlePiece(HoverEnterEventArgs eventArgs)
@@ -55,6 +69,7 @@ public class GameController : MonoBehaviour
     {
         currentlyHeldPiece = args.interactable.transform;
 
+        //reset piece parent to puzzle parent
         //currentlyHeldPiece.parent = PuzzleSetupManager.instance.puzzle.transform;
 
         puzzleManager.SetPieceGrabable(false, currentlyHeldPiece);
@@ -73,7 +88,7 @@ public class GameController : MonoBehaviour
 
         if (currentlyHeldPiece == null)
         {
-            puzzleManager.SetPieceGrabable(true, currentlyHeldPiece);
+            //puzzleManager.SetPieceGrabable(true, currentlyHeldPiece);
             return;
         }
 
@@ -125,15 +140,20 @@ public class GameController : MonoBehaviour
 
     public virtual void OnPieceIncorrectPlace(int indexPieceToPlace)
     {
-        puzzleManager.SetPieceGrabable(true, indexPieceToPlace);
         SoundManagerScript.PlaySound("wrongPlace");
     }
 
     public virtual void OnPieceCorrectPlace(int indexPieceToPlace)
-    {
-        /*piecesPlacedCorrectly++;*/
-        // for testing purposes
-        piecesPlacedCorrectly = puzzleManager.puzzlePiecesTransforms.Count;
+    { 
+        if(testWinConditionGame)
+        {
+            // for testing purposes
+            piecesPlacedCorrectly = puzzleManager.puzzlePiecesTransforms.Count;
+        }
+        else
+        {
+            piecesPlacedCorrectly++;
+        }   
 
         if (piecesPlacedCorrectly == puzzleManager.puzzlePiecesTransforms.Count)
         {
@@ -145,14 +165,16 @@ public class GameController : MonoBehaviour
 
     public virtual void WinAction()
     {
-        winMessage.SetActive(true);
+        canvasElements.winText.gameObject.SetActive(true);
     }
 
     public virtual void LoseAction()
     {
-        loseMessage.SetActive(true);
+        canvasElements.loseText.gameObject.SetActive(true);
         AudioClip loseClip = Resources.Load<AudioClip>("Audio/LoseTrack");
         AudioSource audioSrc = soundManager.GetComponent<AudioSource>();
         audioSrc.PlayOneShot(loseClip);
+
+        BrokenWorldPlayer.player.BreakCharacter();
     }
 }

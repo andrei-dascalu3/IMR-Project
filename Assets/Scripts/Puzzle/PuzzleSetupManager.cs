@@ -13,6 +13,8 @@ public class PuzzleSetupManager : MonoBehaviour
     public Texture puzzleTexture;
     public Texture backgroundPuzzleTexture;
 
+    public PuzzlePiecesManager piecesManager;
+
     //public PlayerSettingsData playerSetting;
 
     private void Awake()
@@ -31,6 +33,7 @@ public class PuzzleSetupManager : MonoBehaviour
         }
         //playerSetting = GameObject.Find("PlayerSettingsObject").GetComponent<PlayerSettingsData>();
 
+        piecesManager.CreatePiecesAndLandingsLists();
     }
     void Start()
     {

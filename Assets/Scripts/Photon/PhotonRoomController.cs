@@ -21,6 +21,8 @@ public class PhotonRoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
 
     public string roomName;
 
+    public NetworkAvatar ownNetworkAvatar;
+
     private void Awake()
     {
         if (PhotonRoomController.room == null)
@@ -48,25 +50,14 @@ public class PhotonRoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
 
     private void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode)
     {
-        GameObject myRig = GameObject.Find(PhotonNetwork.NickName);
+        //GameObject myRig = GameObject.Find(PhotonNetwork.NickName);
+        GameObject myRig = BrokenWorldPlayer.player.gameObject;
         myRig.SetActive(false);
         myRig.SetActive(true);
 
         CreatePlayer();
 
         currentLevelName = scene.name;
-        if (currentLevelName != "MultiplayerLobby")
-        {
-            GameControllerMultiplayer gameController = GameObject.Find("GameController").GetComponent<GameControllerMultiplayer>();
-
-            Transform handsParentTransform = myRig.transform.GetChild(1).GetChild(0);
-            XRRayInteractor leftHandInteractor = handsParentTransform.GetChild(1).GetComponent<XRRayInteractor>();
-            XRRayInteractor rightHandInteractor = handsParentTransform.GetChild(2).GetComponent<XRRayInteractor>();
-
-            gameController.leftHand = leftHandInteractor;
-            gameController.rightHand = rightHandInteractor;
-        }
-
         sceneName = scene.name;
     }
 
@@ -74,24 +65,13 @@ public class PhotonRoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
     {
         Debug.Log("Creating player avatar.");
         GameObject newAvatarGO = PhotonNetwork.Instantiate(Path.Combine("CharacterPrefab", "PhotonNetworkCharacter"), new Vector3(0, 2.15f, 0), Quaternion.identity, 0);
+
+        ownNetworkAvatar = newAvatarGO.GetComponent<NetworkAvatar>();
     }
 
     public override void OnJoinedRoom()
     {
         string name;
-
-        foreach(Player player in PhotonNetwork.CurrentRoom.Players.Values)
-        {
-            name = player.NickName;
-
-            if (name == PhotonNetwork.NickName && !player.IsLocal)
-            {
-                //OTHER PLAYER WITH SAME NAME
-                //Debug.Log("Exiting room, because nickname already exists.");
-                //PhotonLobbyController.photonLobby.OnJoinFailUniqueNickname(name);
-                //PhotonNetwork.LeaveRoom();
-            }
-        }
 
         base.OnJoinedRoom();
         Debug.Log("We have joined room");
@@ -116,12 +96,13 @@ public class PhotonRoomController : MonoBehaviourPunCallbacks, IInRoomCallbacks
         if (returnCode == 32766)
         {
             PhotonLobbyController.photonLobby.AddErrorMessage("A room with this name already exists");
+            //TODO
         }
         else
         {
             PhotonLobbyController.photonLobby.AddErrorMessage(message);
+            //TODO
         }
-       
     }
 
     public void StartGameLobby()

@@ -30363,7 +30363,7 @@ GameObject:
   - component: {fileID: 5126863626293589554}
   - component: {fileID: 4860182402165807389}
   m_Layer: 2
-  m_Name: Neck
+  m_Name: NetworkNeck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34483,7 +34483,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4704032611837739594}
   m_Layer: 2
-  m_Name: Head
+  m_Name: NetworkHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53860,7 +53860,6 @@ GameObject:
   - component: {fileID: 6453284460987599374}
   - component: {fileID: -6888497225775654148}
   - component: {fileID: 1558347105439344701}
-  - component: {fileID: 5983241205544567335}
   m_Layer: 2
   m_Name: PhotonNetworkCharacter
   m_TagString: Untagged
@@ -53923,43 +53922,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pv: {fileID: -6888497225775654148}
-  body: {fileID: 4839357508525815601}
+  body: {fileID: 9040770364890553056}
   leftHand: {fileID: 6453284461900228466}
   rightHand: {fileID: 6453284461012379731}
-  head: {fileID: 4704032611837739594}
-  rightForeArm: {fileID: 2965058177356892353}
-  leftForeArm: {fileID: 1642398812082671842}
-  neck: {fileID: 5126863626293589554}
   xrBody: {fileID: 0}
-  xrNeck: {fileID: 0}
-  xrRightForeArm: {fileID: 0}
-  xrLeftForeArm: {fileID: 0}
   xrLeftHand: {fileID: 0}
   xrRightHand: {fileID: 0}
-  xrHead: {fileID: 0}
   ownXrAvatar: {fileID: 0}
---- !u!114 &5983241205544567335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6453284460987599373}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 649fddc945b3c5b48b2be19b6512f4f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerObject: {fileID: 9040770364890553056}
-  headCamera: {fileID: 0}
-  head: {fileID: 4704032611837739594}
-  body: {fileID: 4839357508525815601}
-  leftArm: {fileID: 6453284461900228466}
-  leftForeArm: {fileID: 1642398812082671842}
-  rightArm: {fileID: 6453284461012379731}
-  rightForeArm: {fileID: 2965058177356892353}
-  neck: {fileID: 5126863626293589554}
-  ownAvatarColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &6453284460997722248
 GameObject:
   m_ObjectHideFlags: 0
@@ -71903,7 +71872,7 @@ GameObject:
   - component: {fileID: 1642398812082671842}
   - component: {fileID: 6704742662179732188}
   m_Layer: 2
-  m_Name: Left-ForeArm
+  m_Name: NetworkLeft-ForeArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74029,7 +73998,7 @@ GameObject:
   - component: {fileID: 2965058177356892353}
   - component: {fileID: 6916276474718672857}
   m_Layer: 2
-  m_Name: Right-ForeArm
+  m_Name: NetworkRight-ForeArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83211,7 +83180,7 @@ GameObject:
   - component: {fileID: 4839357508525815601}
   - component: {fileID: 8226975877810362722}
   m_Layer: 2
-  m_Name: Body
+  m_Name: NetworkBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86476,7 +86445,7 @@ GameObject:
   - component: {fileID: 9040770364890553056}
   - component: {fileID: 2038382083249749619}
   m_Layer: 2
-  m_Name: CharacterModelFull-prot1-noArms
+  m_Name: OtherBodyParts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

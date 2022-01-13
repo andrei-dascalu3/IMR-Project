@@ -7,7 +7,10 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/LobbyMenuScenes/BrokenWorldStartMenu.unity
-    guid: c112950aaf64e1e4b809153c3b503639
+    guid: 5367a8bdfed68fb4a972b8a36289c457
+  - enabled: 1
+    path: Assets/Scenes/LobbyMenuScenes/MultiplayerLobby.unity
+    guid: 66b9159a74326ec4799627dd54bf2c86
   - enabled: 1
     path: Assets/Scenes/GameRoomScenes/Puzzle-Hard.unity
     guid: 69d91158f57c32e44a914cf3f3f5aeea
@@ -15,11 +18,17 @@ EditorBuildSettings:
     path: Assets/Scenes/GameRoomScenes/Puzzle-Hard-Multiplayer.unity
     guid: d22da9e98e954804f82c7fe48ad04a94
   - enabled: 1
-    path: Assets/Scenes/LobbyMenuScenes/MultiplayerLobby.unity
-    guid: 66b9159a74326ec4799627dd54bf2c86
-  - enabled: 1
     path: Assets/Scenes/GameRoomScenes/Puzzle-Easy.unity
     guid: 950ed5d1c23ecc5448a4db538f85e13f
+  - enabled: 1
+    path: Assets/Scenes/GameRoomScenes/Puzzle-Easy-Multiplayer.unity
+    guid: 8867e2da361956941a89f7232975f2be
+  - enabled: 1
+    path: Assets/Scenes/GameRoomScenes/Puzzle-Medium.unity
+    guid: 6752f56c0734a9a45844d9d88075a32e
+  - enabled: 1
+    path: Assets/Scenes/GameRoomScenes/Puzzle-Medium-Multiplayer.unity
+    guid: 0d64e66eb8055d049a122ae7c7be8422
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 02b8587b4edcb5548abb030845fefb3c, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: ef80faea29975c3489c0ec40f4b64fa7, type: 2}

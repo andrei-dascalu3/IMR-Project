@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,5 +28,20 @@ public class PlayerSettingsData : MonoBehaviour
             }
         }
         DontDestroyOnLoad(gameObject);
+    }
+
+    internal void UpdateOwnGameObjects()
+    {
+        AudioSource musicManager = GetComponent<AudioSource>();
+        if (musicValue == 0)
+        {
+            musicManager.Play();
+        }
+        else
+        {
+            musicManager.Stop();
+        }
+
+        musicManager.volume = (float)volumeValue / 40F;
     }
 }

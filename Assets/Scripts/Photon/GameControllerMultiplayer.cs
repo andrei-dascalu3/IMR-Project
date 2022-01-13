@@ -38,9 +38,6 @@ public class GameControllerMultiplayer : GameController
 
     public void PlacePieceUnderOriginalParent(Transform piece)
     {
-        //XRGrabInteractable xRGrabInteractable = piece.GetComponent<XRGrabInteractable>();
-        //piece.SetParent(xRGrabInteractable.m_OriginalSceneParent);
-
         piece.SetParent(PuzzleSetupManager.instance.puzzle);
     }
 
@@ -59,6 +56,14 @@ public class GameControllerMultiplayer : GameController
         base.WinAction();
     }
 
+    public override void LoseAction()
+    {
+        base.LoseAction();
+
+        NetworkAvatar ownNetworkAvatar = PhotonRoomController.room.ownNetworkAvatar;
+        ownNetworkAvatar.pv.RPC("BreakNetworkAvatar", RpcTarget.All);
+    }
+
     public override void TryPlacePiece(Transform pieceToPlace, Transform backgroundPieceWherePlaced)
     {
         PhotonView piecePv = pieceToPlace.GetComponent<PhotonView>();
@@ -74,8 +79,16 @@ public class GameControllerMultiplayer : GameController
     {
         pv.RPC("SyncCorrectPiecesPlaced", RpcTarget.Others, indexPieceToPlace);
 
-        //piecesPlacedCorrectly++;
-        piecesPlacedCorrectly = puzzleManagerMultiplayer.puzzlePiecesTransforms.Count;
+        base.OnPieceCorrectPlace(indexPieceToPlace);
+
+        //if(testWinConditionGame)
+        //{
+        //    piecesPlacedCorrectly = puzzleManagerMultiplayer.puzzlePiecesTransforms.Count;
+        //}
+        //else
+        //{
+        //    piecesPlacedCorrectly++;
+        //}
 
         puzzleManagerMultiplayer.puzzlePiecesTransforms[indexPieceToPlace]
             .gameObject.GetComponent<PhotonView>().Synchronization = ViewSynchronization.Off;
@@ -86,8 +99,8 @@ public class GameControllerMultiplayer : GameController
 
     public override void OnPieceIncorrectPlace(int indexPieceToPlace)
     {
-        //TODO, sa fie un delay??? sau sa fie grabable doar din mom in care atinge pamantu???
         puzzleManagerMultiplayer.pv.RPC("SetPieceGrabable", RpcTarget.All, true, indexPieceToPlace);
+        base.OnPieceIncorrectPlace(indexPieceToPlace);
     }
 
     [PunRPC]
@@ -101,11 +114,16 @@ public class GameControllerMultiplayer : GameController
 
         Transform pieceToPlace = puzzleManagerMultiplayer.puzzlePiecesTransforms[indexPieceToPlace];
 
-        //puzzleManager.PlacePiece(pieceToPlace, placeToPutPiece, true);
         puzzleManagerMultiplayer.PlacePiece(pieceToPlace, indexPieceToPlace, true);
         pieceToPlace.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 
-        //piecesPlacedCorrectly++;
-        piecesPlacedCorrectly = puzzleManagerMultiplayer.puzzlePiecesTransforms.Count;
+        if (testWinConditionGame)
+        {
+            piecesPlacedCorrectly = puzzleManagerMultiplayer.puzzlePiecesTransforms.Count;
+        }
+        else
+        {
+            piecesPlacedCorrectly++;
+        }
     }
 }

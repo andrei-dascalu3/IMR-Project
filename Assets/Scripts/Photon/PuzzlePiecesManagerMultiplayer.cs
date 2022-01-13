@@ -44,11 +44,10 @@ public class PuzzlePiecesManagerMultiplayer : PuzzlePiecesManager
         }
         else
         {
+            SavePiecesOriginalLocations();
             Invoke("DisablePiecesCollision", timeExtraToEnablePhotonTransforms + timeUntilBreakPuzzleFinish);
         }
-
         Invoke("EnablePhotonTransforms", timeExtraToEnablePhotonTransforms + timeUntilBreakPuzzleFinish);
-        
     }
 
     private void InitStartAnimationIndexes()

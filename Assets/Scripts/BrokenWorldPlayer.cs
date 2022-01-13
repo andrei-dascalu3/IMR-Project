@@ -1,11 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class BrokenWorldPlayer : MonoBehaviour
 {
+    public static BrokenWorldPlayer player;
+
     public Transform playerObject;
 
     public Transform headCamera;
@@ -18,15 +22,36 @@ public class BrokenWorldPlayer : MonoBehaviour
     public Transform rightForeArm;
     public Transform neck;
 
+    public XRRayInteractor leftController;
+    public XRRayInteractor rightController;
+
     public Color ownAvatarColor;
 
     //private Quaternion headStartRotation;
 
     private void Awake()
     {
+        player = this;
+
         ownAvatarColor = leftArm.GetChild(0).GetComponent<Renderer>().material.color; //new Color(125, 125, 125, 1);
-       // headStartRotation = head.rotation;
+                                                                                      // headStartRotation = head.rotation;
+
+        DontDestroyOnLoad(gameObject);
+
+        SceneManager.sceneLoaded += ReactivateCharacter;
     }
+
+    public virtual void ReactivateCharacter(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log(scene.name);
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            Transform child = transform.GetChild(i);
+            child.gameObject.SetActive(false);
+            child.gameObject.SetActive(true);
+        }
+    }
+
 
     public void BreakCharacter()
     {
@@ -51,41 +76,4 @@ public class BrokenWorldPlayer : MonoBehaviour
     {
         ownAvatarColor = color;
     }
-
-    //public void Update()
-    //{
-    //head.rotation = headCamera.rotation;
-
-    //head.rotation = new Quaternion(
-    //    headCamera.rotation.x + headStartRotation.x,
-    //    headCamera.rotation.y + headStartRotation.y,
-    //    headCamera.rotation.z + headStartRotation.y,
-    //    headCamera.rotation.w);
-
-    //head.localRotation = new Quaternion(head.localRotation.x, headCamera.rotation.x, headCamera.rotation.y, head.localRotation.w);
-
-    //    head.rotation = new Quaternion(
-    //headCamera.rotation.x + headStartRotation.x,
-    //headCamera.rotation.y + headStartRotation.y,
-    //headCamera.rotation.z + headStartRotation.z,
-    //headCamera.rotation.w);
-
-    //    body.rotation = new Quaternion(
-    //        body.rotation.x, 
-    //        head.rotation.y, 
-    //        body.rotation.z, 
-    //        body.rotation.w);
-
-    //    leftForeArm.rotation = new Quaternion(
-    //        leftForeArm.rotation.x, 
-    //        head.rotation.y, 
-    //        leftForeArm.rotation.z, 
-    //        leftForeArm.rotation.w);
-
-    //    rightForeArm.rotation = new Quaternion(
-    //        rightForeArm.rotation.x, 
-    //        head.rotation.y, 
-    //        rightForeArm.rotation.z, 
-    //        rightForeArm.rotation.w);
-    //}
 }

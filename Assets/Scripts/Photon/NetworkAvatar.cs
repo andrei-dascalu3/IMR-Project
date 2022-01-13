@@ -13,18 +13,18 @@ public class NetworkAvatar : MonoBehaviour
     public Transform body;
     public Transform leftHand;
     public Transform rightHand;
-    public Transform head;
-    public Transform rightForeArm;
-    public Transform leftForeArm;
-    public Transform neck;
+   // public Transform head;
+   // public Transform rightForeArm;
+   // public Transform leftForeArm;
+   // public Transform neck;
 
     public Transform xrBody;
-    public Transform xrNeck;
-    public Transform xrRightForeArm;
-    public Transform xrLeftForeArm;
     public Transform xrLeftHand;
     public Transform xrRightHand;
-    public Transform xrHead;
+    // public Transform xrNeck;
+    //public Transform xrRightForeArm;
+    // public Transform xrLeftForeArm;
+    //public Transform xrHead;
 
     public BrokenWorldPlayer ownXrAvatar;
 
@@ -40,18 +40,25 @@ public class NetworkAvatar : MonoBehaviour
 
     private void SyncAvatarColor()
     {
-        ownXrAvatar = GameObject.Find(PhotonNetwork.NickName).GetComponent<BrokenWorldPlayer>();
+        // ownXrAvatar = GameObject.Find(PhotonNetwork.NickName).GetComponent<BrokenWorldPlayer>();
+        ownXrAvatar = BrokenWorldPlayer.player;
         Color color = ownXrAvatar.ownAvatarColor;
-        pv.RPC("ChangeNetworkAvatarColor", RpcTarget.All, color.r, color.g, color.b);
+        pv.RPC(nameof(ChangeNetworkAvatarColor), RpcTarget.All, color.r, color.g, color.b);
     }
 
     private void DisableOwnRenderers()
     {
-        DisableOwnRendererForBodypart(neck);
-        DisableOwnRendererForBodypart(leftForeArm);
-        DisableOwnRendererForBodypart(rightForeArm);
-        DisableOwnRendererForBodypart(head);
-        DisableOwnRendererForBodypart(body);
+        //DisableOwnRendererForBodypart(neck);
+        //DisableOwnRendererForBodypart(leftForeArm);
+        //DisableOwnRendererForBodypart(rightForeArm);
+        //DisableOwnRendererForBodypart(head);
+        //DisableOwnRendererForBodypart(body);
+
+        for (int i = 0; i < body.childCount; i++)
+        {
+            DisableOwnRendererForBodypart(body.GetChild(i));
+        }
+
         DisableOwnRendererForBodypart(leftHand);
         DisableOwnRendererForBodypart(rightHand);
     }
@@ -66,22 +73,49 @@ public class NetworkAvatar : MonoBehaviour
 
     private void FindOwnBodyParts()
     {
-        GameObject ownXrRigObject = GameObject.Find(PhotonNetwork.NickName);
+        //GameObject ownXrRigObject = GameObject.Find(PhotonNetwork.NickName);
 
-        Transform ownCharacterTransform = ownXrRigObject.transform.Find("XR Rig - Character");
+        //Transform ownCharacterTransform = ownXrRigObject.transform.Find("XR Rig - Character");
 
-        Transform cameraOffset = ownCharacterTransform.Find("Camera Offset");
+        //Transform cameraOffset = ownCharacterTransform.Find("Camera Offset");
 
-        xrBody = cameraOffset.Find("Main Camera - Body").Find("CharacterBodyNoArms");
+        //xrBody = cameraOffset.Find("Main Camera - Body").Find("CharacterBodyNoArms");
 
-        xrNeck = xrBody.Find("Neck");
-        xrLeftForeArm = xrBody.Find("Left-ForeArm");
-        xrRightForeArm = xrBody.Find("Right-ForeArm");
-        xrHead = xrBody.Find("Head");
-        xrBody = xrBody.Find("Body");
+        xrBody = ownXrAvatar.playerObject;
+        //xrNeck = ownXrAvatar.neck;
+        //xrLeftForeArm = ownXrAvatar.leftForeArm;
+        //xrRightForeArm = ownXrAvatar.rightForeArm;
+        //xrHead = ownXrAvatar.head;
 
-        xrLeftHand = cameraOffset.Find("LeftHand Controller").Find("Left-Arm");
-        xrRightHand = cameraOffset.Find("RightHand Controller").Find("Right-Arm");
+        xrLeftHand = ownXrAvatar.leftArm;
+        xrRightHand = ownXrAvatar.rightArm;
+
+        //xrNeck = xrBody.Find("Neck");
+        //xrLeftForeArm = xrBody.Find("Left-ForeArm");
+        //xrRightForeArm = xrBody.Find("Right-ForeArm");
+        //xrHead = xrBody.Find("Head");
+        //xrBody = xrBody.Find("Body");
+
+        //xrLeftHand = cameraOffset.Find("LeftHand Controller").Find("Left-Arm");
+        //xrRightHand = cameraOffset.Find("RightHand Controller").Find("Right-Arm");
+    }
+
+    [PunRPC]
+    private void BreakNetworkAvatar()
+    {
+        //ownXrAvatar.BreakCharacterPart(neck);
+       // ownXrAvatar.BreakCharacterPart(leftForeArm);
+       // ownXrAvatar.BreakCharacterPart(rightForeArm);
+        //ownXrAvatar.BreakCharacterPart(head);
+        //ownXrAvatar.BreakCharacterPart(body);
+
+        for (int i = 0; i < body.childCount; i++)
+        {
+            ownXrAvatar.BreakCharacterPart(body.GetChild(i));
+        }
+
+        ownXrAvatar.BreakCharacterPart(leftHand);
+        ownXrAvatar.BreakCharacterPart(rightHand);
     }
 
     [PunRPC]

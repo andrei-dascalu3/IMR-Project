@@ -10,12 +10,17 @@ public class SwitchMusicOptions : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI volumeOption;
     [SerializeField]
-    private GameObject musicManager;
+    private AudioSource musicManager;
 
     void Start()
     {
+        if(musicManager == null)
+        {
+            musicManager = PlayerSettingsData.instance.GetComponent<AudioSource>();
+        }
+
         index = 0;
-        UpdateMusicOptionText();
+        volumeOption.text = "On";
     }
 
     void UpdateMusicOptionText()
@@ -27,12 +32,12 @@ public class SwitchMusicOptions : MonoBehaviour
         if (index == 0)
         {
             volumeOption.text = "On";
-            musicManager.GetComponent<AudioSource>().Play();
+            musicManager.Play();
         }
         else
         {
             volumeOption.text = "Off";
-            musicManager.GetComponent<AudioSource>().Stop();
+            musicManager.Stop();
         }
     }
     public void Next()

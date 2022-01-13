@@ -25,6 +25,8 @@ public class PuzzlePiece : MonoBehaviour
 
     public IEnumerator BreakPiece(Vector3 placeToLand)
     {
+        SetSelfLayer(LayerDataObject.instance.ungrabablePuzzlePieceLayer);
+
         ownRigidBody.constraints = RigidbodyConstraints.FreezePosition;
 
         float timer = 0f;
@@ -42,11 +44,15 @@ public class PuzzlePiece : MonoBehaviour
         transform.DOScale(smallPieceScaleTarget, durationForPieceBreak);
         yield return new WaitForSeconds(durationForPieceBreak);
         ownRigidBody.useGravity = true;
+
+        SetSelfLayer(LayerDataObject.instance.puzzlePieceLayer);
     }
 
 
     public IEnumerator PlaceOnPuzzle(PieceTranformData destination, bool placedCorrectly, Vector3 placeToLandIfIncorrect)
     {
+        SetSelfLayer(LayerDataObject.instance.ungrabablePuzzlePieceLayer);
+
         ownRigidBody.useGravity = false;
         ownRigidBody.constraints = RigidbodyConstraints.FreezePosition;
 
@@ -73,5 +79,10 @@ public class PuzzlePiece : MonoBehaviour
         {
             StartCoroutine(BreakPiece(placeToLandIfIncorrect));
         }
+    }
+
+    public void SetSelfLayer(int layer)
+    {
+        gameObject.layer = layer;
     }
 }

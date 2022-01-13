@@ -5,7 +5,6 @@ using UnityEngine;
 public class InvisibleCeilingPiecesCollisionScript : MonoBehaviour
 {
     public PuzzlePiecesManager puzzleManager;
-    public int piecesLayer;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +15,6 @@ public class InvisibleCeilingPiecesCollisionScript : MonoBehaviour
     // Update is called once per frame
     void DisableCeilingCollision()
     {
-        Physics.IgnoreLayerCollision(gameObject.layer, piecesLayer);
+        Physics.IgnoreLayerCollision(LayerDataObject.instance.ceilingLayer, LayerDataObject.instance.puzzlePieceLayer);
     }
 }
